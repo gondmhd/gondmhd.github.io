@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155510.png">
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071157969.png">
 <meta property="article:published_time" content="2023-08-09T01:49:45.862Z">
-<meta property="article:modified_time" content="2023-11-29T05:30:46.894Z">
+<meta property="article:modified_time" content="2023-11-29T07:03:01.282Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Linux相关">
 <meta property="article:tag" content="运维">
@@ -237,7 +237,7 @@
         
         
         
-          168 分钟
+          170 分钟
         
       </span>
     
@@ -338,6 +338,10 @@
 
 
 <h3 id="清理所有相关进程"><a href="#清理所有相关进程" class="headerlink" title="清理所有相关进程"></a>清理所有相关进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps -ef | grep benthos* | grep -v grep | awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span> | xargs <span class="hljs-built_in">kill</span> -9   <span class="hljs-comment"># benthos* 进程名</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="Debian12系统打包软件离线包"><a href="#Debian12系统打包软件离线包" class="headerlink" title="Debian12系统打包软件离线包"></a>Debian12系统打包软件离线包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">打包</span><br>mkdir packages &amp;&amp; cd packages<br>apt download vim iftop sudo telnet -d   # 会在packages目录下生成deb离线包，拷贝到别的服务器<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装</span><br>dpkg -i *.deb<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">现实情况 需要将某台安装好的服务器上的软件包全部打包</span><br>cd /var/cache/apt/archives<br>tar -czvf archives.tar.gz archives/<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">上传安装</span><br>dpkg -i *.deb<br></code></pre></td></tr></table></figure>
 
 
 
