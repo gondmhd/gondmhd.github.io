@@ -19,13 +19,13 @@
     <meta name="description" content="docker-compose网络配置  在工作中我们可能需要数据库和api接口分开部署的情况，如果都用docker-compose部署的话， 在有的操作系统中可能无法使用（ip+端口）连接数据库，必须使用服务名称去连接。 这时我们就需要让这两个docker-compose启动的服务共享网络，这样就可以相互调用服务了  1 使用docker-compose.yml 文件引用 数据库的docker-c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker-compose网络关联配置">
-<meta property="og:url" content="http://gondmhd.github.io/2024/01/31/docker-compose%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2024/04/29/docker-compose%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="docker-compose网络配置  在工作中我们可能需要数据库和api接口分开部署的情况，如果都用docker-compose部署的话， 在有的操作系统中可能无法使用（ip+端口）连接数据库，必须使用服务名称去连接。 这时我们就需要让这两个docker-compose启动的服务共享网络，这样就可以相互调用服务了  1 使用docker-compose.yml 文件引用 数据库的docker-c">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/gondmhd/blogImage/main/img/202310251507487.png">
-<meta property="article:published_time" content="2024-01-31T06:33:38.049Z">
-<meta property="article:modified_time" content="2024-01-31T06:33:38.065Z">
+<meta property="article:published_time" content="2024-04-29T11:20:06.581Z">
+<meta property="article:modified_time" content="2024-05-08T06:11:56.591Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
@@ -210,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-31 14:33" pubdate>
-          2024年1月31日 下午
+        <time datetime="2024-04-29 19:20" pubdate>
+          2024年4月29日 晚上
         </time>
       </span>
     
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k 字
+          3.8k 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          25 分钟
+          32 分钟
         
       </span>
     
@@ -308,6 +308,36 @@
 <h3 id="api的docker-compose文件-1"><a href="#api的docker-compose文件-1" class="headerlink" title="api的docker-compose文件"></a>api的docker-compose文件</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3&#x27;</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">api:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">registry.cn-hangzhou.aliyuncs.com/superhorizon/superhorizon-backend-java</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">api</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8089:8089&quot;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">test_super</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">MYSQL_ROOT_PASSWORD:</span> <span class="hljs-string">super_horizon_123456</span><br>      <span class="hljs-attr">MYSQL_DATABASE:</span> <span class="hljs-string">horizon_dev</span><br>      <span class="hljs-attr">MYSQL_NAME:</span> <span class="hljs-string">mysql</span><br>      <span class="hljs-attr">MYSQL_PORT:</span> <span class="hljs-number">3306</span><br>      <span class="hljs-attr">opensearch_ip:</span> <span class="hljs-string">opensearch</span><br>      <span class="hljs-attr">opensearch_dashboard_url:</span> <span class="hljs-string">http://192.168.0.190:8889</span><br>      <span class="hljs-attr">situation_picture_url:</span> <span class="hljs-string">/situation_picture_url/</span><br>      <span class="hljs-attr">situation_ipAddress:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.190</span><br>      <span class="hljs-attr">situation_port:</span> <span class="hljs-number">8889</span><br>      <span class="hljs-attr">keycloak-enable:</span> <span class="hljs-literal">false</span><br>      <span class="hljs-attr">keycloak-auth-server-url:</span> <span class="hljs-string">http://keycloak:8080/auth</span><br>      <span class="hljs-attr">keycloak-realm:</span> <span class="hljs-string">myrealm</span><br>      <span class="hljs-attr">JDBC_URL:</span> <span class="hljs-string">jdbc:mysql://mysql:3306/horizon_dev?allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;useSSL=false&amp;characterEncoding=UTF8&amp;zeroDateTimeBehavior=round&amp;allowMultiQueries=true</span><br><br><span class="hljs-attr">networks:</span><br>  <span class="hljs-attr">test_super:</span><br>    <span class="hljs-attr">external:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 来自外部</span><br></code></pre></td></tr></table></figure>
 
 <p>进入容器测试即可</p>
+<h2 id="3、-Docker-Compose-环境变量"><a href="#3、-Docker-Compose-环境变量" class="headerlink" title="3、 Docker Compose 环境变量"></a>3、 Docker Compose 环境变量</h2><p> Docker Compose 配置中，直接在 <code>environment</code> 下设置环境变量与使用 <code>env_file</code> 引用文件来设置环境变量，主要有以下几点区别：</p>
+<ol>
+<li><p><strong>声明方式</strong>:</p>
+<ul>
+<li><strong>环境变量块 (<code>environment</code>)</strong>: 直接在 <code>environment</code> 下列出的环境变量是以键值对的形式直接写在 <code>docker-compose.yml</code> 文件中的。这种方式适合于少量的、不敏感或者特定于服务的环境变量设置。</li>
+</ul>
+<p>Yaml</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-number">1</span>services:<br><span class="hljs-symbol">2 </span> nginx-proxy:<br><span class="hljs-symbol">3 </span>   environment:<br><span class="hljs-symbol">4 </span>     VIRTUAL_HOST: <span class="hljs-comment">&#x27;api.malcolm.local&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>环境变量文件 (<code>env_file</code>)</strong>: 使用 <code>env_file</code> 指令引用一个或多个外部文件，每个文件中包含多行 <code>KEY=VALUE</code> 格式的环境变量。这种方式适合于管理大量的环境变量，尤其是那些可能在不同环境（如开发、测试、生产）间变化的配置，或者包含敏感信息（尽管对于敏感信息最好使用 Docker 的秘密管理功能）。</li>
+</ul>
+</li>
+<li><p><strong>可维护性和可扩展性</strong>:</p>
+<ul>
+<li><code>env_file</code> 提供了更好的可维护性和扩展性，因为环境相关的配置可以独立于服务定义存放，易于修改和版本控制。特别是当环境变量较多时，直接在 <code>docker-compose.yml</code> 中管理会变得混乱。</li>
+</ul>
+</li>
+<li><p><strong>优先级</strong>:</p>
+<ul>
+<li>如果同一个环境变量既在 <code>env_file</code> 中定义，也在 <code>environment</code> 块中直接定义，那么直接在 <code>environment</code> 块中定义的值会覆盖 <code>env_file</code> 中的值。这是因为直接在服务定义中设置的环境变量具有更高的优先级。</li>
+</ul>
+</li>
+<li><p><strong>安全性</strong>:</p>
+<ul>
+<li>尽管两者都可以用来设置环境变量，但使用 <code>env_file</code> 方式更适合存储敏感信息，因为它允许你将这些信息放在 <code>.env</code> 文件中，该文件通常会被加入 <code>.gitignore</code> 避免误提交到版本控制系统中。然而，最佳实践仍然是使用Docker的密钥管理系统来处理敏感信息。</li>
+</ul>
+</li>
+</ol>
+<p>综上所述，选择直接在 <code>environment</code> 块内定义还是使用 <code>env_file</code> 引入环境变量，取决于你的具体需求、环境变量的数量、安全考量以及是否需要跨服务或跨环境共享配置。</p>
 
                 
               </div>
@@ -354,7 +384,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>docker-compose网络关联配置</div>
-      <div>http://gondmhd.github.io/2024/01/31/docker-compose网络配置/</div>
+      <div>http://gondmhd.github.io/2024/04/29/docker-compose网络配置/</div>
     </div>
     <div class="license-meta">
       
@@ -366,7 +396,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月31日</div>
+          <div>2024年4月29日</div>
         </div>
       
       
@@ -402,8 +432,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/31/github%20%E5%9B%BE%E5%BA%8A/" title="typora 图床相关">
-                        <span class="hidden-mobile">typora 图床相关</span>
+                      <a href="/2024/04/29/Ubuntu_for_clash/" title="Ubuntu配置翻墙软件">
+                        <span class="hidden-mobile">Ubuntu配置翻墙软件</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
