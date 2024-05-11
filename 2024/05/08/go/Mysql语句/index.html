@@ -24,7 +24,7 @@
 <meta property="og:description" content="Mysql用法1、查询相关 使用like关键字进行模糊匹配: 1select * from table where column like &amp;#x27; %pattern%&amp;#x27;;  使用正则表达式进行查询: 1select * from table where column regexp &amp;#x27;pattern&amp;#x27;;    2、数据类型 longtex类型 “LONGTEXT”">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-08T06:43:00.355Z">
-<meta property="article:modified_time" content="2024-05-08T08:19:40.826Z">
+<meta property="article:modified_time" content="2024-05-10T07:55:30.068Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.4k 字
+          1.7k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          45 分钟
+          14 分钟
         
       </span>
     
@@ -353,125 +353,6 @@
 <li>新功能测试环境建设难度大。</li>
 <li>BUG率可能高于5.7稳定版本。</li>
 </ul>
-<h2 id="5、视图"><a href="#5、视图" class="headerlink" title="5、视图"></a>5、视图</h2><hr>
-<h3 id="5-1-什么是视图"><a href="#5-1-什么是视图" class="headerlink" title="5.1 什么是视图"></a>5.1 什么是视图</h3><p>图（view）是一种虚拟存在的表，是一个逻辑表，本身并不包含数据。作为一个select 语句保存在数据字典中的。<br>通过视图，可以展现基表的部分数据；视图数据来自定义视图的查询中使用的表，使用视图动态生成。<br>基表：用来创建视图的表叫做基表(base table)</p>
-<h3 id="5-2-为什么要使用视图"><a href="#5-2-为什么要使用视图" class="headerlink" title="5.2 为什么要使用视图"></a>5.2 为什么要使用视图</h3><p>简单：使用视图的用户完全不需要关心后面对应的表的结构、关联条件和筛选条件，对用户来说已经是过滤好的复合条件的结果集。<br>安全：使用视图的用户只能访问他们被允许查询的结果集，对表的权限管理并不能限制到某个行某个列，但是通过视图就可以简单的实现。<br>数据独立：一旦视图的结构确定了，可以屏蔽表结构变化对用户的影响，源表增加列对视图没有影响；源表修改列名，则可以通过修改视图来解决，不会造成对访问者的影响。<br>总而言之，使用视图的大部分情况是为了保障数据安全性，提高查询效率。</p>
-<h3 id="5-3-实例"><a href="#5-3-实例" class="headerlink" title="5.3 实例"></a>5.3 实例</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- 使用sql查询</span><br><span class="hljs-keyword">select</span> cust_name,cust_contact <span class="hljs-keyword">from</span> customers,orders,orderitems<br><span class="hljs-keyword">where</span> customers.cust_id<span class="hljs-operator">=</span>orders.cust_id<br><span class="hljs-keyword">and</span> orderitems.order_num<span class="hljs-operator">=</span>orders.order_num<br><span class="hljs-keyword">and</span> prod_id<span class="hljs-operator">=</span><span class="hljs-string">&#x27;TNT2&#x27;</span>;<br></code></pre></td></tr></table></figure>
-
-<p><strong>查询结果</strong></p>
-<table>
-<thead>
-<tr>
-<th>cust_name</th>
-<th>cust_contact</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>Yosemite Place</td>
-<td>Y Sam</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Coyote Inc.</td>
-<td>Y Lee</td>
-</tr>
-</tbody></table>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- 创建视图</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> productcustomers <span class="hljs-keyword">AS</span><br>    <span class="hljs-keyword">select</span> cust_name,cust_contact,prod_id<br>    <span class="hljs-keyword">from</span> customers,orders,orderitems<br>    <span class="hljs-keyword">where</span> customers.cust_id<span class="hljs-operator">=</span>orders.cust_id <br>    <span class="hljs-keyword">and</span> orderitems.order_num<span class="hljs-operator">=</span>orders.order_num;<br><br><span class="hljs-comment">-- 查询结果</span><br><span class="hljs-keyword">select</span> cust_name,cust_contact <span class="hljs-keyword">from</span> productcustomers <span class="hljs-keyword">where</span> prod_id<span class="hljs-operator">=</span><span class="hljs-string">&#x27;TNT2&#x27;</span>;<br></code></pre></td></tr></table></figure>
-
-<p><strong>查询结果</strong></p>
-<table>
-<thead>
-<tr>
-<th>cust_name</th>
-<th>cust_contact</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>Yosemite Place</td>
-<td>Y Sam</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Coyote Inc.</td>
-<td>Y Lee</td>
-</tr>
-</tbody></table>
-<p>从示例中可以看出，所谓视图就是封装了一堆的sql查询语句</p>
-<p>作用<br>重用sql<br>简化复杂的sql操作，封装后可以方便的使用视图，而不必知道它的基本查询细节。<br>保护数据，可以只授予表的特定部分的访问权限而不是整个表的访问权限。<br>规定<br>名字唯一（不能与表名和其他视图名重名）<br>视图不能创建索引，也不能有关联的触发器<br>视图和表可以混着用</p>
-<h2 id="6-存储过程"><a href="#6-存储过程" class="headerlink" title="6 存储过程"></a>6 存储过程</h2><hr>
-<h3 id="6-1-什么是存储过程"><a href="#6-1-什么是存储过程" class="headerlink" title="6.1 什么是存储过程"></a>6.1 什么是存储过程</h3><p>简单的说，就是一组SQL语句集，功能强大，可以实现一些比较复杂的逻辑功能，类似于JAVA语言中的方法；可以将存储过程理解成sql中的函数<br>ps：存储过程跟触发器有点类似，都是一组SQL集，但是存储过程是主动调用的，且功能比触发器更加强大，触发器是某件事触发后自动调用；</p>
-<h3 id="6-2-特点"><a href="#6-2-特点" class="headerlink" title="6.2 特点"></a>6.2 特点</h3><p>有输入输出参数、可以声明变量。有if&#x2F;else, case,while等控制语句、通过编写存储过程，可以实现复杂的逻辑功能；<br>函数的普遍特性：模块化，封装，代码复用；<br>速度快，只有首次执行需经过编译和优化步骤，后续被调用可以直接执行，省去以上步骤；<br>简单来说，存储过程就是为了方便以后使用而事先保存的sql语句集合。</p>
-<h3 id="6-3-示例"><a href="#6-3-示例" class="headerlink" title="6.3 示例"></a>6.3 示例</h3><p>普通用户使用对象存储需要授权</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">CREATE</span> ROUTINE <span class="hljs-keyword">ON</span> <span class="hljs-operator">*</span>.<span class="hljs-operator">*</span> <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;username&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span>;				# 授权创建权限<br><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALTER</span> ROUTINE <span class="hljs-keyword">ON</span> <span class="hljs-operator">*</span>.<span class="hljs-operator">*</span> <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;username&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span>;				# 授权函数权限<br><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">EXECUTE</span> <span class="hljs-keyword">ON</span> <span class="hljs-keyword">PROCEDURE</span> <span class="hljs-operator">*</span>.<span class="hljs-operator">*</span> <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;username&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span>;			# 授权执行权限<br><br><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> PRIVILEGES <span class="hljs-keyword">ON</span> <span class="hljs-operator">*</span>.<span class="hljs-operator">*</span> <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;username&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span>;				# 授权所有权限<br>FLUSH PRIVILEGES;													# 刷新权限缓存<br></code></pre></td></tr></table></figure>
-
-<p>授权时如果帐号对应的host是 <code>%</code> 使用 <code>%</code> 替代 <code>localhost</code> </p>
-<h4 id="示例一：基本使用"><a href="#示例一：基本使用" class="headerlink" title="示例一：基本使用"></a>示例一：基本使用</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*</span><br><span class="hljs-comment">	创建存储过程</span><br><span class="hljs-comment">    1. 如果需要参数，可以在（）中给出，即使没有参数，也要写（）。</span><br><span class="hljs-comment">    2. 用 begin 和 end 来限制执行体，end要分号结尾。</span><br><span class="hljs-comment">*/</span><br>DELIMITER <span class="hljs-operator">/</span><span class="hljs-operator">/</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PROCEDURE</span> productprice()<br><span class="hljs-keyword">BEGIN</span><br>    <span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">AVG</span>(prod_price) <span class="hljs-keyword">AS</span> priceAvg <span class="hljs-keyword">FROM</span> products;<br><span class="hljs-keyword">END</span> <span class="hljs-operator">/</span><span class="hljs-operator">/</span><br>DELIMITER ;<br><span class="hljs-comment">/*调用存储过程*/</span><br><span class="hljs-keyword">call</span> productprice();<br></code></pre></td></tr></table></figure>
-
-<p>在MySQL客户端中创建存储过程时，通常需要先更改结束符（DELIMITER），以避免SQL语句提前结束。这是因为<code>;</code>通常是SQL语句的结束符，而在存储过程中包含了多条SQL语句，需要一个新的结束符来标识整个存储过程的结束。解决方法是在创建存储过程前更改结束符，创建完成后恢复原结束符</p>
-<p><strong>结果展示</strong></p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>priceAvg</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>16.133571</td>
-</tr>
-</tbody></table>
-<h4 id="示例二：使用参数（传出）"><a href="#示例二：使用参数（传出）" class="headerlink" title="示例二：使用参数（传出）"></a>示例二：使用参数（传出）</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*</span><br><span class="hljs-comment">    创建存储过程:</span><br><span class="hljs-comment">    1. 此存储过程接收三个参数：pl、ph、pa</span><br><span class="hljs-comment">    2. out:指出相应的参数是用来传出去的（返回给调用者）</span><br><span class="hljs-comment">    3. in:调用者传递给存储过程的</span><br><span class="hljs-comment">    4. inout：同时具备上述两者作用</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">procedure</span> productprice2(<br>    <span class="hljs-keyword">out</span> pl <span class="hljs-type">DECIMAL</span>(<span class="hljs-number">8</span>,<span class="hljs-number">2</span>),<br>    <span class="hljs-keyword">out</span> ph <span class="hljs-type">DECIMAL</span>(<span class="hljs-number">8</span>,<span class="hljs-number">2</span>),<br>    <span class="hljs-keyword">out</span> pa <span class="hljs-type">decimal</span>(<span class="hljs-number">8</span>,<span class="hljs-number">2</span>)<br>)<br><span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">select</span> <span class="hljs-built_in">min</span>(prod_price) <span class="hljs-keyword">into</span> pl <span class="hljs-keyword">from</span> products;<br>    <span class="hljs-keyword">select</span> <span class="hljs-built_in">max</span>(prod_price) <span class="hljs-keyword">into</span> ph <span class="hljs-keyword">from</span> products;<br>    <span class="hljs-keyword">select</span> <span class="hljs-built_in">avg</span>(prod_price) <span class="hljs-keyword">into</span> pa <span class="hljs-keyword">from</span> products;<br><span class="hljs-keyword">end</span>;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">    调用存储过程</span><br><span class="hljs-comment">    1. @用来声明变量</span><br><span class="hljs-comment">    2. @pricelow,@pricehigh,@priceavg在此处用来接收返回值</span><br><span class="hljs-comment">    3. 该调用并不显示任何数据，只返回变量。</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">call</span> productprice2(<span class="hljs-variable">@pricelow</span>,<span class="hljs-variable">@pricehigh</span>,<span class="hljs-variable">@priceavg</span>);<br><br><span class="hljs-comment">/*查看变量*/</span><br><span class="hljs-keyword">select</span> <span class="hljs-variable">@pricelow</span>,<span class="hljs-variable">@pricehigh</span>,<span class="hljs-variable">@priceavg</span>;<br><br></code></pre></td></tr></table></figure>
-
-<p><strong>结果展示</strong></p>
-<table>
-<thead>
-<tr>
-<th>@pricelow</th>
-<th>@pricehigh</th>
-<th>@priceavg</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>2.50</td>
-<td>55.00</td>
-</tr>
-</tbody></table>
-<h4 id="示例三：传入和传出"><a href="#示例三：传入和传出" class="headerlink" title="示例三：传入和传出"></a>示例三：传入和传出</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*创建存储过程*/</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">procedure</span> ordertotal(<br>    <span class="hljs-keyword">in</span> onnumber <span class="hljs-type">int</span>,<br>    <span class="hljs-keyword">out</span> ototal <span class="hljs-type">decimal</span>(<span class="hljs-number">9</span>,<span class="hljs-number">2</span>)<br>)<br><span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">select</span> <span class="hljs-built_in">sum</span>(item_price<span class="hljs-operator">*</span>quantity) <span class="hljs-keyword">from</span> orderitems <span class="hljs-keyword">where</span> order_num<span class="hljs-operator">=</span>onnumber <span class="hljs-keyword">into</span> ototal;<br><span class="hljs-keyword">end</span>;<br><br><span class="hljs-comment">/*调用存储过程*/</span><br><span class="hljs-keyword">call</span> ordertotal(<span class="hljs-number">20009</span>,<span class="hljs-variable">@ototall</span>);<br><br><span class="hljs-comment">/*查看变量*/</span><br><span class="hljs-keyword">select</span> <span class="hljs-variable">@ototall</span>;<br><br></code></pre></td></tr></table></figure>
-
-<p><strong>结果展示</strong></p>
-<table>
-<thead>
-<tr>
-<th>@ototall</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>149.87</td>
-</tr>
-</tbody></table>
-<h4 id="示例四：综合"><a href="#示例四：综合" class="headerlink" title="示例四：综合"></a>示例四：综合</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*</span><br><span class="hljs-comment">    创建存储过程</span><br><span class="hljs-comment">    判断逻辑：针对有些顾客要收营业税，有些则不</span><br><span class="hljs-comment">    taxable为1则征收</span><br><span class="hljs-comment">    taxable为0则不征收</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">procedure</span> ordertotal(<br>    <span class="hljs-keyword">in</span> onnumber <span class="hljs-type">int</span>,<br>    <span class="hljs-keyword">in</span> taxable <span class="hljs-type">boolean</span>,<br>    <span class="hljs-keyword">out</span> ototal <span class="hljs-type">decimal</span>(<span class="hljs-number">8</span>,<span class="hljs-number">2</span>)<br>)<br><span class="hljs-keyword">begin</span><br>    <span class="hljs-comment">-- declare variable for total 声明一个总量（局部变量）</span><br>    <span class="hljs-keyword">declare</span> total <span class="hljs-type">decimal</span>(<span class="hljs-number">8</span>,<span class="hljs-number">2</span>);<br><br>    # <span class="hljs-keyword">declare</span> tax percentage 交税的百分比<br>    <span class="hljs-keyword">declare</span> taxpercent <span class="hljs-type">int</span> <span class="hljs-keyword">default</span> <span class="hljs-number">6</span>;<br><br>    <span class="hljs-comment">-- 销售额=销售总量×单价</span><br>    <span class="hljs-keyword">select</span> <span class="hljs-built_in">sum</span>(item_price<span class="hljs-operator">*</span>quantity) <span class="hljs-keyword">from</span> orderitems<br>    <span class="hljs-keyword">where</span> order_num<span class="hljs-operator">=</span>onnumber <span class="hljs-keyword">into</span> total;<br><br>    <span class="hljs-comment">-- 判断要不要交税；注意if格式</span><br>    if taxable <span class="hljs-keyword">then</span><br>        <span class="hljs-keyword">select</span> total<span class="hljs-operator">+</span>(total<span class="hljs-operator">/</span><span class="hljs-number">100</span><span class="hljs-operator">*</span>taxpercent) <span class="hljs-keyword">into</span> total;<br>    <span class="hljs-keyword">end</span> if;<br>    <span class="hljs-keyword">select</span> total <span class="hljs-keyword">into</span> ototal;<br><span class="hljs-keyword">end</span>;<br><br><span class="hljs-comment">/*不交税的调用过程*/</span><br><span class="hljs-keyword">call</span> ordertotal(<span class="hljs-number">20005</span>,<span class="hljs-number">0</span>,<span class="hljs-variable">@total</span>);<br><br><span class="hljs-comment">/*交税的调用过程*/</span><br><span class="hljs-keyword">call</span> ordertotal(<span class="hljs-number">20005</span>,<span class="hljs-number">1</span>,<span class="hljs-variable">@total1</span>);<br><br><span class="hljs-comment">/*展示结果*/</span><br><span class="hljs-keyword">select</span> <span class="hljs-variable">@total</span>,<span class="hljs-variable">@total1</span>;<br><br></code></pre></td></tr></table></figure>
-
-<p><strong>结果展示</strong></p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>@total</th>
-<th>@total1</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>149.87</td>
-<td>158.86</td>
-</tr>
-</tbody></table>
 
                 
               </div>
