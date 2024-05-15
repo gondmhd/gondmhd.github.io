@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>KafKa 实战1</title>
+    <link href="/2024/05/14/tools/Kafka%E5%AE%9E%E6%88%981/"/>
+    <url>/2024/05/14/tools/Kafka%E5%AE%9E%E6%88%981/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1-部署kafka"><a href="#1-部署kafka" class="headerlink" title="1 部署kafka"></a>1 部署kafka</h2><ul><li>docker</li><li>docker-compose</li></ul><h3 id="docker-部署"><a href="#docker-部署" class="headerlink" title="docker  部署"></a>docker  部署</h3><p>docker部署kafka非常简单，只需要两条命令即可完成kafka服务器的部署。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -d --name zookeeper \<br>  -v zookeeper-data:/bitnami \<br>  -e ALLOW_ANONYMOUS_LOGIN=yes \<br>  bitnami/zookeeper<br>  <br>docker run -d --name broker \<br>  -p 9092:9092 \<br>  -v kafka-data:/bitnami \<br>  -e KAFKA_ENABLE_KRAFT=no \<br>  -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 \<br>  -e KAFKA_LISTENERS=PLAINTEXT://:9092 \<br>  -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181 \<br>  -e ALLOW_PLAINTEXT_LISTENER=yes \<br>  --link zookeeper:zookeeper \<br>  bitnami/kafka<br></code></pre></td></tr></table></figure><h3 id="docker-compose部署"><a href="#docker-compose部署" class="headerlink" title="docker-compose部署"></a>docker-compose部署</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3&#x27;</span><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">zookeeper:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">bitnami/zookeeper</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;zookeeper:/bitnami&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">ALLOW_ANONYMOUS_LOGIN:</span> <span class="hljs-literal">yes</span><br>  <span class="hljs-attr">kafka:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">bitnami/kafka</span><br>    <span class="hljs-attr">hostname:</span> <span class="hljs-string">broker</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">broker</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9092:9092&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;kafka:/bitnami&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">KAFKA_ENABLE_KRAFT:</span> <span class="hljs-literal">no</span><br>      <span class="hljs-attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="hljs-string">PLAINTEXT://kafka:9092</span><br>      <span class="hljs-attr">KAFKA_LISTENERS:</span> <span class="hljs-string">PLAINTEXT://:9092</span><br>      <span class="hljs-attr">KAFKA_CFG_ZOOKEEPER_CONNECT:</span> <span class="hljs-string">zookeeper:2181</span><br>      <span class="hljs-attr">ALLOW_PLAINTEXT_LISTENER:</span> <span class="hljs-literal">yes</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zookeeper</span><br><br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">kafka:</span><br>  <span class="hljs-attr">zookeeper:</span><br></code></pre></td></tr></table></figure><p>部署起来很简单,在docker-compose.yml文件的目录下执行docker-compose up -d就可以了。<br>这个docker-compose做的东西比上面docker方式部署的东西要多一些</p><ol><li><p>数据持久化，在当前目录下挂在了两个目录分别存储zookeeper和kafka的数据,当然在docker run 命令中添加 -v 选项也是可以做到这样的效果的</p><p>2.kafka在启动后会初始化一个有分区的topic,同样的,docker run的时候添加 -e KAFKA<em>CREATE</em>TOPICS&#x3D;kafeidou:2:0 也是可以做到的。</p></li></ol><blockquote><p>总结:优先推荐docker-compose方式部署,便于自定义调整</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>Tools</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Tools</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>KafKa 介绍</title>
     <link href="/2024/05/14/tools/Kafka%E6%98%AF%E4%BB%80%E4%B9%88/"/>
     <url>/2024/05/14/tools/Kafka%E6%98%AF%E4%BB%80%E4%B9%88/</url>
