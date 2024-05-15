@@ -24,7 +24,7 @@
 <meta property="og:description" content="记不住系列指针&amp;（取地址）和*（根据地址取值） 12345678910111213type MyInt inttype User1 struct &amp;#123;    IdOrName any   &#96;json:&quot;idOrName&quot;&#96;    M        MyInt &#96;json:&quot;m&quot;&#96;&amp;#125;func main() &amp;#123;    str">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-08T06:43:00.355Z">
-<meta property="article:modified_time" content="2024-05-11T02:21:05.031Z">
+<meta property="article:modified_time" content="2024-05-15T07:28:02.579Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          12k 字
+          13k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          102 分钟
+          106 分钟
         
       </span>
     
@@ -427,6 +427,10 @@
 <li><strong>情况一</strong>中，<code>createUser</code>变量未被初始化，其内部字段值为各自的零值。</li>
 <li><strong>情况二</strong>中，<code>createUser</code>变量被初始化为一个所有字段均为零值的<code>DevUser</code>实例。</li>
 </ul>
+<p><strong>Channel 接收操作 <code>&lt;-</code></strong></p>
+<p><code>&lt;-</code> 是Go语言中用于从channel接收数据的操作符。当你看到 <code>message := &lt;-claim.Messages()</code>，这意味着代码正在从 <code>claim.Messages()</code> 返回的channel中接收一个消息。这个channel是由Sarama库提供的，用于向消费者推送来自Kafka的新消息。每次有新消息到达时，<code>claim.Messages()</code> channel就会发送一个消息对象。</p>
+<p><strong>简短声明 <code>:=</code></strong></p>
+<p><code>= &lt;-</code> 后面紧跟的 <code>:=</code> 是Go中的简短声明操作符。简短声明允许你在声明并初始化一个变量时省略类型。例如，<code>message := &quot;Hello&quot;</code> 会声明一个string类型的变量<code>message</code>并将其初始化为<code>&quot;Hello&quot;</code>。在我们的例子中，<code>message := &lt;-claim.Messages()</code> 声明了一个名为<code>message</code>的变量，并将其初始化为从channel接收到的值。Go编译器会根据接收到的数据自动推断变量的类型，这里是<code>sarama.ConsumerMessage</code>类型（假设你已经正确导入了<code>sarama</code>包并使用了它的类型）。</p>
 <h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>初始化和没有初始化的区别主要体现在变量或对象的状态以及其在程序中的可用性方面。下面是详细的对比：</p>
 <p><strong>未初始化：</strong></p>
 <ol>
