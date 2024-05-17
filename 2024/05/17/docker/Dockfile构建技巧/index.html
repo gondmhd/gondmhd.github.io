@@ -24,7 +24,7 @@
 <meta property="og:description" content="Dockerfile构建技巧1、不使用多阶段构建我们知道在Dockerfile 中没新增一个指令都会在镜像中生产新的层，一个高校的Dockerfile应该在继续下一层之前清楚之前所有不需要的资源  不使用多阶段构建时，我们通常会创建两个dockerfile文件，一个用于开发及编程应用，另一个用于构建精简的生成镜像，这样能比较大限度的减小镜像的大小。 我们以一个go应用来看看，首先创建一个docke">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-17T07:23:09.686Z">
-<meta property="article:modified_time" content="2024-05-17T07:47:19.148Z">
+<meta property="article:modified_time" content="2024-05-17T09:56:54.492Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k 字
+          3.4k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          24 分钟
+          29 分钟
         
       </span>
     
@@ -323,6 +323,15 @@
 <p><strong>从上一阶段创建新的阶段</strong></p>
 <p>我们可以通过FROM指令来引用上一阶段作为新阶段的开始</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#阶段1命名为builder</span><br><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.16</span> as builder<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /go/src</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> app.go ./</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> go build app.go -o myapp</span><br><span class="hljs-comment">#阶段2</span><br><span class="hljs-keyword">FROM</span> builder as builder_ex<br><span class="hljs-keyword">ADD</span><span class="language-bash"> dest.tar ./</span><br>...<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>使用本地环境构建镜像</strong></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#阶段1</span><br><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.16</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /go/src</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> app.go ./</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> go build app.go -o myapp</span><br><span class="hljs-comment">#阶段2</span><br><span class="hljs-keyword">FROM</span> scratch<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /server</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> --from=0 /go/src/myapp ./</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;./myapp&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>使用本地脚本控制</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment"># 根据是否有阶段参数执行构建</span><br><span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$#</span>&quot;</span> -gt 0 ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-comment"># 如果有参数，则执行带有 --cache-from 的构建，假定参数是期望的构建阶段名（这里假设为 builder）</span><br>    docker build --cache-from=builder_app:v3 --target final -t work:dev .<br><span class="hljs-keyword">else</span><br>    <span class="hljs-comment"># 没有参数，执行完整的构建流程</span><br>    <span class="hljs-comment"># 先构建 builder 阶段</span><br>    docker build --target builder -t builder_app:v3 .<br>    <span class="hljs-comment"># 使用 builder 镜像作为缓存来源，构建最终镜像</span><br>    docker build --cache-from=builder_app:v3 --target final -t work:dev .<br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
