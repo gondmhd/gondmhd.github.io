@@ -1,0 +1,704 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Gond">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Dockerfile构建技巧1、不使用多阶段构建我们知道在Dockerfile 中没新增一个指令都会在镜像中生产新的层，一个高校的Dockerfile应该在继续下一层之前清楚之前所有不需要的资源  不使用多阶段构建时，我们通常会创建两个dockerfile文件，一个用于开发及编程应用，另一个用于构建精简的生成镜像，这样能比较大限度的减小镜像的大小。 我们以一个go应用来看看，首先创建一个docke">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dockerfile构建技巧">
+<meta property="og:url" content="http://gondmhd.github.io/2024/05/27/docker/Dockfile%E6%9E%84%E5%BB%BA%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="Gond">
+<meta property="og:description" content="Dockerfile构建技巧1、不使用多阶段构建我们知道在Dockerfile 中没新增一个指令都会在镜像中生产新的层，一个高校的Dockerfile应该在继续下一层之前清楚之前所有不需要的资源  不使用多阶段构建时，我们通常会创建两个dockerfile文件，一个用于开发及编程应用，另一个用于构建精简的生成镜像，这样能比较大限度的减小镜像的大小。 我们以一个go应用来看看，首先创建一个docke">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-27T14:58:52.356Z">
+<meta property="article:modified_time" content="2024-05-27T14:58:52.356Z">
+<meta property="article:author" content="Gond">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Dockerfile构建技巧 - Gond</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"gondmhd.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Gond</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Dockerfile构建技巧"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-27 22:58" pubdate>
+          2024年5月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Dockerfile构建技巧</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Dockerfile构建技巧"><a href="#Dockerfile构建技巧" class="headerlink" title="Dockerfile构建技巧"></a>Dockerfile构建技巧</h1><h2 id="1、不使用多阶段构建"><a href="#1、不使用多阶段构建" class="headerlink" title="1、不使用多阶段构建"></a>1、不使用多阶段构建</h2><p>我们知道在Dockerfile 中没新增一个指令都会在镜像中生产新的层，一个高校的Dockerfile应该在继续下一层之前清楚之前所有不需要的资源 </p>
+<p>不使用多阶段构建时，<strong>我们通常会创建两个dockerfile文件，一个用于开发及编程应用，另一个用于构建精简的生成镜像，</strong>这样能比较大限度的减小镜像的大小。</p>
+<p>我们以一个go应用来看看，首先创建一个dockerfile,构建这个镜像的主要目的就是编译我们的应用。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.16</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /go/src</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> app.go ./</span><br><span class="hljs-comment">#go编译</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> go build  -o myapp app.go</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>构建镜像</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@localhost dockerfiles]<span class="hljs-comment"># docker build -t builder_app:v1 .</span><br>Sending build context to Docker daemon  3.072kB<br>Step 1/4 : FROM golang:1.16<br> ---&gt; 019c7b2e3cb8<br>Step 2/4 : WORKDIR /go/src<br> ---&gt; Using cache<br> ---&gt; 15362720e897<br>Step 3/4 : COPY app.go ./<br> ---&gt; Using cache<br> ---&gt; 8f14ac97a68a<br>Step 4/4 : RUN go build  -o myapp app.go<br> ---&gt; Running <span class="hljs-keyword">in</span> 4368cc4617a7<br>Removing intermediate container 4368cc4617a7<br> ---&gt; 631f67587803<br>Successfully built 631f67587803<br>Successfully tagged builder_app:v1<br></code></pre></td></tr></table></figure>
+
+<p>这样在这个镜像中就包含了我们编译后的应用myapp，现在我们可以创建容器将myapp拷贝到宿主机等待后续使用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># docker create --name builder builder_app:v1			# 创建一个新的容器，但并不启动它 --name builder  builder_app:v1：这是指定要创建的容器所使用的镜像名称和标签</span><br>fafc1cf7ffa42e06d19430b807d24eafe0bf731fc45ff0ecf31ada5a6075f1d5<br><span class="hljs-comment"># docker cp builder:/go/src/myapp ./ 					# 从一个容器中复制文件或目录到本地主机。</span><br></code></pre></td></tr></table></figure>
+
+<p>我们有了应用，下一步就是构建生产镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">FROM scratch<br>WORKDIR /server<br>COPY myapp ./<br>CMD [<span class="hljs-string">&quot;./myapp&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>由于此时我们不需要其他依赖环境，所以我们采用scratch这个空镜像，不仅可以减小容器尺寸，还可以提高安全性。</p>
+<p>构建镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># docker build  --no-cache -t server_app:v1 .   #  --no-cache 指示Docker在构建过程中不使用任何缓存。通常，Docker会缓存之前步骤的结果来加速连续构建过程，但是使用这个标志会强制Docker忽略所有缓存，从头开始构建每个层。</span><br></code></pre></td></tr></table></figure>
+
+<p>我们看一次构建的两个镜像大小</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># docker images </span><br>REPOSITORY            TAG       IMAGE ID       CREATED          SIZE<br>server_app            v1        6ebc0833cad0   6 minutes ago    1.94MB<br>builder_app           v1        801f0b615004   23 minutes ago   921MB<br></code></pre></td></tr></table></figure>
+
+<p><strong>显然在不使用多阶段构建时，我们也可以构建出生产镜像，但是我们需要维护两个dockerfile，需要将app遗留到本地，并且带来了更多存储空间开销。在使用多阶段构建时能比较好的解决以上问题。</strong></p>
+<h2 id="2、使用多阶段构建"><a href="#2、使用多阶段构建" class="headerlink" title="2、使用多阶段构建"></a>2、使用多阶段构建</h2><p>在一个Dockfile 中使用多个FROM 指令，每个FROM 都可以使用不同的基镜像，并且每条指令都将开始新阶段构建。在多阶段构建中，我们可以将资源从一个阶段复制到另一个阶段，在最终镜像中只保留我们所需要的内容。</p>
+<p>我们将上面实例的两个Dockfile合并如下为：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#阶段1</span><br><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.16</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /go/src</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> app.go ./</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> go build app.go -o myapp</span><br><span class="hljs-comment">#阶段2</span><br><span class="hljs-keyword">FROM</span> scratch<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /server</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> --from=0 /go/src/myapp ./</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;./myapp&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>构建镜像</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># docker build --no-cache  -t server_app:v2 .</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>查看构建好的镜像</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># docker images</span><br><span class="hljs-attribute">REPOSITORY</span>            TAG       IMAGE ID       CREATED              SIZE<br><span class="hljs-attribute">server_app</span>            v2        <span class="hljs-number">20225</span>cb1ea6b   <span class="hljs-number">12</span> seconds ago       <span class="hljs-number">1</span>.<span class="hljs-number">94</span>MB<br></code></pre></td></tr></table></figure>
+
+<p>这样我们无需创建额外镜像，以更简单的方式构建出了同样微小的目标镜像。可以看到在多阶段构建dockerfile中最关键的是<code>COPY --from=0 /go/src/myapp ./</code> 通过<code>--from=0</code>指定我们资源来源，这里的0即是指第一阶段。</p>
+<p><strong>命令构建阶段</strong></p>
+<p>默认情况下构建阶段没有名称，我们可以通过整数0~N来引用，即第一个from从0开始。其实我们还可以在<code>FROM</code>指令中添加<code>AS &lt;NAME&gt;</code> 来命名构建阶段，接着在COPY指令中通过<code>&lt;NAME&gt;</code>引用。我们对上面dockerfile修改如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#阶段1命名为builder</span><br><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.16</span> as builder<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /go/src</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> app.go ./</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> go build app.go -o myapp</span><br><span class="hljs-comment">#阶段2</span><br><span class="hljs-keyword">FROM</span> scratch<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /server</span><br><span class="hljs-comment">#通过名称引用</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> --from=builder /go/src/myapp ./</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;./myapp&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>只构建某个接蹲</strong></p>
+<p>构建镜像时，不一定需要构建整个 Dockerfile，我们可以通过<code>--target</code>参数指定某个目标阶段构建，比如我们开发阶段我们只构建builder阶段进行测试。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#docker build --target builder -t builder_app:v2 .</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>使用外部镜像</strong></p>
+<p>使用多阶段构建时，我们局限于从之前在 Dockerfile 中创建的阶段进行复制。还可以使用<code>COPY --from</code>指令从单独的镜像复制，如本地镜像名称、本地或 Dockerhub上可用的标签或标签 ID。Docker 客户端在必要时会拉取需要的镜像到本地。</p>
+<p><strong>从上一阶段创建新的阶段</strong></p>
+<p>我们可以通过FROM指令来引用上一阶段作为新阶段的开始</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#阶段1命名为builder</span><br><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.16</span> as builder<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /go/src</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> app.go ./</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> go build app.go -o myapp</span><br><span class="hljs-comment">#阶段2</span><br><span class="hljs-keyword">FROM</span> builder as builder_ex<br><span class="hljs-keyword">ADD</span><span class="language-bash"> dest.tar ./</span><br>...<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>使用本地环境构建镜像</strong></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#阶段1</span><br><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.16</span><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /go/src</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> app.go ./</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> go build app.go -o myapp</span><br><span class="hljs-comment">#阶段2</span><br><span class="hljs-keyword">FROM</span> scratch<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /server</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> --from=0 /go/src/myapp ./</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;./myapp&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>使用本地脚本控制</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment"># 根据是否有阶段参数执行构建</span><br><span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$#</span>&quot;</span> -gt 0 ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-comment"># 如果有参数，则执行带有 --cache-from 的构建，假定参数是期望的构建阶段名（这里假设为 builder）</span><br>    docker build --cache-from=builder_app:v3 --target final -t work:dev .<br><span class="hljs-keyword">else</span><br>    <span class="hljs-comment"># 没有参数，执行完整的构建流程</span><br>    <span class="hljs-comment"># 先构建 builder 阶段</span><br>    docker build --target builder -t builder_app:v3 .<br>    <span class="hljs-comment"># 使用 builder 镜像作为缓存来源，构建最终镜像</span><br>    docker build --cache-from=builder_app:v3 --target final -t work:dev .<br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/docker/" class="print-no-link">#docker</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Dockerfile构建技巧</div>
+      <div>http://gondmhd.github.io/2024/05/27/docker/Dockfile构建技巧/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Gond</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/27/tools/github%20%E5%9B%BE%E5%BA%8A/" title="typora 图床">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">typora 图床</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/27/docker/docker-compose%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" title="docker-compose网络关联配置">
+                        <span class="hidden-mobile">docker-compose网络关联配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

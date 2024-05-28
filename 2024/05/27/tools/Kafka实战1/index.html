@@ -1,0 +1,794 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Gond">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1 部署kafka docker docker-compose  docker  部署docker部署kafka非常简单，只需要两条命令即可完成kafka服务器的部署。 123456789101112131415docker run -d --name zookeeper \  -v zookeeper-data:&#x2F;bitnami \  -e ALLOW_ANONYMOUS_LOGIN&#x3D;yes \">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KafKa 实战1">
+<meta property="og:url" content="http://gondmhd.github.io/2024/05/27/tools/Kafka%E5%AE%9E%E6%88%981/index.html">
+<meta property="og:site_name" content="Gond">
+<meta property="og:description" content="1 部署kafka docker docker-compose  docker  部署docker部署kafka非常简单，只需要两条命令即可完成kafka服务器的部署。 123456789101112131415docker run -d --name zookeeper \  -v zookeeper-data:&#x2F;bitnami \  -e ALLOW_ANONYMOUS_LOGIN&#x3D;yes \">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-27T14:58:52.392Z">
+<meta property="article:modified_time" content="2024-05-28T09:56:46.806Z">
+<meta property="article:author" content="Gond">
+<meta property="article:tag" content="Tools">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>KafKa 实战1 - Gond</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"gondmhd.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Gond</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="KafKa 实战1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-27 22:58" pubdate>
+          2024年5月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          138 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">KafKa 实战1</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-部署kafka"><a href="#1-部署kafka" class="headerlink" title="1 部署kafka"></a>1 部署kafka</h2><ul>
+<li>docker</li>
+<li>docker-compose</li>
+</ul>
+<h3 id="docker-部署"><a href="#docker-部署" class="headerlink" title="docker  部署"></a>docker  部署</h3><p>docker部署kafka非常简单，只需要两条命令即可完成kafka服务器的部署。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -d --name zookeeper \<br>  -v zookeeper-data:/bitnami \<br>  -e ALLOW_ANONYMOUS_LOGIN=yes \<br>  bitnami/zookeeper<br>  <br>docker run -d --name broker \<br>  -p 9092:9092 \<br>  -v kafka-data:/bitnami \<br>  -e KAFKA_ENABLE_KRAFT=no \<br>  -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 \<br>  -e KAFKA_LISTENERS=PLAINTEXT://:9092 \<br>  -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181 \<br>  -e ALLOW_PLAINTEXT_LISTENER=yes \<br>  --link zookeeper:zookeeper \<br>  bitnami/kafka<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="docker-compose部署"><a href="#docker-compose部署" class="headerlink" title="docker-compose部署"></a>docker-compose部署</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3&#x27;</span><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">zookeeper:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">bitnami/zookeeper</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;zookeeper:/bitnami&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">ALLOW_ANONYMOUS_LOGIN:</span> <span class="hljs-literal">yes</span><br>  <span class="hljs-attr">kafka:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">bitnami/kafka</span><br>    <span class="hljs-attr">hostname:</span> <span class="hljs-string">broker</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">broker</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;9092:9092&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;kafka:/bitnami&quot;</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">KAFKA_ENABLE_KRAFT:</span> <span class="hljs-literal">no</span><br>      <span class="hljs-attr">KAFKA_ADVERTISED_LISTENERS:</span> <span class="hljs-string">PLAINTEXT://kafka:9092</span><br>      <span class="hljs-attr">KAFKA_LISTENERS:</span> <span class="hljs-string">PLAINTEXT://:9092</span><br>      <span class="hljs-attr">KAFKA_CFG_ZOOKEEPER_CONNECT:</span> <span class="hljs-string">zookeeper:2181</span><br>      <span class="hljs-attr">ALLOW_PLAINTEXT_LISTENER:</span> <span class="hljs-literal">yes</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">zookeeper</span><br><br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">kafka:</span><br>  <span class="hljs-attr">zookeeper:</span><br></code></pre></td></tr></table></figure>
+
+<p><strong><code>kafka-map</code>可视化工具</strong></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3.8&#x27;</span><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">kafka-map:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">dushixiang/kafka-map:latest</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">kafka-map</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;38080:8080&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/opt/kafka-map/data:/usr/local/kafka-map/data</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">DEFAULT_USERNAME=admin</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">DEFAULT_PASSWORD=admin</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<p>部署起来很简单,在docker-compose.yml文件的目录下执行docker-compose up -d就可以了。<br>这个docker-compose做的东西比上面docker方式部署的东西要多一些</p>
+<ol>
+<li><p>数据持久化，在当前目录下挂在了两个目录分别存储zookeeper和kafka的数据,当然在docker run 命令中添加 -v 选项也是可以做到这样的效果的</p>
+<p>2.kafka在启动后会初始化一个有分区的topic,同样的,docker run的时候添加 -e KAFKA<em>CREATE</em>TOPICS&#x3D;kafeidou:2:0 也是可以做到的。</p>
+</li>
+</ol>
+<blockquote>
+<p>总结:优先推荐docker-compose方式部署,便于自定义调整</p>
+</blockquote>
+<h3 id="通过kafka自带工具生产消费消息测试"><a href="#通过kafka自带工具生产消费消息测试" class="headerlink" title="通过kafka自带工具生产消费消息测试"></a>通过kafka自带工具生产消费消息测试</h3><p>首先,进入到kafka的docker容器中</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker-compose <span class="hljs-built_in">exec</span> -it kafka bash<br></code></pre></td></tr></table></figure>
+
+<p>运行消费者,进行消息的监听</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">kafka-console-consumer.sh --bootstrap-server 192.168.0.185:9092 --topic test1 --from-beginning   <span class="hljs-comment"># ip为机器i片拼接暴露端口</span><br></code></pre></td></tr></table></figure>
+
+<p>打开一个新的ssh窗口,同样进入kafka的容器中,执行下面这条命令生产消息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">kafka-console-producer.sh --broker-list 192.168.0.185:9092 --topic test1					<span class="hljs-comment"># ip为机器i片拼接暴露端口</span><br></code></pre></td></tr></table></figure>
+
+<p>输入完这条命令后会进入到控制台，可以输入任何想发送的消息,这里发送一个hello</p>
+<figure class="highlight node-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs node-repl"><span class="hljs-meta prompt_">&gt;</span><br>&gt;hello<br><span class="hljs-meta prompt_">&gt;</span><br><span class="hljs-meta prompt_">&gt;</span><br><span class="hljs-meta prompt_">&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到,在生产者的控制台中输入消息后,消费者的控制台立刻看到了消息</p>
+<p>到目前为止,一个kafka完整的hello world就完成了.kafka的部署加上生产者消费者测试.</p>
+<p>工具命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs shell">1、使用以下命令查看当前 Kafka 主题：<br>kafka-topics.sh --list --bootstrap-server localhost:9092<br>2、刪除主題<br>kafka-topics.sh --delete --bootstrap-server localhost:9092 --topic your_topic_name<br>3、创建主题<br>kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic my-topic<br><br>    --create：创建一个新主题。<br>    --bootstrap-server：指定要用于连接到 Kafka 集群的引导服务器地址。这应该是 Kafka 消息代理的主机名和端口号，例如 localhost:9092。<br>    --replication-factor：指定要为每个分区保留多少个副本。在生产环境中，通常将副本因子设置为 2 或更高，以确保数据冗余性和高可用性。单一副本的主题只有在测试或开发环境中才有意义。<br>    --partitions：指定要为主题创建的分区数。如果没有特殊需求，请在生产中创建多个分区以支持更好的伸缩性和吞吐量。<br>    --topic：指定要创建的主题名称。<br>4、查看主题数据<br>kafka-console-consumer.sh \<br>  --bootstrap-server localhost:9092 \<br>  --topic sarama \<br>  [--from-beginning] \				#参数是可选的，如果加上这个参数，消费者会从主题的起始处开始读取消息；默认从最新的消息开始消费。		<br>  [--property print.key=true] \		#参数用于指定消息的反序列化方式，通常字符串是最常用的，但也可以根据实际情况调整为其他序列化类<br>  [--property print.value=true] \<br>  [--property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer] \<br>  [--property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer]<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-kafka-client"><a href="#2-kafka-client" class="headerlink" title="2 kafka client"></a>2 kafka client</h2><blockquote>
+<p>关于 go 的 kafka client 有很多开源项目，例如</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/Shopify/sarama">sarama</a>: 具有完整协议支持的纯 Go 实现。包括消费者和生产者实施，支持 GZIP 和 Snappy 压缩。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/confluentinc/confluent-kafka-go">confluent-kafka-go</a>: Confluent 的 Golang Kafka 客户端包装了 librdkafka C 库，提供完整的 Kafka 协议支持，具有出色的性能和可靠性。提供了高级生产者和消费者，支持 Apache Kafka 0.9 及更高版本的平衡消费者组。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/twmb/franz-go">franz-go</a>: 纯 Go 实现提供完整的协议支持、出色的性能以及对所有面向客户端的 KI P 的支持。</li>
+</ol>
+</blockquote>
+<p>本文使用 sarama 作为 kafka client</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">go get github.com/Shopify/sarama<br></code></pre></td></tr></table></figure>
+
+
+
+<p>本地运行需要将hosts kafka主机名重定向到宿主机上,否则写入的时候出现无法写入,可能是Sarama在内部可能因为某些原因（比如自动发现机制或错误的配置传播）尝试连接到 <code>kafka:9092</code>，这个主机名未能正确解析，引发了错误。</p>
+<h3 id="producer"><a href="#producer" class="headerlink" title="producer"></a>producer</h3><p>sarama 提供两种 producer 的实现：<code>AsyncProducer</code>和<code>SyncProducer</code>，即同步和异步的生产者，本文只介绍<code>AsyncProducer</code>的使用，通过<code>sarama.NewAsyncProducer</code>获取生产者实例，其中要求传入两个参数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewAsyncProducer</span><span class="hljs-params">(addrs []<span class="hljs-type">string</span>, conf *Config)</span></span> (AsyncProducer, <span class="hljs-type">error</span>) &#123;<br>	client, err := NewClient(addrs, conf)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">return</span> newAsyncProducer(client)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>addrs: 即为 kafka broker 地址，对于 kafka 集群可以全部都填，也可以只填一个，保证有一个地址可用即可</li>
+<li>conf: 为 sarama 封装的生产者、消费者、客户端、网络与一体的配置，通过<code>sarama.NewConfig</code>快速获取默认值的配置文件</li>
+</ul>
+<p>对于生产者我们通常修改的配置就是 ack 了</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 生产者默认配置</span><br>config := sarama.NewConfig()<br><span class="hljs-comment">// 配置 ack</span><br>config.Producer.RequiredAcks = sarama.WaitForAll<br></code></pre></td></tr></table></figure>
+
+<p><code>config.Producer.RequiredAcks</code>的类型本质上是 int16，所以习惯<code>0,1,-1</code>这种配置也可以直接赋值，但为了消除魔数的影响，建议使用 sarama 封装的常数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">const</span> (<br>	NoResponse RequiredAcks = <span class="hljs-number">0</span><br>  <br>	WaitForLocal RequiredAcks = <span class="hljs-number">1</span><br>  <br>	WaitForAll RequiredAcks = <span class="hljs-number">-1</span><br>)<br>acks=<span class="hljs-number">0</span>:<br>生产者在将消息发送给Kafka broker后，不等待任何确认就继续处理下一条消息。这意味着生产者无法知道消息是否到达broker，提供了最低的延迟但不保证消息的可靠性。<br>acks=<span class="hljs-number">1</span>:<br>生产者在至少一个副本（通常是leader副本）确认接收到消息后，认为消息发送成功。这种方式提供了基本的可靠性保障，因为至少消息被一个副本接收了，但如果这个副本在确认后立即失败且没有同步到其他副本，消息可能会丢失。<br>acks=all 或 acks=<span class="hljs-number">-1</span>:<br>生产者在所有同步副本（in-sync replicas，ISR列表中的副本）都确认接收到消息后，才认为消息发送成功。这是最安全但也最慢的模式，因为它确保即使leader副本失败，消息也不会丢失，因为至少还有一个同步副本拥有这条消息。<br></code></pre></td></tr></table></figure>
+
+<p>如果需要开启开启异步回调，则需要开启<code>config.Producer.Return.Successes</code>和<code>config.Producer.Return.Errors</code>，例如</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 开启异步回调</span><br>config.Producer.Return.Successes = <span class="hljs-literal">true</span><br>config.Producer.Return.Errors = <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>生产者内部对 Successes 和 Errors 分别维护两个 channel，下面是<code>AsyncProducer</code>需要实现的方法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> AsyncProducer <span class="hljs-keyword">interface</span> &#123;<br><br>	AsyncClose()<br><br>	Close() <span class="hljs-type">error</span><br><br>	Input() <span class="hljs-keyword">chan</span>&lt;- *ProducerMessage<br><br>	Successes() &lt;-<span class="hljs-keyword">chan</span> *ProducerMessage<br><br>	Errors() &lt;-<span class="hljs-keyword">chan</span> *ProducerError<br><br>	IsTransactional() <span class="hljs-type">bool</span><br><br>	TxnStatus() ProducerTxnStatusFlag<br><br>	BeginTxn() <span class="hljs-type">error</span><br><br>	CommitTxn() <span class="hljs-type">error</span><br><br>	AbortTxn() <span class="hljs-type">error</span><br><br>	AddOffsetsToTxn(offsets <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>][]*PartitionOffsetMetadata, groupId <span class="hljs-type">string</span>) <span class="hljs-type">error</span><br><br>	AddMessageToTxn(msg *ConsumerMessage, groupId <span class="hljs-type">string</span>, metadata *<span class="hljs-type">string</span>) <span class="hljs-type">error</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当生产者发送消息的正常回调信息会投递到<code>Successes</code>的 channel 中，错误回调信息会投递到<code>Errors</code>的 channel 中。需要注意的是如果开启了异步回调则一定要去消费这两个 channel 的数据否则会阻塞 producer，同时下面是<code>AsyncProducer</code>实现者的初始化</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go">p := &amp;asyncProducer&#123;<br>  client:          client,<br>  conf:            client.Config(),<br>  errors:          <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> *ProducerError),<br>  input:           <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> *ProducerMessage),<br>  successes:       <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> *ProducerMessage),<br>  retries:         <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> *ProducerMessage),<br>  brokers:         <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[*Broker]*brokerProducer),<br>  brokerRefs:      <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[*brokerProducer]<span class="hljs-type">int</span>),<br>  txnmgr:          txnmgr,<br>  metricsRegistry: newCleanupRegistry(client.Config().MetricRegistry),<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以看到<code>Successes</code>和<code>Errors</code>是一个同步队列，因此对这两个 channel 的回调一定不要有过重的逻辑，例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 搞一个上下文用于退出异步回调</span><br>ctx, cancelFunc := context.WithCancel(context.Background())<br><span class="hljs-keyword">defer</span> cancelFunc()<br><span class="hljs-comment">// 异步回调</span><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>EXITED:<br>  <span class="hljs-keyword">for</span> &#123;<br>    <span class="hljs-keyword">select</span> &#123;<br>    <span class="hljs-keyword">case</span> message := &lt;-producer.Successes():<br>      logger.Println(<span class="hljs-string">&quot;success: &quot;</span>, message.Value, message.Partition, message.Offset)<br>    <span class="hljs-keyword">case</span> err := &lt;-producer.Errors():<br>      logger.Println(<span class="hljs-string">&quot;errors: &quot;</span>, err.Err.Error())<br>    <span class="hljs-keyword">case</span> &lt;-ctx.Done():<br>      logger.Println(<span class="hljs-string">&quot;exited:&quot;</span>, ctx.Err())<br>      <span class="hljs-keyword">break</span> EXITED<br>    &#125;<br>  &#125;<br>&#125;()<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Tips: 如何想要查看 sarama 内部日志，可以通过下面方式将其输入到控制台，默认是<code>io.Discard</code>相当于&#x2F;dev&#x2F;null</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">sarama.Logger = log.New(os.Stdout, <span class="hljs-string">&quot;[Sarama] &quot;</span>, log.LstdFlags)<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p>而发送消息则是向<code>Input</code>的 channel 发送数据即可，我们只需要构建特定的消息结构体即可</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> ProducerMessage <span class="hljs-keyword">struct</span> &#123;<br>	Topic <span class="hljs-type">string</span><br><br>	Key Encoder<br><br>	Value Encoder<br><br>	Headers []RecordHeader<br><br>	Metadata <span class="hljs-keyword">interface</span>&#123;&#125;<br><br>	<span class="hljs-comment">// Below this point are filled in by the producer as the message is processed</span><br>	Offset <span class="hljs-type">int64</span><br><br>	Partition <span class="hljs-type">int32</span><br>  <br>	Timestamp time.Time<br><br>	retries        <span class="hljs-type">int</span><br>	flags          flagSet<br>	expectation    <span class="hljs-keyword">chan</span> *ProducerError<br>	sequenceNumber <span class="hljs-type">int32</span><br>	producerEpoch  <span class="hljs-type">int16</span><br>	hasSequence    <span class="hljs-type">bool</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>用户只需要构建该结构体导出字段中的<code>Topic</code>、<code>Key</code>、<code>Value</code>、<code>Headers</code>以及<code>Metadata</code>，对于<code>Metadata</code>是 sarama 内部维护的一个字段，在发送数据时会被忽略用作在回调时进行填充，也就是说它不是 kafka 所需要的字段只在客户端内部扭转。而<code>Offset</code>、<code>Partition</code>和<code>Timestamp</code>则是在处理消息时 sarama 自动进行填充。</p>
+<p>因此发送消息伪代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 发送数据</span><br><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; maxRecordNum; i++ &#123;<br>  producer.Input() &lt;- &amp;sarama.ProducerMessage&#123;<br>    Topic: topic,<br>    Value: sarama.StringEncoder(fmt.Sprintf(<span class="hljs-string">&quot;srama-%v&quot;</span>, i)),<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最终完整代码如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> example<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;github.com/Shopify/sarama&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> maxRecordNum = <span class="hljs-number">1000</span><br><span class="hljs-keyword">var</span> topic = <span class="hljs-string">&quot;sarama&quot;</span><br><br><span class="hljs-comment">// SimpleProducer 简单生产生</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SimpleProducer</span><span class="hljs-params">()</span></span> &#123;<br>	brokers := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;127.0.0.1:9092&quot;</span>&#125;<br>	<span class="hljs-comment">// 生产者默认配置</span><br>	config := sarama.NewConfig()<br>	config.ClientID = <span class="hljs-string">&quot;demo-producer&quot;</span><br>	<span class="hljs-comment">// 配置 ack</span><br>	config.Producer.RequiredAcks = sarama.WaitForAll<br>	<span class="hljs-comment">// 开启异步回调</span><br>	config.Producer.Return.Successes = <span class="hljs-literal">true</span><br>	config.Producer.Return.Errors = <span class="hljs-literal">true</span><br>	<span class="hljs-comment">// 开启日志</span><br>	logger := log.New(os.Stdout, <span class="hljs-string">&quot;[Sarama] &quot;</span>, log.LstdFlags)<br>	sarama.Logger = logger<br>	producer, err := sarama.NewAsyncProducer(brokers, config)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err)<br>	&#125;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; _ = producer.Close() &#125;()<br>	<span class="hljs-comment">// 搞一个上下文用于退出异步回调</span><br>	ctx, cancelFunc := context.WithCancel(context.Background())<br>	<span class="hljs-keyword">defer</span> cancelFunc()<br>	<span class="hljs-comment">// 异步回调</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>	EXITED:<br>		<span class="hljs-keyword">for</span> &#123;<br>			<span class="hljs-keyword">select</span> &#123;<br>			<span class="hljs-keyword">case</span> message := &lt;-producer.Successes():<br>				logger.Println(<span class="hljs-string">&quot;success: &quot;</span>, message.Value, message.Partition, message.Offset)<br>			<span class="hljs-keyword">case</span> err := &lt;-producer.Errors():<br>				logger.Println(<span class="hljs-string">&quot;errors: &quot;</span>, err.Err.Error())<br>			<span class="hljs-keyword">case</span> &lt;-ctx.Done():<br>				logger.Println(<span class="hljs-string">&quot;exited:&quot;</span>, ctx.Err())<br>				<span class="hljs-keyword">break</span> EXITED<br>			&#125;<br>		&#125;<br>	&#125;()<br>	<span class="hljs-comment">// 发送数据</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; maxRecordNum; i++ &#123;<br>		producer.Input() &lt;- &amp;sarama.ProducerMessage&#123;<br>			Topic: topic,<br>			Value: sarama.StringEncoder(fmt.Sprintf(<span class="hljs-string">&quot;srama-%v&quot;</span>, i)),<br>		&#125;<br>	&#125;<br>	<span class="hljs-comment">// 等 5 s</span><br>	time.Sleep(<span class="hljs-number">5</span> * time.Second)<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里的等待是为了将回调信息全部打印完毕，经过研究发现当调用<code>producer.Close()</code>时会将内部维护的 channel 都关闭</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *asyncProducer)</span></span> shutdown() &#123;<br>	Logger.Println(<span class="hljs-string">&quot;Producer shutting down.&quot;</span>)<br>	p.inFlight.Add(<span class="hljs-number">1</span>)<br>	p.input &lt;- &amp;ProducerMessage&#123;flags: shutdown&#125;<br><br>	p.inFlight.Wait()<br><br>	err := p.client.Close()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		Logger.Println(<span class="hljs-string">&quot;producer/shutdown failed to close the embedded client:&quot;</span>, err)<br>	&#125;<br><br>	<span class="hljs-built_in">close</span>(p.input)<br>	<span class="hljs-built_in">close</span>(p.retries)<br>	<span class="hljs-built_in">close</span>(p.errors)<br>	<span class="hljs-built_in">close</span>(p.successes)<br><br>	p.metricsRegistry.UnregisterAll()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>因此可以使用<code>sync.WaitGroup</code>进行改造</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> example<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;github.com/Shopify/sarama&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> maxRecordNum = <span class="hljs-number">1000</span><br><span class="hljs-keyword">var</span> topic = <span class="hljs-string">&quot;sarama&quot;</span><br><br><span class="hljs-comment">// SimpleProducer 简单生产生</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SimpleProducer</span><span class="hljs-params">()</span></span> &#123;<br>	brokers := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;127.0.0.1:9092&quot;</span>&#125;<br>	<span class="hljs-comment">// 生产者默认配置</span><br>	config := sarama.NewConfig()<br>	config.ClientID = <span class="hljs-string">&quot;demo-producer&quot;</span><br>	<span class="hljs-comment">// 配置 ack</span><br>	config.Producer.RequiredAcks = sarama.WaitForAll<br>	<span class="hljs-comment">// 开启异步回调</span><br>	config.Producer.Return.Successes = <span class="hljs-literal">true</span><br>	config.Producer.Return.Errors = <span class="hljs-literal">true</span><br>	<span class="hljs-comment">// 开启日志</span><br>	logger := log.New(os.Stdout, <span class="hljs-string">&quot;[Sarama] &quot;</span>, log.LstdFlags)<br>	sarama.Logger = logger<br>	producer, err := sarama.NewAsyncProducer(brokers, config)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err)<br>	&#125;<br>	<span class="hljs-keyword">var</span> wg sync.WaitGroup<br>	<span class="hljs-comment">// 异步回调</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		wg.Add(<span class="hljs-number">1</span>)<br>		<span class="hljs-keyword">for</span> message := <span class="hljs-keyword">range</span> producer.Successes() &#123;<br>			logger.Println(<span class="hljs-string">&quot;success: &quot;</span>, message.Value, message.Partition, message.Offset)<br>		&#125;<br>		wg.Done()<br>	&#125;()<br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		wg.Add(<span class="hljs-number">1</span>)<br>		<span class="hljs-keyword">for</span> err := <span class="hljs-keyword">range</span> producer.Errors() &#123;<br>			logger.Println(<span class="hljs-string">&quot;errors: &quot;</span>, err.Err.Error())<br>		&#125;<br>		wg.Done()<br>	&#125;()<br>	<span class="hljs-comment">// 发送数据</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; maxRecordNum; i++ &#123;<br>		producer.Input() &lt;- &amp;sarama.ProducerMessage&#123;<br>			Topic: topic,<br>			Value: sarama.StringEncoder(fmt.Sprintf(<span class="hljs-string">&quot;srama-%v&quot;</span>, i)),<br>		&#125;<br>	&#125;<br>	<span class="hljs-comment">// 关闭生产者</span><br>	_ = producer.Close()<br>	<span class="hljs-comment">// 等待处理完所有的回调信息</span><br>	wg.Wait()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="consumer"><a href="#consumer" class="headerlink" title="consumer"></a>consumer</h3><p>sarama 的 consumer 将会变得复杂一点，需要我们去实现它的消费 handler 接口，同时提供<code>Consumer</code>和<code>ConsumerGroup</code>两种，不在赘述消费者和消费者组的概念，这里使用<code>ConsumerGroup</code>来演示。创建方式和 producer 基本一致</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> groupID = <span class="hljs-string">&quot;sarama-consumer&quot;</span><br><span class="hljs-keyword">var</span> brokers = []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;127.0.0.1:9092&quot;</span>&#125;<br><span class="hljs-keyword">var</span> config = sarama.NewConfig()<br>sarama.NewConsumerGroup(brokers, groupID, config)<br></code></pre></td></tr></table></figure>
+
+<p>对于 consumer 来说通常的配置就是关闭自动提交和偏移量初始化策略(oldest或latest)，配置如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 关闭自动提交</span><br>config.Consumer.Offsets.AutoCommit.Enable = <span class="hljs-literal">false</span><br>config.Consumer.Offsets.Initial = sarama.OffsetOldest<br><br></code></pre></td></tr></table></figure>
+
+<p><code>config.Consumer.Offsets.Initial</code>和 ack 一致，本质上是 int64，这里同样是为了消除魔数</p>
+<p>下面开始消费数据，其方法如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">Consume(ctx context.Context, topics []<span class="hljs-type">string</span>, handler ConsumerGroupHandler) <span class="hljs-type">error</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>ctx: 上下文对象，因为消费逻辑在 goroutine 中进行，需要使用 context 来控制</li>
+<li>topics: 需要消费的 topic</li>
+<li>handler: 封装消费逻辑</li>
+</ul>
+<p>对于 ctx 为了让 consumer 优雅退出</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 搞一个上下文用于终止消费者</span><br>ctx, cancelFunc := context.WithCancel(context.Background())<br><span class="hljs-comment">// 监听终止信号</span><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>  quit := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal, <span class="hljs-number">1</span>)<br>  signal.Notify(quit, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)<br>  &lt;-quit<br>  cancelFunc()<br>&#125;()<br></code></pre></td></tr></table></figure>
+
+<p>当监听到系统终止等信号时执行<code>cancelFunc</code>停止<code>handler</code>的消费逻辑，我们需要实现<code>ConsumerGroupHandler</code>的接口</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> ConsumerGroupHandler <span class="hljs-keyword">interface</span> &#123;<br>	<span class="hljs-comment">// Setup is run at the beginning of a new session, before ConsumeClaim.</span><br>	Setup(ConsumerGroupSession) <span class="hljs-type">error</span><br><br>	<span class="hljs-comment">// Cleanup is run at the end of a session, once all ConsumeClaim goroutines have exited</span><br>	<span class="hljs-comment">// but before the offsets are committed for the very last time.</span><br>	Cleanup(ConsumerGroupSession) <span class="hljs-type">error</span><br><br>	<span class="hljs-comment">// ConsumeClaim must start a consumer loop of ConsumerGroupClaim&#x27;s Messages().</span><br>	<span class="hljs-comment">// Once the Messages() channel is closed, the Handler must finish its processing</span><br>	<span class="hljs-comment">// loop and exit.</span><br>	ConsumeClaim(ConsumerGroupSession, ConsumerGroupClaim) <span class="hljs-type">error</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>创建一个空结构体去实现这个接口，暂时先不关注<code>Setup</code>和<code>Cleanup</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Consumer <span class="hljs-keyword">struct</span>&#123;&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *Consumer)</span></span> ConsumeClaim(session sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) <span class="hljs-type">error</span> &#123;<br>EXIT:<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> message := &lt;-claim.Messages():<br>			log.Printf(<span class="hljs-string">&quot;Message claimed: value = %s, timestamp = %v, topic = %s&quot;</span>, <span class="hljs-type">string</span>(message.Value), message.Timestamp, message.Topic)<br>			<span class="hljs-comment">// 标记消息，并不是提交偏移量</span><br>			session.MarkMessage(message, <span class="hljs-string">&quot;&quot;</span>)<br>			<span class="hljs-comment">// 同步提交</span><br>      session.Commit()<br>		<span class="hljs-keyword">case</span> &lt;-session.Context().Done():<br>			log.Println(<span class="hljs-string">&quot;cancel consumer&quot;</span>)<br>			<span class="hljs-keyword">break</span> EXIT<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Tips: <code>session.MarkMessage(message, &quot;&quot;)</code>是很重要的操作，标记当前消息已经处理完成并在内部记录当前分区的偏移量，但并不是提交偏移量，Mark 的作用相当于 flink 的状态，当调用<code>session.Commit()</code>时才会将内部保存的 offset 提交到 kafka 中。为了确保消息不丢失一定是先处理数据再标记消息</p>
+</blockquote>
+<p>为了提高效率需要将<code>session.Commit()</code>进行异步处理，因此在<code>Setup</code>中启动一个 goroutine 专门用于异步提交，当消息处理完告知这个 goroutine 进行一次 Commit，因此需要维护一个 channel</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> asyncOffset <span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;<br><span class="hljs-keyword">var</span> wg sync.WaitGroup <span class="hljs-comment">// 后面再解释</span><br><span class="hljs-keyword">const</span> defaultOffsetChannelSize = math.MaxInt<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *Consumer)</span></span> Setup(session sarama.ConsumerGroupSession) <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// 初始化异步提交的channel</span><br>	asyncOffset = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;, defaultOffsetChannelSize)<br>	wg.Add(<span class="hljs-number">1</span>)<br>	<span class="hljs-comment">// 异步提交偏移量</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> asyncOffset &#123;<br>			session.Commit()<br>		&#125;<br>		wg.Done()<br>	&#125;()<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>Cleanup</code>用于关闭通道</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *Consumer)</span></span> Cleanup(_ sarama.ConsumerGroupSession) <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// 关闭通道</span><br>	<span class="hljs-built_in">close</span>(asyncOffset)<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>ConsumeClaim</code>则触发提交偏移量</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *Consumer)</span></span> ConsumeClaim(session sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) <span class="hljs-type">error</span> &#123;<br>EXIT:<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> message := &lt;-claim.Messages():<br>			log.Printf(<span class="hljs-string">&quot;Message claimed: value = %s, timestamp = %v, topic = %s&quot;</span>, <span class="hljs-type">string</span>(message.Value), message.Timestamp, message.Topic)<br>			<span class="hljs-comment">// 标记消息，并不是提交偏移量</span><br>			session.MarkMessage(message, <span class="hljs-string">&quot;&quot;</span>)<br>			<span class="hljs-comment">// 异步提交</span><br>			asyncOffset &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;<br>		<span class="hljs-keyword">case</span> &lt;-session.Context().Done():<br>			log.Println(<span class="hljs-string">&quot;cancel consumer&quot;</span>)<br>			<span class="hljs-keyword">break</span> EXIT<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p> Tips: 空 struct{} 在 go 中是不占用内存空间的</p>
+</blockquote>
+<p>为了当客户端停止消费时所有的偏移量都能提交则使用<code>sync.WaitGroup</code>，最终完整代码如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> example<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;github.com/Shopify/sarama&quot;</span><br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;math&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/signal&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>	<span class="hljs-string">&quot;syscall&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> groupID = <span class="hljs-string">&quot;sarama-consumer&quot;</span><br><span class="hljs-keyword">var</span> asyncOffset <span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;<br><span class="hljs-keyword">var</span> wg sync.WaitGroup<br><br><span class="hljs-keyword">const</span> defaultOffsetChannelSize = math.MaxInt<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">SimpleConsumer</span><span class="hljs-params">()</span></span> &#123;<br>	brokers := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;127.0.0.1:9092&quot;</span>&#125;<br>	<span class="hljs-comment">// 消费者配置</span><br>	config := sarama.NewConfig()<br>	<span class="hljs-comment">// 关闭自动提交</span><br>	config.Consumer.Offsets.AutoCommit.Enable = <span class="hljs-literal">false</span><br>	config.Consumer.Offsets.Initial = sarama.OffsetOldest<br>	<span class="hljs-comment">// 开启日志</span><br>	logger := log.New(os.Stdout, <span class="hljs-string">&quot;[Sarama] &quot;</span>, log.LstdFlags)<br>	sarama.Logger = logger<br>	consumer, err := sarama.NewConsumerGroup(brokers, groupID, config)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err)<br>	&#125;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123; _ = consumer.Close() &#125;()<br>	<span class="hljs-comment">// 搞一个上下文用于终止消费者</span><br>	ctx, cancelFunc := context.WithCancel(context.Background())<br>	<span class="hljs-comment">// 监听终止信号</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		logger.Println(<span class="hljs-string">&quot;monitor signal&quot;</span>)<br>		quit := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal, <span class="hljs-number">1</span>)<br>		signal.Notify(quit, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)<br>		&lt;-quit<br>		logger.Println(<span class="hljs-string">&quot;stop consumer&quot;</span>)<br>		cancelFunc()<br>	&#125;()<br>	<span class="hljs-comment">// 消费数据</span><br>	err = consumer.Consume(ctx, []<span class="hljs-type">string</span>&#123;topic&#125;, &amp;Consumer&#123;&#125;)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err)<br>	&#125;<br>	<span class="hljs-comment">// 等待所有偏移量都提交完毕再退出</span><br>	logger.Println(<span class="hljs-string">&quot;当前存在未提交的偏移量&quot;</span>)<br>	wg.Wait()<br>&#125;<br><br><span class="hljs-keyword">type</span> Consumer <span class="hljs-keyword">struct</span>&#123;&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *Consumer)</span></span> Setup(session sarama.ConsumerGroupSession) <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// 初始化异步提交的channel</span><br>	asyncOffset = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;, defaultOffsetChannelSize)<br>	wg.Add(<span class="hljs-number">1</span>)<br>	<span class="hljs-comment">// 异步提交偏移量</span><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> asyncOffset &#123;<br>			session.Commit()<br>		&#125;<br>		wg.Done()<br>	&#125;()<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *Consumer)</span></span> Cleanup(_ sarama.ConsumerGroupSession) <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// 关闭通道</span><br>	<span class="hljs-built_in">close</span>(asyncOffset)<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c *Consumer)</span></span> ConsumeClaim(session sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) <span class="hljs-type">error</span> &#123;<br>EXIT:<br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-keyword">case</span> message := &lt;-claim.Messages():<br>			log.Printf(<span class="hljs-string">&quot;Message claimed: value = %s, timestamp = %v, topic = %s&quot;</span>, <span class="hljs-type">string</span>(message.Value), message.Timestamp, message.Topic)<br>			<span class="hljs-comment">// 标记消息，并不是提交偏移量</span><br>			session.MarkMessage(message, <span class="hljs-string">&quot;&quot;</span>)<br>			<span class="hljs-comment">// 异步提交</span><br>			asyncOffset &lt;- <span class="hljs-keyword">struct</span>&#123;&#125;&#123;&#125;<br>		<span class="hljs-keyword">case</span> &lt;-session.Context().Done():<br>			log.Println(<span class="hljs-string">&quot;cancel consumer&quot;</span>)<br>			<span class="hljs-keyword">break</span> EXIT<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Tools/" class="category-chain-item">Tools</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Tools/" class="print-no-link">#Tools</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>KafKa 实战1</div>
+      <div>http://gondmhd.github.io/2024/05/27/tools/Kafka实战1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Gond</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/27/tools/Hexo%E7%BB%93%E5%90%88Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" title="Hexo blog">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hexo blog</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/27/linux/linux%E5%91%BD%E4%BB%A4/" title="常用linux笔记">
+                        <span class="hidden-mobile">常用linux笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

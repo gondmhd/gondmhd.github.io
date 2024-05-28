@@ -1,0 +1,877 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Gond">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用linux笔记">
+<meta property="og:url" content="http://gondmhd.github.io/2024/05/27/linux/linux%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="Gond">
+<meta property="og:description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071154535.png">
+<meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155281.png">
+<meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155510.png">
+<meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071157969.png">
+<meta property="article:published_time" content="2024-05-27T14:58:52.392Z">
+<meta property="article:modified_time" content="2024-05-27T14:58:52.392Z">
+<meta property="article:author" content="Gond">
+<meta property="article:tag" content="Linux笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071154535.png">
+  
+  
+  
+  <title>常用linux笔记 - Gond</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"gondmhd.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Gond</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="常用linux笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-27 22:58" pubdate>
+          2024年5月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          21k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          177 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">常用linux笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1、Linux系统命令"><a href="#1、Linux系统命令" class="headerlink" title="1、Linux系统命令"></a>1、Linux系统命令</h1><h2 id="linux离线安装net-tools"><a href="#linux离线安装net-tools" class="headerlink" title="linux离线安装net-tools"></a>linux离线安装net-tools</h2><p>需镜像站下载工具离线包</p>
+<p>rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装</p>
+<p>centos修改host文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">修改hosts文件<br><br>vim /etc/hosts<br>如：<br><br>127.0.0.1 http://www.baidu.com<br><br>修改完成后生效命令<br><br>/etc/init.d/network restart<br><br>nano /etc/ssh/sshd_config<br>ctl O<br>ctl X<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="查看机器是否虚拟化"><a href="#查看机器是否虚拟化" class="headerlink" title="查看机器是否虚拟化"></a>查看机器是否虚拟化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /proc/cpuinfo |grep vmx<br><span class="hljs-comment"># 有输出为支持虚拟化</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="echo命令写入文件"><a href="#echo命令写入文件" class="headerlink" title="echo命令写入文件"></a>echo命令写入文件</h2><ul>
+<li><p>echo内容 &gt;&gt; 文件 等价于末尾追加</p>
+</li>
+<li><p>echo内容 &gt; 文件 等价于清空原内容并重写</p>
+</li>
+<li><p>添加\n换行符可以实现多行写入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">echo &quot;内容1\n内容2&quot; &gt;&gt; 文件<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="sed命令写入"><a href="#sed命令写入" class="headerlink" title="sed命令写入"></a>sed命令写入</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs gradle">向文件添加行:<br>sed -i <span class="hljs-string">&#x27;行号a 添加的内容&#x27;</span> 文件<br><br>例如在第一行添加:<br>sed -i <span class="hljs-string">&#x27;1a 添加的第一行&#x27;</span> <span class="hljs-keyword">file</span><br><br>替换文件内容:<br>sed -i <span class="hljs-string">&#x27;s/old/new/g&#x27;</span> <span class="hljs-keyword">file</span><br><br>删除文件某一行:<br>sed -i <span class="hljs-string">&#x27;行号d&#x27;</span> <span class="hljs-keyword">file</span><br><br>将命令输出写入文件:<br>command | sed <span class="hljs-string">&#x27;脚本&#x27;</span> &gt; <span class="hljs-keyword">file</span><br><br>将文件内容输出到其他文件:<br>sed <span class="hljs-string">&#x27;脚本&#x27;</span> <span class="hljs-keyword">file</span> &gt; new_file<br><br>直接写入文件不读入:<br>sed -i <span class="hljs-string">&#x27;写入指令&#x27;</span> <span class="hljs-keyword">file</span><br><br>例如在文件最后一行添加内容:<br><br>sed -i <span class="hljs-string">&#x27;$a 新内容&#x27;</span> <span class="hljs-keyword">file</span><br>例如<br>sed -i <span class="hljs-string">&#x27;s/192.168.0.102/192.168.0.195/g&#x27;</span> <span class="hljs-regexp">/home/</span><span class="hljs-keyword">super</span><span class="hljs-regexp">/superdraw-v23.11.0/</span>datahub<span class="hljs-regexp">/tools/</span>setup_superdraw.sh<br><br>创建新文件并写入内容<br>如果文件不存在就新建:<br><br>sed -i <span class="hljs-string">&#x27;1i\content&#x27;</span> new_file<br><br>替换/修改指定行内容<br>例如替换第<span class="hljs-number">5</span>行内容:<br><br>sed -i <span class="hljs-string">&#x27;5c\replaced line&#x27;</span> <span class="hljs-keyword">file</span>		# replaced line 为要替换的内容<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="修改ip"><a href="#修改ip" class="headerlink" title="修改ip"></a>修改ip</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># vim /etc/sysconfig/network-scripts/ifcfg-网卡名</span><br>我们需要修改BOOTPROTO=<span class="hljs-string">&quot;static&quot;</span>也就是将dhcp改为static，<br><br>修改ONBOOT=<span class="hljs-string">&quot;yes&quot;</span> 意思是将网卡设置 为开机启用，<br><br>同时在文字下方添加<br><br>IPADDR=192.168.0.230 <span class="hljs-comment">#</span><br>静态IP  <br><br>GATEWAY=192.168.0.1 <span class="hljs-comment">#默认网关  </span><br><br>NETMASK=255.255.255.0 <span class="hljs-comment">#子网掩码  </span><br><br>DNS1=192.168.0.1 <span class="hljs-comment">#DNS 配置  </span><br><br>DNS2=8.8.8.8        <span class="hljs-comment">#谷歌地址</span><br>重启网卡<br>systemctl restart NetworkManager.service<br></code></pre></td></tr></table></figure>
+
+<h2 id="获取公网ip"><a href="#获取公网ip" class="headerlink" title="获取公网ip"></a>获取公网ip</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">linux 命令：curl cip.cc<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="shutdown命令"><a href="#shutdown命令" class="headerlink" title="shutdown命令"></a>shutdown命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">shutdown [选项] 时间 [警告信息]<br>选项:<br>-c：取消已经执行的 shutdown 命令；<br>-h：关机；<br>-r：重启；<br></code></pre></td></tr></table></figure>
+
+<h2 id="查看目录文件大小"><a href="#查看目录文件大小" class="headerlink" title="查看目录文件大小"></a>查看目录文件大小</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash">1.查看当前文件目录各个文件夹大小<br><span class="hljs-built_in">du</span> -h --max-depth=1<br><span class="hljs-comment">#查看指定目录  du -h --max-depth=1 /path</span><br>2、查看当前目录下所有目录及子目录大小<br><span class="hljs-built_in">du</span> -h - .<br>“.”代表当前目录下。也可以换成一个明确的路径<br><br>-h表示用K、M、G的人性化形式显示<br>Filesystem：文件系统<br>Size： 分区大小<br>Used： 已使用容量<br>Avail： 还可以使用的容量<br>Use%： 已用百分比<br>Mounted on： 挂载点　<br>相关命令：<br><br><span class="hljs-built_in">df</span> -hl：查看磁盘剩余空间<br><span class="hljs-built_in">df</span> -h：查看每个根路径的分区大小<br><span class="hljs-built_in">du</span> -sh [目录名]：返回该目录的大小<br><span class="hljs-built_in">du</span> -sm [文件夹]：返回该文件夹总M数<br><span class="hljs-built_in">du</span> -h [目录名]：查看指定文件夹下的所有文件大小（包含子文件夹）<br><br>查看系统日志配置文件<br><span class="hljs-built_in">cat</span> /etc/rsyslog.conf<br></code></pre></td></tr></table></figure>
+
+<h2 id="查找文件或者目录"><a href="#查找文件或者目录" class="headerlink" title="查找文件或者目录"></a>查找文件或者目录</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">查找目录下是否包含某个目录</span><br>find /path/to/directory -type d -name &quot;directory_name&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查找目录下是否包含某个文件</span><br>find /path/to/directory -type f -name &quot;file_name&quot;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">启动防火墙： systemctl start firewalld<br>查看防火墙状态： systemctl status firewalld<br>停止防火墙： systemctl stop firewalld<br>禁用防火墙： systemctl <span class="hljs-built_in">disable</span> firewalld<br>查看已经开放的端口 firewall-cmd --list-ports<br><br>开启指定端口（需 systemctl reload firewalld）<br>firewall-cmd --zone=public --add-port=[端口号]/[协议] --permanent<br>firewall-cmd --zone=public --add-port=80/tcp --permanent<br><br>--zone=&lt;zone&gt; <span class="hljs-comment"># 指定 zone</span><br>--add-port=&lt;portid&gt;]/&lt;protocol&gt; <span class="hljs-comment"># 端口id / 协议</span><br>--permanent <span class="hljs-comment"># 永久开启，不添加则重启失效</span><br><br>关闭指定端口（需 systemctl reload firewalld）<br>firewall-cmd --zone=public –remove-port=[端口号]/[协议] --permanent<br>firewall-cmd --zone=public –remove-port=80/tcp --permanent<br></code></pre></td></tr></table></figure>
+
+<p>centos scp传输命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp ./code.tar.gz root@192.168.5.16:/root/laozhao/<br>SA V3.1.1.0323-Release<br></code></pre></td></tr></table></figure>
+
+<h2 id="tar使用命令"><a href="#tar使用命令" class="headerlink" title="tar使用命令"></a>tar使用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar x[z|J]f SMC-V1.0.0-2021xxxxxx-linux-x86_64-singleton.tar.[gz|xz]<br>不同格式压缩包使用不同命令参数解压，gz 格式使用 xzf 参数解压，xz 格式使用 xJf 参数解压<br></code></pre></td></tr></table></figure>
+
+<h2 id="Centos7性能查看"><a href="#Centos7性能查看" class="headerlink" title="Centos7性能查看"></a>Centos7性能查看</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">linux CPU大小<br><span class="hljs-built_in">cat</span> /proc/cpuinfo |grep <span class="hljs-string">&quot;model name&quot;</span> &amp;&amp; <span class="hljs-built_in">cat</span> /proc/cpuinfo |grep <span class="hljs-string">&quot;physical id&quot;</span><br>或者 lscpu<br>内存大小<br><span class="hljs-built_in">cat</span> /proc/meminfo |grep MemTotal或者（free -m  total显示总内存 ）<br>硬盘大小<br>fdisk -l |grep Disk<br></code></pre></td></tr></table></figure>
+
+<h2 id="centos7查看系统版本"><a href="#centos7查看系统版本" class="headerlink" title="centos7查看系统版本"></a>centos7查看系统版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /etc/redhat-release<br></code></pre></td></tr></table></figure>
+
+<h2 id="centos7查看进程占用端口"><a href="#centos7查看进程占用端口" class="headerlink" title="centos7查看进程占用端口"></a>centos7查看进程占用端口</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"> netstat -tunlp | grep 端口号<br> <span class="hljs-comment">#t：表示查看tcp</span><br> <span class="hljs-comment">#u：表示查看udp</span><br> <span class="hljs-comment">#p：表示占用端口的进程</span><br> <span class="hljs-comment">#n：表示端口以数字形式表示，没有n直接显示服务名</span><br> <span class="hljs-comment">#l：表示显示所监听的端口</span><br><br>查看所有tcp连接包括LISTEN状态<br><span class="hljs-comment"># netstat -an |grep tcp</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="yum安装卡住"><a href="#yum安装卡住" class="headerlink" title="yum安装卡住"></a>yum安装卡住</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum clean all<br>yum makecache  <span class="hljs-comment">#卡住等待运行完</span><br>yum update<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">1. 安装tcpdump工具<br>rpm -ql tcpdump　　　　　　　　　　<span class="hljs-comment">#查看tcpdump是否安装</span><br>yum install tcpdump -y<br>2.  tcpdump抓包<br>根据协议和端口抓包<br>tcpdump -i eth0 udp port 694 -n　　　　　　　　　　　　　 <span class="hljs-comment">#-i指定网卡信息  udp协议</span><br>tcpdump -i eth0 tcp  port 8088 -n　　  　　　　　　　　　　 <span class="hljs-comment">#port 8088端口   tcp协议</span><br>tcpdump -i eth0 port 8088 -c 3 -t -w /tmp/tcpdump.pcap　　　<span class="hljs-comment">#-c指定抓包数量   -t不显示时间戳  -w指定存放路径　</span><br>根据主机抓包<br>tcpdump host 192.168.0.204 and 192.168.0.205　　　　　　<span class="hljs-comment">#两台主机之间通信抓包</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="linux-下查看网卡流量"><a href="#linux-下查看网卡流量" class="headerlink" title="linux 下查看网卡流量"></a>linux 下查看网卡流量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#yum install -y iftop </span><br>iftop -i 网卡名<br></code></pre></td></tr></table></figure>
+
+<p>centos7配置清华源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">备份原文件<br>sudo sed -e <span class="hljs-string">&#x27;s|^mirrorlist=|#mirrorlist=|g&#x27;</span> \<br>         -e <span class="hljs-string">&#x27;s|^#baseurl=http://mirror.centos.org/centos|baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos|g&#x27;</span> \<br>         -i.bak \<br>         /etc/yum.repos.d/CentOS-*.repo<br>sudo yum clean all<br>sudo yum makecache<br>yum update<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Debian12配置清华源"><a href="#Debian12配置清华源" class="headerlink" title="Debian12配置清华源"></a>Debian12配置清华源</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">cp</span> /etc/apt/sources.list /etc/apt/sources.list.back			<span class="hljs-comment"># 备份文件</span><br><br><span class="hljs-built_in">cat</span> &gt; /etc/apt/sources.list &lt;&lt; <span class="hljs-string">EOF</span><br><span class="hljs-string">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware </span><br><span class="hljs-string">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware</span><br><span class="hljs-string">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware</span><br><span class="hljs-string">deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware</span><br><span class="hljs-string">EOF</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="清理所有相关进程"><a href="#清理所有相关进程" class="headerlink" title="清理所有相关进程"></a>清理所有相关进程</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps -ef | grep benthos* | grep -v grep | awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span> | xargs <span class="hljs-built_in">kill</span> -9   <span class="hljs-comment"># benthos* 进程名</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Debian12系统打包软件离线包"><a href="#Debian12系统打包软件离线包" class="headerlink" title="Debian12系统打包软件离线包"></a>Debian12系统打包软件离线包</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">打包</span><br>mkdir packages &amp;&amp; cd packages<br>apt download vim iftop sudo telnet -d   # 会在packages目录下生成deb离线包，拷贝到别的服务器<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装</span><br>dpkg -i *.deb<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">现实情况 需要将某台安装好的服务器上的软件包全部打包</span><br>cd /var/cache/apt/archives<br>tar -czvf archives.tar.gz archives/<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">上传安装</span><br>dpkg -i *.deb<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="ubuntu-资源监视器"><a href="#ubuntu-资源监视器" class="headerlink" title="ubuntu 资源监视器"></a>ubuntu 资源监视器</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">gnome-system-monitor<br></code></pre></td></tr></table></figure>
+
+<h2 id="linux建立软连接"><a href="#linux建立软连接" class="headerlink" title="linux建立软连接"></a>linux建立软连接</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ln -s 源文件 目标连接<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="2、centos下安装mysql数据库"><a href="#2、centos下安装mysql数据库" class="headerlink" title="2、centos下安装mysql数据库"></a>2、centos下安装mysql数据库</h1><h2 id="1、添加MariaDB的repo源："><a href="#1、添加MariaDB的repo源：" class="headerlink" title="1、添加MariaDB的repo源："></a>1、添加MariaDB的repo源：</h2><p>进入&#x2F;etc&#x2F;yum.repos.d下，添加CentOS-MariaDB.repo文件，其中添加内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># MariaDB 10.3 CentOS repository list - created 2018-05-26 07:55 UTC</span><br><span class="hljs-comment"># http://downloads.mariadb.org/mariadb/repositories/</span><br>[mariadb]<br>name = MariaDB<br>baseurl = http://yum.mariadb.org/10.3/centos7-amd64<br>gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB<br>gpgcheck=1<br><span class="hljs-comment"># 卸载mariadb仓库</span><br>rpm -qa | grep mariadb<br>rpm -e --nodeps mariadb-libs-5.5.68-1.el7.x86_64<br></code></pre></td></tr></table></figure>
+
+<h2 id="2、清除Yum的缓存并重新建立"><a href="#2、清除Yum的缓存并重新建立" class="headerlink" title="2、清除Yum的缓存并重新建立"></a>2、清除Yum的缓存并重新建立</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum clean all<br>yum makecache<br></code></pre></td></tr></table></figure>
+
+<h2 id="3、打印MariaDB源中的软件包："><a href="#3、打印MariaDB源中的软件包：" class="headerlink" title="3、打印MariaDB源中的软件包："></a>3、打印MariaDB源中的软件包：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum list --disablerepo=\* --enablerepo=mariadb<br><br><span class="hljs-built_in">test</span>为测试工具，backup为备份工具<br></code></pre></td></tr></table></figure>
+
+<h2 id="4、安装MariaDB数据库："><a href="#4、安装MariaDB数据库：" class="headerlink" title="4、安装MariaDB数据库："></a>4、安装MariaDB数据库：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum install MariaDB-client MariaDB-server MariaDB-devel -y<br></code></pre></td></tr></table></figure>
+
+<h2 id="5、启动数据库并设置为开机自启"><a href="#5、启动数据库并设置为开机自启" class="headerlink" title="5、启动数据库并设置为开机自启"></a>5、启动数据库并设置为开机自启</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">1、启动maria DB服务:<br><span class="hljs-comment"># systemctl start mariadb.service</span><br>2、添加至开机自启动：<br><span class="hljs-comment"># systemctl enable mariadb.service</span><br>3、查看数据库状态<br><span class="hljs-comment"># systemctl status mariadb</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="6、初始化数据库，并删除测试数据库及更改权限和设置密码"><a href="#6、初始化数据库，并删除测试数据库及更改权限和设置密码" class="headerlink" title="6、初始化数据库，并删除测试数据库及更改权限和设置密码"></a>6、初始化数据库，并删除测试数据库及更改权限和设置密码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">初始化数据库配置<br><br>mysql_secure_installation<br><br>首先是设置密码，会提示先输入密码：<br><br>设置密码<br><br>Enter current password <span class="hljs-keyword">for</span> root (enter <span class="hljs-keyword">for</span> none):&lt;–直接回车<br><br>Set root password? [Y/n] &lt;– 是否设置root用户密码，输入y并回车或直接回车<br>New password: &lt;– 设置root用户的密码<br>Re-enter new password: &lt;– 再输入一次你设置的密码<br>其他配置<br><br>Remove anonymous <span class="hljs-built_in">users</span>? [Y/n] &lt;– 是否删除匿名用户，Y回车<br><br>Disallow root login remotely? [Y/n] &lt;–是否禁止root远程登录, N回车,<br><br>Remove <span class="hljs-built_in">test</span> database and access to it? [Y/n] &lt;– 是否删除<span class="hljs-built_in">test</span>数据库，Y回车<br><br>Reload privilege tables now? [Y/n] &lt;– 是否重新加载权限表，Y回车<br><br>初始化MariaDB完成，接下来测试本地登录。<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-检查是否启动成功"><a href="#7-检查是否启动成功" class="headerlink" title="7.检查是否启动成功"></a>7.检查是否启动成功</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl status mysqld.service<br></code></pre></td></tr></table></figure>
+
+<h3 id="8-通过密码登录，进行修改密码操作-可不操作"><a href="#8-通过密码登录，进行修改密码操作-可不操作" class="headerlink" title="8.通过密码登录，进行修改密码操作(可不操作)"></a>8.通过密码登录，进行修改密码操作(可不操作)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mysql -uroot -p<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">USER</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;super000&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="9-授权其他机器远程登录"><a href="#9-授权其他机器远程登录" class="headerlink" title="9.授权其他机器远程登录"></a>9.授权其他机器远程登录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">GRANT ALL PRIVILEGES ON *.* TO <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED BY <span class="hljs-string">&#x27;super000&#x27;</span> WITH GRANT OPTION;<br> <br>FLUSH PRIVILEGES;<br></code></pre></td></tr></table></figure>
+
+<h3 id="10、连接数据库，并查询版本"><a href="#10、连接数据库，并查询版本" class="headerlink" title="10、连接数据库，并查询版本"></a>10、连接数据库，并查询版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">mysql -uroot -p -A<br><br>其中-u制定用户，-p使用密码，-A为不预先读取数据库。<br><br>MariaDB [(none)]&gt; <span class="hljs-keyword">select</span> version();<br>+-----------------+<br>| version()       |<br>+-----------------+<br>| 10.3.32-MariaDB |<br>+-----------------+<br>1 row <span class="hljs-keyword">in</span> <span class="hljs-built_in">set</span> (0.000 sec)<br><br>show full processlist;<br>可查看当前用户，及登陆地址，选择的数据库，数据库引擎。<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="11-设置Mariadb的字符集为UTF-8，令其支持中文"><a href="#11-设置Mariadb的字符集为UTF-8，令其支持中文" class="headerlink" title="11.设置Mariadb的字符集为UTF-8，令其支持中文"></a>11.设置Mariadb的字符集为UTF-8，令其支持中文</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">1.查看当前编码：<br>show variables like <span class="hljs-string">&#x27;character%&#x27;</span>; <br>show variables like <span class="hljs-string">&#x27;collation%&#x27;</span>;<br>2.退出数据库（<span class="hljs-built_in">exit</span>），<br>3.修改配置文件 vim /etc/my.cnf.d/server.cnf<br>在mysqld下添加 character-set-server = utf8<br>              collation-server = utf8_general_ci<br>              skip-character-set-client-handshake<br>              注意去掉前面的<span class="hljs-comment">#号</span><br>4.重启 数据库 systemctl restart mariadb<br>5.进入数据库 mysql -uroot -p<br>6.查看字符集编码<br></code></pre></td></tr></table></figure>
+
+<h3 id="12-防火墙开放3306端口"><a href="#12-防火墙开放3306端口" class="headerlink" title="12.防火墙开放3306端口"></a>12.防火墙开放3306端口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">firewall-cmd --state<br>firewall-cmd --zone=public --add-port=3306/tcp --permanent<br>firewall-cmd --zone=public --add-port=80-90/tcp --permanent   <span class="hljs-comment">#作用域是public，批量开放tcp协议的80-90端口，一直有效</span><br>firewall-cmd --zone=public --add-port=80/tcp --add-port=90/tcp --permanent  <span class="hljs-comment">#作用域是public，批量开放tcp协议的80、90端口，一直有效</span><br>firewall-cmd --zone=public --add-service=http --permanent <span class="hljs-comment">#开放的服务是http协议，一直有效</span><br>firewall-cmd --reload<br><br>停止防火墙： systemctl stop firewalld<br>禁用防火墙： systemctl <span class="hljs-built_in">disable</span> firewalld<br></code></pre></td></tr></table></figure>
+
+<h3 id="13-数据库的操作"><a href="#13-数据库的操作" class="headerlink" title="13.数据库的操作"></a>13.<a target="_blank" rel="noopener" href="https://cloud.tencent.com/solution/database?from=10680">数据库</a>的操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">（1）查看mysql是否启动：service mariadb status<br><br>启动mysql：systemctl start mariadb<br><br>停止mysql：systemctl stop mariadb<br><br>重启mysql：systemctl restart mariadb<br><br>（2）查看数据库版本 mysql -V<br></code></pre></td></tr></table></figure>
+
+<h2 id="7-JDK配置"><a href="#7-JDK配置" class="headerlink" title="7 JDK配置"></a>7 JDK配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看服务器上是否有Java安装包</span><br>rpm -qa | grep java<br><br><span class="hljs-comment"># 查看Linux系统是否有自带的jdk</span><br>java -version<br><br><span class="hljs-comment"># 上传安装包 解压，配置/etc/profile</span><br>tar -xzvf jdk-11.0.1_linux-x64_bin.tar.gz<br>[root@ecs-dc44 data]<span class="hljs-comment"># cd jdk-11.0.1</span><br>[root@ecs-dc44 jdk-11.0.1]<span class="hljs-comment"># pwd</span><br>/data/jdk-11.0.1<br><br><span class="hljs-comment"># 配置文件路径</span><br><span class="hljs-built_in">export</span> JAVA_HOME=/data/jdk-11.0.1<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$JAVA_HOME</span>/bin:<span class="hljs-variable">$PATH</span><br><span class="hljs-built_in">export</span> CLASSPATH=.:<span class="hljs-variable">$JAVA_HOME</span>/lib/dt.jar:<span class="hljs-variable">$JAVA_HOME</span>/lib/tools.jar<br><br><span class="hljs-comment"># 刷新</span><br><span class="hljs-built_in">source</span> /etc/profile<br><br></code></pre></td></tr></table></figure>
+
+<h1 id="3、Linux下安装python3"><a href="#3、Linux下安装python3" class="headerlink" title="3、Linux下安装python3"></a>3、Linux下安装python3</h1><h3 id="1、依赖安装"><a href="#1、依赖安装" class="headerlink" title="1、依赖安装"></a>1、依赖安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc是一个用于linux系统下编程的编译器，由于python3需要编译安装，因此，需要首先安装gcc。先查看一下系统中，是否安装了gcc。<br><span class="hljs-comment"># gcc -version</span><br>未安装需要安装<br><span class="hljs-comment"># yum -y install gcc</span><br>编译安装python3过程中，根据系统本身的依赖，可能出现的不同的报错信息。提前按照好依赖包<br>yum -y install zlib* libffi-devel openssl-devel wget<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-python3-下载"><a href="#2-python3-下载" class="headerlink" title="2 python3 下载"></a>2 python3 下载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># cd ~ </span><br><span class="hljs-comment"># wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz</span><br><span class="hljs-comment"># wget https://www.python.org/ftp/python/3.9.9/Python-3.9.9.tgz</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-python3编译安装"><a href="#3-python3编译安装" class="headerlink" title="3 python3编译安装"></a>3 python3编译安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">解压下载的python3压缩包<br><span class="hljs-comment"># tar -zxvf Python-3.7.0.tgz</span><br>新建一个python3的安装目录(位置可自定义)<br><span class="hljs-comment"># mkdir /usr/lib/python3.7</span><br>进入Python-3.7.0目录下，「指定安装目录，设置启用ssl功能<br><span class="hljs-comment"># cd Python-3.7.0</span><br>./configure --prefix=/usr/lib/python3.7 --with-ssl<br>编译安装<br><span class="hljs-comment"># make &amp;&amp; make install</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4创建软连接"><a href="#4创建软连接" class="headerlink" title="4创建软连接"></a>4创建软连接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">上述步骤完成后，其实python3已经安装完毕，但是为了方便使用，一般会创建python3和pip3的软连接。创建后可直接在终端通过python命令进入python和pip3命令安装python包<br><br>创建python3和pip3软连接：<br><span class="hljs-comment"># ln -s /usr/lib/python3.7/bin/python3.7 /usr/bin/python3</span><br><span class="hljs-comment"># ln -s /usr/lib/python3.7/bin/pip3.7 /usr/bin/pip3</span><br><span class="hljs-comment"># ln -s /usr/bin/pip3 /usr/bin/pip</span><br><br>系统默认的python软连接指向的是python2，如果我们需要更方便使用，可以删除原有的python软连接，并建立新的python软连接指向python3<br><br><span class="hljs-comment"># rm -f /usr/bin/python</span><br><span class="hljs-comment"># ln -s /usr/bin/python3 /usr/bin/python</span><br><br>查看最新的有python的软连接<br><span class="hljs-comment"># python --version</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="5修改yum配置"><a href="#5修改yum配置" class="headerlink" title="5修改yum配置"></a>5修改yum配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">修改yum配置文件，下面两个文件都要修改<br><span class="hljs-comment"># vi /usr/bin/yum</span><br><span class="hljs-comment"># vi /usr/libexec/urlgrabber-ext-down</span><br>按i进入编辑模式，在第一行<span class="hljs-comment">#!/usr/bin/python把修改为#!/usr/bin/python2.7</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="6联网快速安装方法"><a href="#6联网快速安装方法" class="headerlink" title="6联网快速安装方法"></a>6联网快速安装方法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash">3、安装Python3：（此方法默认为3.6，无法安装3.7）<br>yum install python3 -y<br>yum -y install epel-release<br>yum -y install python-pip<br><br>备份旧的Python的默认执行程序　　<br><span class="hljs-built_in">mv</span> /usr/bin/python /usr/bin/python.bak.$(<span class="hljs-built_in">date</span> +%F).$(<span class="hljs-built_in">date</span> +%R)<br>使用Python3软链接替代Python默认执行程序　　<br><span class="hljs-built_in">ln</span> -s /usr/bin/python3 /usr/bin/python<br><br>修改以下文件的开头第一行内容，把python改成python2.7(不修改yum命令无法使用)<br><br>/usr/bin/yum<br>/usr/libexec/urlgrabber-ext-down<br>/usr/bin/yum-config-manager<br>查看Python替换正常，且yum可用　　<br>yum --version<br>python --version<br><br>卸载python3.6.x<br><br>rpm -qa|grep python3|xargs rpm -ev --allmatches --nodeps<br>whereis python3 |xargs <span class="hljs-built_in">rm</span> -frv<br></code></pre></td></tr></table></figure>
+
+<h1 id="4、linux-自带python-搭建http服务"><a href="#4、linux-自带python-搭建http服务" class="headerlink" title="4、linux 自带python 搭建http服务"></a>4、linux 自带python 搭建http服务</h1><h2 id="1、版本说明（内置库）"><a href="#1、版本说明（内置库）" class="headerlink" title="1、版本说明（内置库）"></a>1、版本说明（内置库）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">如果python版本为2.x，输入命令：<br><br>python -m SimpleHTTPServer 8000<br><br>（8000为端口号，如果不指定则默认8000端口）<br><br><span class="hljs-comment">######################################</span><br><br>如果python版本为3.x，输入命令：<br><br>python -m http.server 8000<br><br>（8000为端口号，如果不指定则默认8000端口）<br><br>默认位当前目录<br></code></pre></td></tr></table></figure>
+
+<h2 id="2、配置后台关闭bash窗口运行"><a href="#2、配置后台关闭bash窗口运行" class="headerlink" title="2、配置后台关闭bash窗口运行"></a>2、配置后台关闭bash窗口运行</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs markdown">nohup python -m SimpleHTTPServer 8000 &amp;    #python2.0<br><br>nohup python -m http.server 8000 &amp;		# python3.0<br><br>在命令的开头加一个nohup，忽略所有的挂断信号，如果当前bash关闭，则当前进程会挂载到init进程下，成为其子进程，这样即使退出当前用户，其8000端口也可以使用<br>在上述命令的最后加一个 &amp; ，则该命令产生的进程在后台运行，不会影响当前终端的使用（我们在只有一个bash的环境下）<br><br>配置sh脚本<br>nohup python -m SimpleHTTPServer 8080 &gt;/home/httplog/http.log 2&gt;&amp;1 &amp;  	# /home/httplog/http.log为输出文件日志路径<br></code></pre></td></tr></table></figure>
+
+<h1 id="5、xshell代理服务器连接"><a href="#5、xshell代理服务器连接" class="headerlink" title="5、xshell代理服务器连接"></a>5、xshell代理服务器连接</h1><h2 id="5、1-window设置"><a href="#5、1-window设置" class="headerlink" title="5、1 window设置"></a>5、1 window设置</h2><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tex">1、本地下載openSSH，根据代理服务器的环境下载<br>下载地址：https://github.com/PowerShell/Win32-OpenSSH/releases<br>2、下载完毕解压安装<br>以管理员身份cmd进入解压目录下，执行<br>powershell.exe -ExecutionPolicy Bypass -File install-sshd.ps1<br>3、防火墙高级设置里面添加22端口的tcp入站规则<br>4、系统服务里面启动openSSH相关服务<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-2-xshell隧道代理设置"><a href="#5-2-xshell隧道代理设置" class="headerlink" title="5.2  xshell隧道代理设置"></a>5.2  xshell隧道代理设置</h2><h3 id="5-2-1-建立跳板机连接"><a href="#5-2-1-建立跳板机连接" class="headerlink" title="5.2.1 建立跳板机连接"></a>5.2.1 建立跳板机连接</h3><p>首先建立跳板机的连接，并配置隧道。打开<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=XShell&spm=1001.2101.3001.7020">XShell</a>点击文件菜单再点击新建弹出新建会话属性窗口，名称就取为跳板机，端口是22，主机填写前面假设的ip地址。如下图所示：</p>
+<p><img src="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071154535.png" srcset="/img/loading.gif" lazyload alt="image-20220630163450501"></p>
+<h3 id="5-2-2-填写跳板机用户名密码"><a href="#5-2-2-填写跳板机用户名密码" class="headerlink" title="5.2.2 填写跳板机用户名密码"></a>5.2.2 填写跳板机用户名密码</h3><p>点击用户身份验证，填写登录跳板机的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=SSH&spm=1001.2101.3001.7020">SSH</a>用户名和密码如下图所示：</p>
+<p><img src="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155281.png" srcset="/img/loading.gif" lazyload alt="image-20220630163646503"></p>
+<h3 id="5-2-3-防止跳板机连接过久自动断开"><a href="#5-2-3-防止跳板机连接过久自动断开" class="headerlink" title="5.2.3 防止跳板机连接过久自动断开"></a>5.2.3 防止跳板机连接过久自动断开</h3><p>为防止跳板机连接过久自动断开，所以这里添加登录脚本直接发送top命令。点击登录脚本，勾选上执行以下等待并发送规则，点击添加弹出等待发送规则添加窗口，在发送框填写top。具体配置看图：</p>
+<p><img src="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155510.png" srcset="/img/loading.gif" lazyload alt="image-20220630163747497"></p>
+<h3 id="5-2-4-配置内网隧道"><a href="#5-2-4-配置内网隧道" class="headerlink" title="5.2.4 配置内网隧道"></a>5.2.4 <strong>配置内网隧道</strong></h3><p>接下来继续配置连接内网服务器的隧道，点击隧道再点击添加按钮进入隧道添加页面，源主机为本机localhost，侦听端口可以在有效范围内随便填写，这里为了区分连接内网哪台服务器，所以用内网服务器ip最后一位加22即522作为侦听端口。目标主机就是我们要通过跳板机访问的内网主机，端口是22。同样的操作再配置一个连接192.168.100.6的隧道，端口不能与522冲突，按刚才的规则可以用622端口。具体配置如下图：</p>
+<p><img src="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071157969.png" srcset="/img/loading.gif" lazyload alt="image-20220630163839280"></p>
+<h3 id="5-2-5-登录跳板机并连接内网服务器"><a href="#5-2-5-登录跳板机并连接内网服务器" class="headerlink" title="5.2.5 登录跳板机并连接内网服务器"></a>5.2.5 <strong>登录跳板机并连接内网服务器</strong></h3><p>到此跳板机的配置已经完成了，下面来建立通过跳板机登录内网服务器的连接会话，首先还是进入新建会话属性窗口，注意一下这次的配置，主机为localhost，侦听端口为刚才的522，即这个配置连接之后是访问内网的192.168.100.5服务器</p>
+<h1 id="6、允许以root用户登录操作系统"><a href="#6、允许以root用户登录操作系统" class="headerlink" title="6、允许以root用户登录操作系统"></a>6、<strong>允许以root用户登录操作系统</strong></h1><h3 id="6-1-修改-etc-gdm3-daemon-conf文件"><a href="#6-1-修改-etc-gdm3-daemon-conf文件" class="headerlink" title="6.1 修改&#x2F;etc&#x2F;gdm3&#x2F;daemon.conf文件"></a>6.1 修改&#x2F;etc&#x2F;gdm3&#x2F;daemon.conf文件</h3><p>新增下面一行AllowRoot &#x3D; true</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tex">[security]<br> <br>AllowRoot = true<br></code></pre></td></tr></table></figure>
+
+<h4 id="6-2修改-etc-pam-d-gdm-password"><a href="#6-2修改-etc-pam-d-gdm-password" class="headerlink" title="6.2修改&#x2F;etc&#x2F;pam.d&#x2F;gdm-password"></a>6.2修改&#x2F;etc&#x2F;pam.d&#x2F;gdm-password</h4><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tex">注释掉下面内容<br><br><span class="hljs-params">#</span>auth required pam<span class="hljs-built_in">_</span>succeed<span class="hljs-built_in">_</span>if.so user != root quiet<span class="hljs-built_in">_</span>success<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="6-3修改-etc-ssh-sshd-config"><a href="#6-3修改-etc-ssh-sshd-config" class="headerlink" title="6.3修改&#x2F;etc&#x2F;ssh&#x2F;sshd_config"></a>6.3修改&#x2F;etc&#x2F;ssh&#x2F;sshd_config</h3><p>将</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">PermitRootLogin prohibit-password<br></code></pre></td></tr></table></figure>
+
+<p>修改为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">PermitRootLogin <span class="hljs-built_in">yes</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="7、linux格式化硬盘-挂载"><a href="#7、linux格式化硬盘-挂载" class="headerlink" title="7、linux格式化硬盘 挂载"></a>7、linux格式化硬盘 挂载</h1><h2 id="1、查看硬盘信息"><a href="#1、查看硬盘信息" class="headerlink" title="1、查看硬盘信息"></a>1、查看硬盘信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># fdisk -l</span><br><br>Disk /dev/sda: 146.1 GB, 146163105792 bytes<br><br>255 heads, 63 sectors/track, 17769 cylinders<br><br>Units = cylinders of 16065 * 512 = 8225280 bytes<br><br>    Device Boot       Start          End       Blocks    Id   System<br><br>/dev/sda1    *            1           13       104391    83   Linux<br><br>/dev/sda2               14         5112     40957717+   83   Linux<br><br>/dev/sda3             5113         5243      1052257+   82   Linux swap /<br><br>Solaris<br><br>/dev/sda4             5244        17769    100615095     5   Extended<br><br>/dev/sda5             5244        17769    100615063+   83   Linux<br><br>Disk /dev/sdb: 291.3 GB, 291331192320 bytes<br><br>255 heads, 63 sectors/track, 17769 cylinders<br><br>Units = cylinders of 16065 * 512 = 8225280 bytes<br><br>Disk /dev/sdb1: 291.3 GB, 291331192320 bytes<br></code></pre></td></tr></table></figure>
+
+<h2 id="2、创建新硬盘分区"><a href="#2、创建新硬盘分区" class="headerlink" title="2、创建新硬盘分区"></a>2、创建新硬盘分区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs bash">fdisk可以用m命令来看fdisk命令的内部命令；<br><br>a：命令指定启动分区；<br><br>d：命令删除一个存在的分区；<br><br>l：命令显示分区ID号的列表；<br><br>m：查看fdisk命令帮助；<br><br>n：命令创建一个新分区；<br><br>p：命令显示分区列表；<br><br>t：命令修改分区的类型ID号；<br><br>w：命令是将对分区表的修改存盘让它发生作用。<br><br> <span class="hljs-comment">#fdisk /dev/sdb</span><br><br>Command (m <span class="hljs-keyword">for</span> <span class="hljs-built_in">help</span>):n<br><br>Command action<br><br>　　   e    extended    //输入e为创建扩展分区<br><br>　　   p    primary partition (1-4)<br><br>Partion number(1-4)：1<br><br>Command (m <span class="hljs-keyword">for</span> <span class="hljs-built_in">help</span>): w<br><br>输入n回车，再输入p回车，再输出1回车，一路回车，最后输入w回车保存。<br><br>查看一下：<br><br>fdisk -l<br><br>可以看到/dev/sdb1分区<br></code></pre></td></tr></table></figure>
+
+<h2 id="3、格式化分区"><a href="#3、格式化分区" class="headerlink" title="3、格式化分区"></a>3、格式化分区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mkfs.ext3 /dev/sdb1<br></code></pre></td></tr></table></figure>
+
+<h2 id="4、创建-data1目录："><a href="#4、创建-data1目录：" class="headerlink" title="4、创建&#x2F;data1目录："></a>4、创建&#x2F;data1目录：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> /data1<br></code></pre></td></tr></table></figure>
+
+<h2 id="5、挂载分区"><a href="#5、挂载分区" class="headerlink" title="5、挂载分区"></a>5、挂载分区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mount /dev/sdb1 /data1<br></code></pre></td></tr></table></figure>
+
+<h2 id="6、配置开机自动挂载"><a href="#6、配置开机自动挂载" class="headerlink" title="6、配置开机自动挂载"></a>6、配置开机自动挂载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash">因为mount挂载在重启服务器后会失效，所以需要将分区信息写到/etc/fstab文件中让它永久挂载：<br><br>vi /etc/fstab<br><br>加入：<br><br>LABEL=/data1             /data1                   ext3     defaults         1 2<br><br>查看<span class="hljs-built_in">cat</span> /etc/fstab<br><br>LABEL=/                  /                        ext3     defaults         1 1<br><br>LABEL=/data              /data                    ext3     defaults         1 2<br><br>LABEL=/data1             /data1                   ext3     defaults         1 2<br><br>LABEL=/boot              /boot                    ext3     defaults         1 2<br><br>tmpfs                    /dev/shm                 tmpfs    defaults         0 0<br><br>devpts                   /dev/pts                 devpts   gid=5,mode=620   0 0<br><br>sysfs                    /sys                     sysfs    defaults         0 0<br><br>proc                     /proc                    proc     defaults         0 0<br><br>LABEL=SWAP-hda3          swap                     swap     defaults         0 0<br><br>重启系统<br></code></pre></td></tr></table></figure>
+
+<h1 id="8-openssl生成证书文件"><a href="#8-openssl生成证书文件" class="headerlink" title="8 openssl生成证书文件"></a>8 openssl生成证书文件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs bash">签署证书时不能直接绑定 IP 地址，因为证书是用于确认域名的身份，而不是特定的 IP 地址。<br><br>但是，您可以通过使用证书中的 SAN（Subject Alternative Name）扩展来绑定多个域名和 IP 地址。例如，您可以在生成 CSR 文件时使用以下命令：<br><br>openssl req -newkey rsa:2048 -nodes -keyout mykey.key -out mycsr.csr -subj <span class="hljs-string">&quot;/C=US/ST=California/L=San Francisco/O=Example Inc./CN=example.com/subjectAltName=DNS:example.com,IP:0.0.0.0&quot;</span><br><br>以上命令会生成一个包含以下内容的 CSR 文件：<br><br>    主域名：example.com<br>    IP 地址：0.0.0.0<br><br>颁发机构将使用该 CSR 签署证书，并在证书中包括主域名和 IP 地址的信息。<br><br>使用 OpenSSL 生成 p12 格式证书并配置的详细示例：<br><br>    首先，生成一对私钥和证书请求文件：<br><br>openssl req -newkey rsa:2048 -nodes -keyout mykey.key -out mycsr.csr<br><br>    您需要输入一些信息，如国家、省份、城市、组织名称等，证书请求文件 mycsr.csr 将使用这些信息生成。<br><br>    使用私钥和证书请求文件生成证书：<br><br>openssl x509 -req -days 365 -<span class="hljs-keyword">in</span> mycsr.csr -signkey mykey.key -out mycert.crt<br><br>    最后，使用证书和私钥生成 p12 格式证书：<br><br>openssl pkcs12 -<span class="hljs-built_in">export</span> -<span class="hljs-keyword">in</span> mycert.crt -inkey mykey.key -out mycert.p12<br><br>    您需要输入一个密码，该密码将用于保护 p12 证书的安全。请记住您输入的密码，因为您将需要在使用证书时输入该密码。<br>    <br> <br></code></pre></td></tr></table></figure>
+
+<h1 id="9、conda使用"><a href="#9、conda使用" class="headerlink" title="9、conda使用"></a>9、conda使用</h1><h2 id="conda是一款软件管理工具"><a href="#conda是一款软件管理工具" class="headerlink" title="conda是一款软件管理工具"></a>conda是一款软件管理工具</h2><ul>
+<li>miniconda 只包含了conda、python、和一些必备的软件工具</li>
+<li>anaconda 包含了数据科学和机器学习要用到的很多软件</li>
+</ul>
+<p>常见开发使用miniconda即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh --no-check-certificate<br><span class="hljs-comment"># 下载minicoda -c参数提供端点续传</span><br>bash Miniconda3-latest-Linux-x86_64.sh <span class="hljs-comment">#执行脚本安装</span><br>conda init		<span class="hljs-comment">#conda 初始化</span><br>conda create -n your_env_name python=3.9		<span class="hljs-comment">#conda 创建虚拟环境</span><br>conda activate your_env_name			<span class="hljs-comment">#conda激活虚拟环境</span><br>conda config --add envs_dirs newdir <span class="hljs-comment">#增加环境路径newdir</span><br>conda <span class="hljs-built_in">env</span> list			<span class="hljs-comment">#查看有哪些虚拟路径以及它们的存储路径，* 号表示当前所处的环境</span><br>conda <span class="hljs-built_in">env</span> remove --name PySanic			<span class="hljs-comment">#删除虚拟环境</span><br>deactivate					<span class="hljs-comment"># 退出虚拟环境</span><br>conda update conda			<span class="hljs-comment"># conda升级</span><br>conda config --show			<span class="hljs-comment"># 显示配置信息</span><br><span class="hljs-comment">## 设置清华镜像源</span><br>sudo vim ~/.condarc<br><br>将以下内容覆盖’.codnarc’文件里面所有内容<br>channels:<br>  - defaults<br>show_channel_urls: <span class="hljs-literal">true</span><br>default_channels:<br>  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main<br>  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r<br>  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2<br>custom_channels:<br>  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud<br>  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud<br>  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud<br>  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud<br>  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud<br>  pytorch-lts: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud<br>  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud<br>  deepmodeling: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/<br>  <br> <span class="hljs-comment"># 配置完清除索引缓存</span><br> conda clean -i<br><br><span class="hljs-comment"># 卸载Anaconda</span><br><span class="hljs-built_in">rm</span> -rf ~/anaconda3<br></code></pre></td></tr></table></figure>
+
+<p><strong>关闭初始化conda</strong></p>
+<p>查看配置</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua">conda <span class="hljs-built_in">config</span> <span class="hljs-comment">--show | grep auto_activate_base</span><br></code></pre></td></tr></table></figure>
+
+<p>关闭初始化</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">conda<span class="hljs-built_in"> config </span>--<span class="hljs-built_in">set</span> auto_activate_base <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="10-git使用"><a href="#10-git使用" class="headerlink" title="10 git使用"></a>10 git使用</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">git branch [branch name]			#创建本地分支<br>git checkout [branch name]		#切换到新分支<br>git checkout -b [branch name]									#创建分支同时也切换分支<br>git stash 						# 暂存文件<br>git stash list 					# 查看stash了哪些存储<br>git stash apply stash@&#123;$num&#125;		# 应用某个储存<br>git stash pop						# 恢复缓存之前<br>git stash drop stash@&#123;$num&#125;		# 丢弃stash@&#123;$num&#125;存储，从列表中删除这个存储<br>git stash clear					# 删除所有缓存的stash<br>git branch -d [branch-name]		# 删除分支<br></code></pre></td></tr></table></figure>
+
+<h1 id="11-安装docker"><a href="#11-安装docker" class="headerlink" title="11 安装docker"></a>11 安装docker</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">安裝docker</span><br>yum install -y yum-utils device-mapper-persistent-data net-tools telnet<br>yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo<br>yum -y install docker-ce.x86_64 <br>systemctl start docker <br>systemctl enable docker<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">安裝docker-compose(上传docker-compose,移动到/usr/local/bin目录下，并授权)</span><br>mv docker-compose /usr/local/bin/<br>chmod +x /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_">#</span><span class="language-bash">安装docker-compose</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">下载最新docker-compose 保存到/usr/local/bin/docker-compose</span><br>sudo curl -L &quot;https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_"># </span><span class="language-bash">授权</span><br>sudo chmod +x /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_"># </span><span class="language-bash">卸载</span><br>sudo rm /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看是否有docker用户组</span><br>cat /etc/group ｜ grep docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">没有的话添加</span><br>sudo groupadd docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加当前用户到docker组</span><br>sudo usermod -aG docker $USER<br><span class="hljs-meta prompt_"># </span><span class="language-bash">更新用户组</span><br>newgrp docker                      <br></code></pre></td></tr></table></figure>
+
+<h3 id="docker配置镜像加速方案"><a href="#docker配置镜像加速方案" class="headerlink" title="&#x3D;&#x3D;docker配置镜像加速方案&#x3D;&#x3D;"></a>&#x3D;&#x3D;docker配置镜像加速方案&#x3D;&#x3D;</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;&#123;</span><br><span class="hljs-string">    &quot;registry-mirrors&quot;:[</span><br><span class="hljs-string">        &quot;https://docker.m.daocloud.io/&quot;,</span><br><span class="hljs-string">        &quot;https://dockerproxy.com/&quot;,</span><br><span class="hljs-string">        &quot;https://docker.mirrors.ustc.edu.cn/&quot;,</span><br><span class="hljs-string">        &quot;https://docker.nju.edu.cn/&quot;</span><br><span class="hljs-string">    ],</span><br><span class="hljs-string">    &quot;data-root&quot;:&quot;/home/dockerdate&quot;,</span><br><span class="hljs-string">    &quot;log-driver&quot;:&quot;json-file&quot;,</span><br><span class="hljs-string">    &quot;log-opts&quot;:&#123;</span><br><span class="hljs-string">        &quot;max-size&quot;:&quot;512m&quot;,&quot;max-file&quot;:&quot;3&quot;</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">&#125;&#x27;</span> | sudo <span class="hljs-built_in">tee</span> /etc/docker/daemon.json<br><br></code></pre></td></tr></table></figure>
+
+<p>重启docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl restart docker<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="12、Debian安装Wireshark"><a href="#12、Debian安装Wireshark" class="headerlink" title="12、Debian安装Wireshark"></a>12、Debian安装Wireshark</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">1.打开终端并以root用户身份登录。<br><br>2. 运行以下命令以添加Wireshark的软件源： <br>echo &quot;deb http://deb.debian.org/debian buster main&quot; &gt;&gt; /etc/apt/sources.list<br>echo &quot;deb-src http://deb.debian.org/debian buster main&quot; &gt;&gt; /etc/apt/sources.list<br>echo &quot;deb http://security.debian.org/debian-security buster/updates main&quot; &gt;&gt; /etc/apt/sources.list<br>echo &quot;deb-src http://security.debian.org/debian-security buster/updates main&quot; &gt;&gt; /etc/apt/sources.list <br><br>3. 更新软件包列表： apt-get update <br>4. 现在，您应该可以安装Wireshark了：  apt-get install wireshark tshark -y<br></code></pre></td></tr></table></figure>
+
+<h1 id="13-Kafka命令"><a href="#13-Kafka命令" class="headerlink" title="13 Kafka命令"></a>13 Kafka命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">1、使用以下命令查看当前 Kafka 主题：<br>kafka-topics.sh --list --bootstrap-server localhost:9092<br>2、刪除主題<br>kafka-topics.sh --delete --bootstrap-server localhost:9092 --topic your_topic_name<br>3、创建主题<br>kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic my-topic<br><br>    --create：创建一个新主题。<br>    --bootstrap-server：指定要用于连接到 Kafka 集群的引导服务器地址。这应该是 Kafka 消息代理的主机名和端口号，例如 localhost:9092。<br>    --replication-factor：指定要为每个分区保留多少个副本。在生产环境中，通常将副本因子设置为 2 或更高，以确保数据冗余性和高可用性。单一副本的主题只有在测试或开发环境中才有意义。<br>    --partitions：指定要为主题创建的分区数。如果没有特殊需求，请在生产中创建多个分区以支持更好的伸缩性和吞吐量。<br>    --topic：指定要创建的主题名称。<br></code></pre></td></tr></table></figure>
+
+<h1 id="14-k8s相关命令"><a href="#14-k8s相关命令" class="headerlink" title="14 k8s相关命令"></a>14 k8s相关命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell">1、 查看节点<br>kubectl get nodes<br>2、查看Pod<br> kubectl get pods<br>3、删除Pods<br>kubectl delete pod &lt;pod-name&gt;<br>4、k8s查看所有命名空间<br>kubectl get namespaces<br>5、切换进入命名空间<br>kubectl config set-context --current --namespace=&lt;namespace&gt;<br>6、查看services<br>kubectl get services<br>7、刪除命名空间<br>kubectl delete namespace &lt;namespace-name&gt;<br>8、创建命令空间<br>kubectl create namespace &lt;namespace-name&gt;<br></code></pre></td></tr></table></figure>
+
+<h1 id="15-ES相关命令"><a href="#15-ES相关命令" class="headerlink" title="15 ES相关命令"></a>15 ES相关命令</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs apl">1、创建索引：（指定索引最大字段数）<br>PUT /benthos<br>&#123;<br>  &quot;settings&quot;: &#123;<br>    &quot;index.mapping.total_fields.limit&quot;: 10000<br>  &#125;<br>  &#125;<br><br>2、查看索引列表：<br>curl -X GET &quot;localhost:9200/_cat/indices?v&quot;<br><br>3、向索引中添加文档：<br>curl -X POST &quot;localhost:9200/your_index/_doc&quot; -H &#x27;Content-Type: application/json&#x27; -d &#x27;&#123;<br>  &quot;field1&quot;: &quot;value1&quot;,<br>  &quot;field2&quot;: &quot;value2&quot;<br>&#125;&#x27;<br><br>4、获取单个文档：<br>curl -X GET &quot;localhost:9200/your_index/_doc/your_document_id?pretty&quot;<br><br>5、更新文档：<br>curl -X POST &quot;localhost:9200/your_index/_doc/your_document_id/_update&quot; -H &#x27;Content-Type: application/json&#x27; -d &#x27;&#123;<br>  &quot;doc&quot;: &#123;<br>    &quot;new_field&quot;: &quot;new_value&quot;<br>  &#125;<br>&#125;&#x27;<br><br>6、删除索引：<br><br>7、查看索引内容：<br>http://192.168.0.71:9200/benthos/_search?q=*<br><br>8、修改索引字段数<br>PUT /索引名/_settings<br>&#123;<br>  &quot;index.mapping.total_fields.limit&quot;: 新的最大字段数<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="16-Tshark分包命令"><a href="#16-Tshark分包命令" class="headerlink" title="16 Tshark分包命令"></a>16 Tshark分包命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">安装<br>sudo apt install -y tshark<br><br>1 使用tshark分割包<br>tshark -r input.pcap -w output -C 1 -b filesize:1024<br><span class="hljs-comment"># tshark 同步发送</span><br>tshark -i eth0 -w capture.pcap &amp;&amp; $ rsync -avz capture.pcap user@remote.server:/path/to/remote/dir<br><span class="hljs-comment"># tshark 生成ek josn清除 索引行</span><br>tshark -r test2.pcap -T ek -E header=y -E separator=, -E occurrence=f | sed <span class="hljs-string">&#x27;/&#123;&quot;index&quot;:&#123;.*&#125;&#125;/d&#x27;</span> &gt; testek.json<br><span class="hljs-comment"># tshark过滤字段</span><br> 选项用于过滤要显示或处理的数据包。您可以使用 Wireshark Display Filters 语法来定义过滤条件，以限制结果集中的数据包。例如，您可以使用 -Y <span class="hljs-string">&quot;ip.src == 192.168.0.1&quot;</span> 来仅显示源IP地址为 192.168.0.1 的数据包。<br><br>-e 选项用于指定在输出中显示的字段。您可以使用 tshark 的字段名称或编码来提取感兴趣的特定字段。例如，您可以使用 -e frame.number -e ip.src -e tcp.dstport 来获取每个数据包的帧编号、源IP地址和目标TCP端口号。<br>tshark -r <span class="hljs-string">&quot;<span class="hljs-variable">$pcap_file</span>&quot;</span> -Y <span class="hljs-string">&quot;<span class="hljs-variable">$filter</span>&quot;</span> -T ek -E header=y -E separator=, -E occurrence=f | sed <span class="hljs-string">&#x27;/&#123;&quot;index&quot;:&#123;.*&#125;&#125;/d&#x27;</span> &gt;  <span class="hljs-string">&quot;<span class="hljs-variable">$output_file</span>&quot;</span> <br><br>tshark -r test2.pcap -T ek -e -E header=y -E separator=, -E occurrence=f | sed <span class="hljs-string">&#x27;/&#123;&quot;index&quot;:&#123;.*&#125;&#125;/d&#x27;</span> &gt; testek.json<br><br><span class="hljs-built_in">nohup</span> bash tshark_benthos.sh &gt; output.log 2&gt;&amp;1 &amp;<br><br><br></code></pre></td></tr></table></figure>
+
+<h1 id="17-linux环境变量等级"><a href="#17-linux环境变量等级" class="headerlink" title="17 linux环境变量等级"></a>17 linux环境变量等级</h1><h2 id="在Linux环境中，存在不同的环境变量等级，它们决定了变量的作用范围和优先级"><a href="#在Linux环境中，存在不同的环境变量等级，它们决定了变量的作用范围和优先级" class="headerlink" title="在Linux环境中，存在不同的环境变量等级，它们决定了变量的作用范围和优先级"></a>在Linux环境中，存在不同的环境变量等级，它们决定了变量的作用范围和优先级</h2><ol>
+<li>全局系统级别（Global System Level）：<br>这是最高级别的环境变量，适用于整个系统的所有用户和进程。这些环境变量通常定义在系统范围的配置文件中，例如<code>/etc/profile</code>、<code>/etc/environment</code>和<code>/etc/profile.d/</code>目录下的文件。修改这些文件需要root权限。</li>
+<li>用户级别（User Level）：<br>用户级别的环境变量仅适用于特定用户。每个用户都有自己的环境变量配置，通常保存在用户的主目录中的文件中。最常见的是<code>~/.bashrc</code>和<code>~/.bash_profile</code>文件，它们在用户登录时会被加载。修改这些文件只会影响到相应用户。</li>
+<li>会话级别（Session Level）：<br>会话级别的环境变量仅适用于当前会话。当用户登录后，会话级别的环境变量会被创建，并在用户退出登录后被销毁。这些环境变量可以通过在终端中直接设置变量来定义，例如使用<code>export</code>命令。</li>
+<li>会话级别（Session Level）：<br>会话级别的环境变量仅适用于当前会话。当用户登录后，会话级别的环境变量会被创建，并在用户退出登录后被销毁。这些环境变量可以通过在终端中直接设置变量来定义，例如使用<code>export</code>命令。</li>
+</ol>
+<h1 id="18-Ubuntu-安装第三方包（deb）"><a href="#18-Ubuntu-安装第三方包（deb）" class="headerlink" title="18 Ubuntu 安装第三方包（deb）"></a>18 Ubuntu 安装第三方包（deb）</h1><p><strong>安装实例</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">下载好对应的deb包<br>sudo dpkg -<span class="hljs-selector-tag">i</span> com<span class="hljs-selector-class">.alibabainc</span><span class="hljs-selector-class">.dingtalk_7</span>.<span class="hljs-number">1.0</span>.<span class="hljs-number">31120</span>_amd64<span class="hljs-selector-class">.deb</span> <br></code></pre></td></tr></table></figure>
+
+<p><strong>查看安装的包</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">sudo dpkg -l <span class="hljs-string">| grep dingtalk</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>卸载已安装的包</strong></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sudo dpkg-r dingtalk</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>deb包默认暂存路径</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/var/</span>cache<span class="hljs-regexp">/apt/</span>archives/<br></code></pre></td></tr></table></figure>
+
+<h1 id="19-谷歌浏览器截图"><a href="#19-谷歌浏览器截图" class="headerlink" title="19 谷歌浏览器截图"></a>19 谷歌浏览器截图</h1><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">1. 按F12<br>2. Ctrl + Shift + P<br>3. 输入命令 `Capture full size screenshot`<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux%E7%AC%94%E8%AE%B0/" class="category-chain-item">Linux笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" class="print-no-link">#Linux笔记</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>常用linux笔记</div>
+      <div>http://gondmhd.github.io/2024/05/27/linux/linux命令/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Gond</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/27/tools/Kafka%E5%AE%9E%E6%88%981/" title="KafKa 实战1">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">KafKa 实战1</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/27/tools/Kafka%E6%98%AF%E4%BB%80%E4%B9%88/" title="KafKa 介绍">
+                        <span class="hidden-mobile">KafKa 介绍</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
