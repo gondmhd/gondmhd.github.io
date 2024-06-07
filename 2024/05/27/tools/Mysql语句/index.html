@@ -24,7 +24,7 @@
 <meta property="og:description" content="Mysql用法1、查询相关 使用like关键字进行模糊匹配: 1select * from table where column like &amp;#x27; %pattern%&amp;#x27;;  使用正则表达式进行查询: 1select * from table where column regexp &amp;#x27;pattern&amp;#x27;;  子查询（Nested Queries） 子查询允许你将一个">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-27T14:58:52.392Z">
-<meta property="article:modified_time" content="2024-05-27T14:58:52.392Z">
+<meta property="article:modified_time" content="2024-06-05T02:34:27.639Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Tools">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          3.2k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          26 分钟
+          27 分钟
         
       </span>
     
@@ -293,6 +293,11 @@
 <li><p>左联接（LEFT JOIN）</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> Customers.CustomerName, Orders.OrderID<br><span class="hljs-keyword">FROM</span> Customers<br><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> Orders <span class="hljs-keyword">ON</span> Customers.CustomerID <span class="hljs-operator">=</span> Orders.CustomerID;<br></code></pre></td></tr></table></figure></li>
 </ul>
+<p><strong>可选查询</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test <span class="hljs-keyword">where</span> <span class="hljs-number">1</span><span class="hljs-operator">=</span><span class="hljs-number">1</span>;			# 查询全部<br><br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test <span class="hljs-keyword">where</span> <span class="hljs-number">1</span><span class="hljs-operator">=</span><span class="hljs-number">1</span> [<span class="hljs-keyword">and</span> name <span class="hljs-operator">=</span> &quot;zhangsan&quot;]		# 通过判断name变量是否存在 进行代码<span class="hljs-keyword">sql</span>拼接<br></code></pre></td></tr></table></figure>
+
+
+
 <h2 id="2、数据类型"><a href="#2、数据类型" class="headerlink" title="2、数据类型"></a>2、数据类型</h2><hr>
 <p><strong>longtex类型</strong></p>
 <p>“LONGTEXT”数据类型是一种比较大的文本类型，可以容纳最大长度为4 GB的字符数据。</p>
