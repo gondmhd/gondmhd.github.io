@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://s3.jpg.cm/2021/09/30/ImfzH5.png?raw=true">
 <meta property="og:image" content="https://s3.jpg.cm/2021/10/01/ImyooX.png?raw=true">
 <meta property="article:published_time" content="2024-05-17T06:00:43.347Z">
-<meta property="article:modified_time" content="2024-05-17T09:59:33.552Z">
+<meta property="article:modified_time" content="2024-06-24T08:01:25.142Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          25k 字
+          26k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          209 分钟
+          214 分钟
         
       </span>
     
@@ -798,7 +798,7 @@
 <p>如果变量名称或者值中用到 <code>true|false，yes|no</code> 等表达 <a target="_blank" rel="noopener" href="https://yaml.org/type/bool.html">布尔</a> 含义的词汇，最好放到引号里，避免 YAML 自动解析某些内容为对应的布尔语义。这些特定词汇，包括</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">y|Y|<span class="hljs-built_in">yes</span>|Yes|YES|n|N|no|No|NO|<span class="hljs-literal">true</span>|True|TRUE|<span class="hljs-literal">false</span>|False|FALSE|on|On|ON|off|Off|OFF<br></code></pre></td></tr></table></figure>
 
-<h4 id="healthcheck"><a href="#healthcheck" class="headerlink" title="healthcheck"></a><code>healthcheck</code></h4><p>通过命令检查容器是否健康运行。</p>
+<h4 id="healthcheck"><a href="#healthcheck" class="headerlink" title="healthcheck"></a><code>healthcheck</code></h4><p>通过命令检查容器是否健康运行。(使用curl需要构建镜像的时候安装了curl)</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">healthcheck:</span><br>  <span class="hljs-attr">test:</span> [<span class="hljs-string">&quot;CMD&quot;</span>, <span class="hljs-string">&quot;curl&quot;</span>, <span class="hljs-string">&quot;-f&quot;</span>, <span class="hljs-string">&quot;http://localhost&quot;</span>]<br>  <span class="hljs-attr">interval:</span> <span class="hljs-string">1m30s</span><br>  <span class="hljs-attr">timeout:</span> <span class="hljs-string">10s</span><br>  <span class="hljs-attr">retries:</span> <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
 
 <h4 id="image"><a href="#image" class="headerlink" title="image"></a><code>image</code></h4><p>指定为镜像名称或镜像 ID。如果镜像在本地不存在，<code>Compose</code> 将会尝试拉取这个镜像。</p>
@@ -825,6 +825,16 @@
 
 <p>如果路径为数据卷名称，必须在文件中配置数据卷。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;3&quot;</span><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">my_src:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mysql:8.0</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">mysql_data:/var/lib/mysql</span><br><br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">mysql_data:</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="restart"><a href="#restart" class="headerlink" title="restart"></a><code>restart</code></h4><p>在<code>docker-compose.yml</code>文件中，<code>restart</code>参数用于定义服务容器在退出后的重启策略。这个参数直接对应Docker守护进程重启容器的策略，可选的类别包括：</p>
+<ol>
+<li>**<code>no</code>**：容器不会自动重启，即使它意外退出（这是默认值）。</li>
+<li>**<code>on-failure</code>**：仅当容器以非零退出状态退出时，Docker才会自动重启容器。你可以选择性地指定一个重启次数限制，例如<code>on-failure:3</code>表示如果容器因为失败连续重启3次后，Docker将不再尝试重启。如果不指定次数，默认是无限重启。</li>
+<li>**<code>always</code>**：无论容器以何种状态退出（包括正常退出、被杀死或因错误退出），Docker都会自动重启容器。</li>
+<li>**<code>unless-stopped</code>**：容器会始终自动重启，除非它被明确地停止（通过<code>docker stop</code>或类似的命令）。即使Docker守护进程重启，此策略也会确保容器自动启动，前提是它之前是运行状态。</li>
+</ol>
+<p>​	</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3&#x27;</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">web:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">example/web</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>  <span class="hljs-attr">worker:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">example/worker</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">on-failure:5</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="5-4-常用命令"><a href="#5-4-常用命令" class="headerlink" title="5.4 常用命令"></a>5.4 常用命令</h2><h5 id="1-命令对象与格式"><a href="#1-命令对象与格式" class="headerlink" title="1. 命令对象与格式"></a>1. 命令对象与格式</h5><p>对于 Compose 来说，大部分命令的对象既可以是项目本身，也可以指定为项目中的服务或者容器。如果没有特别的说明，命令对象将是项目，这意味着项目中所有的服务都会受到命令影响。</p>
 <p>执行 <code>docker-compose [COMMAND] --help</code> 或者 <code>docker-compose help [COMMAND]</code> 可以查看具体某个命令的使用格式。</p>
@@ -872,7 +882,7 @@
 <li><code>-q</code> 只打印容器的 ID 信息。</li>
 </ul>
 <hr>
-<h5 id="restart"><a href="#restart" class="headerlink" title="restart"></a><code>restart</code></h5><p>格式为 <code>docker-compose restart [options] [SERVICE...]</code>。</p>
+<h5 id="restart-1"><a href="#restart-1" class="headerlink" title="restart"></a><code>restart</code></h5><p>格式为 <code>docker-compose restart [options] [SERVICE...]</code>。</p>
 <p>重启项目中的服务。</p>
 <p>选项：</p>
 <ul>
