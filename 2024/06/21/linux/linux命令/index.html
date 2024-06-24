@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155510.png">
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071157969.png">
 <meta property="article:published_time" content="2024-06-21T12:03:57.870Z">
-<meta property="article:modified_time" content="2024-06-21T12:03:57.870Z">
+<meta property="article:modified_time" content="2024-06-24T06:14:54.149Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Linux笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          21k 字
+          22k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          179 分钟
+          180 分钟
         
       </span>
     
@@ -316,7 +316,7 @@
 <h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">启动防火墙： systemctl start firewalld<br>查看防火墙状态： systemctl status firewalld<br>停止防火墙： systemctl stop firewalld<br>禁用防火墙： systemctl <span class="hljs-built_in">disable</span> firewalld<br>查看已经开放的端口 firewall-cmd --list-ports<br><br>开启指定端口（需 systemctl reload firewalld）<br>firewall-cmd --zone=public --add-port=[端口号]/[协议] --permanent<br>firewall-cmd --zone=public --add-port=80/tcp --permanent<br><br>--zone=&lt;zone&gt; <span class="hljs-comment"># 指定 zone</span><br>--add-port=&lt;portid&gt;]/&lt;protocol&gt; <span class="hljs-comment"># 端口id / 协议</span><br>--permanent <span class="hljs-comment"># 永久开启，不添加则重启失效</span><br><br>关闭指定端口（需 systemctl reload firewalld）<br>firewall-cmd --zone=public –remove-port=[端口号]/[协议] --permanent<br>firewall-cmd --zone=public –remove-port=80/tcp --permanent<br></code></pre></td></tr></table></figure>
 
 <p>centos scp传输命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp ./code.tar.gz root@192.168.5.16:/root/laozhao/<br>SA V3.1.1.0323-Release<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp -P 46022 ./code.tar.gz root@192.168.5.16:/root/laozhao/SA_V3.1.1.0323-Release	<span class="hljs-comment"># 上传					</span><br>scp -P 46022 root@1192.168.5.16:/home/tools/docker-20.10.21.tgz ./					<span class="hljs-comment"># 下载</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="tar使用命令"><a href="#tar使用命令" class="headerlink" title="tar使用命令"></a>tar使用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar x[z|J]f SMC-V1.0.0-2021xxxxxx-linux-x86_64-singleton.tar.[gz|xz]<br>不同格式压缩包使用不同命令参数解压，gz 格式使用 xzf 参数解压，xz 格式使用 xJf 参数解压<br></code></pre></td></tr></table></figure>
 
