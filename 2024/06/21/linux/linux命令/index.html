@@ -19,7 +19,7 @@
     <meta name="description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用linux笔记">
-<meta property="og:url" content="http://gondmhd.github.io/2024/04/29/linux/linux%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2024/06/21/linux/linux%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
 <meta property="og:locale" content="zh_CN">
@@ -27,8 +27,8 @@
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155281.png">
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155510.png">
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071157969.png">
-<meta property="article:published_time" content="2024-04-29T11:20:06.573Z">
-<meta property="article:modified_time" content="2024-05-17T06:11:14.706Z">
+<meta property="article:published_time" content="2024-06-21T12:03:57.870Z">
+<meta property="article:modified_time" content="2024-06-21T12:03:57.870Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Linux笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-04-29 19:20" pubdate>
-          2024年4月29日 晚上
+        <time datetime="2024-06-21 20:03" pubdate>
+          2024年6月21日 晚上
         </time>
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          177 分钟
+          179 分钟
         
       </span>
     
@@ -505,6 +505,13 @@
 
 <h1 id="19-谷歌浏览器截图"><a href="#19-谷歌浏览器截图" class="headerlink" title="19 谷歌浏览器截图"></a>19 谷歌浏览器截图</h1><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">1. 按F12<br>2. Ctrl + Shift + P<br>3. 输入命令 `Capture full size screenshot`<br></code></pre></td></tr></table></figure>
 
+<h1 id="20-转换文件名编码"><a href="#20-转换文件名编码" class="headerlink" title="20 转换文件名编码"></a>20 转换文件名编码</h1><p>Windows下压缩的zip文件，在 Ubuntu下解开时，中文文件名会显示乱码，可以用convmv解决。</p>
+<p>安装convmv：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install convmv<br></code></pre></td></tr></table></figure>
+
+<p>转换文件或目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">convmv -f gbk -t utf8 -r --notest *<br><br>--notest: 这个选项告诉 convmv 实际执行转换操作，而不是仅仅测试哪些文件名需要转换。如果不加此选项，convmv 会显示哪些文件名会被修改，但不会真正修改它们<br><br>*: 是一个通配符，代表当前目录下的所有文件。结合 -r 选项，这将影响到目录树中所有层级的文件名<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -551,7 +558,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>常用linux笔记</div>
-      <div>http://gondmhd.github.io/2024/04/29/linux/linux命令/</div>
+      <div>http://gondmhd.github.io/2024/06/21/linux/linux命令/</div>
     </div>
     <div class="license-meta">
       
@@ -563,7 +570,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年4月29日</div>
+          <div>2024年6月21日</div>
         </div>
       
       
@@ -595,9 +602,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/04/29/tools/Ubuntu_for_clash/" title="Ubuntu_for_clash">
+                      <a href="/2024/06/21/go/%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/" title="语法笔记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Ubuntu_for_clash</span>
+                        <span class="hidden-mobile">语法笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -605,8 +612,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/04/29/tools/github%20%E5%9B%BE%E5%BA%8A/" title="typora 图床">
-                        <span class="hidden-mobile">typora 图床</span>
+                      <a href="/2024/06/21/tools/Kafka%E5%AE%9E%E6%88%981/" title="KafKa 实战1">
+                        <span class="hidden-mobile">KafKa 实战1</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
