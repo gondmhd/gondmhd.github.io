@@ -24,7 +24,7 @@
 <meta property="og:description" content="记不住系列指针&amp;（取地址）和*（根据地址取值） 12345678910111213type MyInt inttype User1 struct &amp;#123;    IdOrName any   &#96;json:&quot;idOrName&quot;&#96;    M        MyInt &#96;json:&quot;m&quot;&#96;&amp;#125;func main() &amp;#123;    str">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-21T12:03:57.870Z">
-<meta property="article:modified_time" content="2024-07-01T07:39:33.860Z">
+<meta property="article:modified_time" content="2024-07-01T09:06:16.467Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -231,7 +231,7 @@
         
         
         
-          130 分钟
+          138 分钟
         
       </span>
     
@@ -559,6 +559,37 @@
 <li>协程的执行最终靠的还是线程，应用程序来调度协程选择合适的线程来获取执行权</li>
 <li>切换非常快，成本低。一般占用栈大小远小于线程（协程 KB 级别，线程 MB 级别），所以可以开更多的协程</li>
 <li>协程比线程更轻量级</li>
+</ul>
+<h2 id="通道（channel）"><a href="#通道（channel）" class="headerlink" title="通道（channel）"></a>通道（channel）</h2><p>通道（channel）是一种用于在goroutine之间传递数据的安全方式，支持同步通信。通道可以被声明为有缓冲或无缓冲的，具体写法和使用方式如下：</p>
+<h3 id="通道的声明与初始化"><a href="#通道的声明与初始化" class="headerlink" title="通道的声明与初始化"></a>通道的声明与初始化</h3><p><strong>1. 无缓冲通道</strong>：数据的发送和接收操作必须同时发生，即发送者会阻塞，直到有接收者准备好接收数据。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>) <span class="hljs-comment">// 无缓冲通道，类型为int</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>2. 有缓冲通道</strong>：可以在没有接收者立即接收的情况下发送一定数量的数据，缓冲区满后，再发送数据将会阻塞。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, <span class="hljs-number">5</span>) <span class="hljs-comment">// 有缓冲通道，类型为int，缓冲区大小为5</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="发送数据到通道"><a href="#发送数据到通道" class="headerlink" title="发送数据到通道"></a>发送数据到通道</h3><ul>
+<li><p><strong>基础发送</strong>：使用<code>&lt;-&quot;channel&quot;</code>语法发送数据到通道。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch &lt;- value <span class="hljs-comment">// 将value发送到通道ch</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="从通道接收数据"><a href="#从通道接收数据" class="headerlink" title="从通道接收数据"></a>从通道接收数据</h3><ul>
+<li><p><strong>基础接收</strong>：使用<code>value := &lt;-channel</code>语法从通道接收数据。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">receivedValue := &lt;-ch <span class="hljs-comment">// 从通道ch接收数据并存储在receivedValue中</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="多路复用与默认选择"><a href="#多路复用与默认选择" class="headerlink" title="多路复用与默认选择"></a>多路复用与默认选择</h3><ul>
+<li><p><strong>多路复用</strong>：在<code>select</code>语句中，可以监听多个通道上的发送或接收操作。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">select</span> &#123;<br><span class="hljs-keyword">case</span> ch1 &lt;- value:<br>    <span class="hljs-comment">// 发送到ch1成功</span><br><span class="hljs-keyword">case</span> ch2 &lt;- value:<br>    <span class="hljs-comment">// 发送到ch2成功</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>带default的select</strong>：用于非阻塞接收或发送，或者执行默认操作。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">select</span> &#123;<br><span class="hljs-keyword">case</span> value := &lt;-ch:<br>    <span class="hljs-comment">// 从ch接收数据</span><br><span class="hljs-keyword">default</span>:<br>    <span class="hljs-comment">// 没有数据可接收时执行</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="关闭通道"><a href="#关闭通道" class="headerlink" title="关闭通道"></a>关闭通道</h3><ul>
+<li><p><strong>关闭通道</strong>：使用<code>close(channel)</code>可以关闭一个通道，表明不再会有数据发送到该通道。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-built_in">close</span>(ch) <span class="hljs-comment">// 关闭通道ch</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>唯一关闭原则：应该只有一个goroutine负责关闭管道。重复关闭管道会导致运行时panic（<code>panic: close of closed channel</code>）。</li>
+<li>接收者可以通过<code>v, ok := &lt;-ch</code>来检查通道是否已经关闭（<code>ok</code>为<code>false</code>表示通道已关闭且没有更多数据可接收）。</li>
+<li>向一个已关闭的通道发送数据会导致运行时panic，尝试从一个已关闭的无缓冲通道接收数据（如果没有其他发送者等待）也会导致接收操作立即返回零值和<code>false</code>的<code>ok</code>。</li>
 </ul>
 <h2 id="Switch-Select-区别"><a href="#Switch-Select-区别" class="headerlink" title="Switch\Select 区别"></a>Switch\Select 区别</h2><h3 id="Switch-语句"><a href="#Switch-语句" class="headerlink" title="Switch 语句"></a>Switch 语句</h3><ul>
 <li><strong>用途</strong>：主要用于基于不同条件（通常是变量的值）执行不同的代码路径。它可以处理多种情况，并且可以有一个可选的默认分支（<code>default</code> case）。</li>
