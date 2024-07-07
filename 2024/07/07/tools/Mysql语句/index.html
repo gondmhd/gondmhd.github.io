@@ -19,12 +19,12 @@
     <meta name="description" content="Mysql用法1、查询相关 使用like关键字进行模糊匹配: 1select * from table where column like &amp;#x27; %pattern%&amp;#x27;;  使用正则表达式进行查询: 1select * from table where column regexp &amp;#x27;pattern&amp;#x27;;  子查询（Nested Queries） 子查询允许你将一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql使用">
-<meta property="og:url" content="http://gondmhd.github.io/2024/05/27/tools/Mysql%E8%AF%AD%E5%8F%A5/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2024/07/07/tools/Mysql%E8%AF%AD%E5%8F%A5/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="Mysql用法1、查询相关 使用like关键字进行模糊匹配: 1select * from table where column like &amp;#x27; %pattern%&amp;#x27;;  使用正则表达式进行查询: 1select * from table where column regexp &amp;#x27;pattern&amp;#x27;;  子查询（Nested Queries） 子查询允许你将一个">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-05-27T14:58:52.392Z">
-<meta property="article:modified_time" content="2024-06-05T02:34:27.639Z">
+<meta property="article:published_time" content="2024-07-07T15:50:32.294Z">
+<meta property="article:modified_time" content="2024-07-07T15:50:32.294Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Tools">
 <meta name="twitter:card" content="summary_large_image">
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-27 22:58" pubdate>
-          2024年5月27日 晚上
+        <time datetime="2024-07-07 23:50" pubdate>
+          2024年7月7日 晚上
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.2k 字
+          3.5k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          27 分钟
+          29 分钟
         
       </span>
     
@@ -293,11 +293,6 @@
 <li><p>左联接（LEFT JOIN）</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> Customers.CustomerName, Orders.OrderID<br><span class="hljs-keyword">FROM</span> Customers<br><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> Orders <span class="hljs-keyword">ON</span> Customers.CustomerID <span class="hljs-operator">=</span> Orders.CustomerID;<br></code></pre></td></tr></table></figure></li>
 </ul>
-<p><strong>可选查询</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test <span class="hljs-keyword">where</span> <span class="hljs-number">1</span><span class="hljs-operator">=</span><span class="hljs-number">1</span>;			# 查询全部<br><br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> test <span class="hljs-keyword">where</span> <span class="hljs-number">1</span><span class="hljs-operator">=</span><span class="hljs-number">1</span> [<span class="hljs-keyword">and</span> name <span class="hljs-operator">=</span> &quot;zhangsan&quot;]		# 通过判断name变量是否存在 进行代码<span class="hljs-keyword">sql</span>拼接<br></code></pre></td></tr></table></figure>
-
-
-
 <h2 id="2、数据类型"><a href="#2、数据类型" class="headerlink" title="2、数据类型"></a>2、数据类型</h2><hr>
 <p><strong>longtex类型</strong></p>
 <p>“LONGTEXT”数据类型是一种比较大的文本类型，可以容纳最大长度为4 GB的字符数据。</p>
@@ -386,6 +381,18 @@
 <p><code>MERGE</code> 是一种更高级的语句，可以同时完成查询、插入、更新和删除操作。对于避免重复插入，它可以用来根据条件决定是插入新记录还是更新现有记录。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">MERGE</span> <span class="hljs-keyword">INTO</span> Customers <span class="hljs-keyword">AS</span> Target<br><span class="hljs-keyword">USING</span> NewCustomerData <span class="hljs-keyword">AS</span> Source<br><span class="hljs-keyword">ON</span> Target.CustomerID <span class="hljs-operator">=</span> Source.CustomerID<br><span class="hljs-keyword">WHEN</span> MATCHED <span class="hljs-keyword">THEN</span><br>    <span class="hljs-keyword">UPDATE</span> <span class="hljs-keyword">SET</span> Target.Email <span class="hljs-operator">=</span> Source.Email<br><span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">NOT</span> MATCHED <span class="hljs-keyword">THEN</span><br>    <span class="hljs-keyword">INSERT</span> (CustomerID, Name, Email)<br>    <span class="hljs-keyword">VALUES</span> (Source.CustomerID, Source.Name, Source.Email);<br></code></pre></td></tr></table></figure></li>
 </ol>
+<h2 id="6、mysql问题"><a href="#6、mysql问题" class="headerlink" title="6、mysql问题"></a>6、mysql问题</h2><h3 id="1、插入中文记录问题"><a href="#1、插入中文记录问题" class="headerlink" title="1、插入中文记录问题"></a>1、插入中文记录问题</h3><blockquote>
+<p>在表的字符集是utf8mb4情况下，插入中文数据提示报错</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SQL</span> 错误 [<span class="hljs-number">1366</span>] [HY000]: Incorrect string <span class="hljs-keyword">value</span>: <span class="hljs-string">&#x27;\xE5\xB8\x82\xE4\xB8\xAD...&#x27;</span> <span class="hljs-keyword">for</span> <span class="hljs-keyword">column</span> <span class="hljs-string">&#x27;ACCOUNT&#x27;</span> <span class="hljs-keyword">at</span> <span class="hljs-type">row</span> <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>排查：</strong></p>
+<ul>
+<li><p>检查客户端&#x2F;驱动程序的字符集设置</p>
+</li>
+<li><p>检查表和列的字符集设置</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> SAYTH_MONITOR_RISK_ALARM_DATA;			<span class="hljs-operator">/</span><span class="hljs-operator">/</span>查看表库的字符集编码<br><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> SAYTH_MONITOR_RISK_ALARM_DATA <span class="hljs-keyword">CONVERT</span> <span class="hljs-keyword">TO</span> <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8mb4 <span class="hljs-keyword">COLLATE</span> utf8mb4_unicode_ci; 	<span class="hljs-operator">/</span><span class="hljs-operator">/</span>更改表的字符集编码<br></code></pre></td></tr></table></figure></li>
+</ul>
 
                 
               </div>
@@ -432,7 +439,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Mysql使用</div>
-      <div>http://gondmhd.github.io/2024/05/27/tools/Mysql语句/</div>
+      <div>http://gondmhd.github.io/2024/07/07/tools/Mysql语句/</div>
     </div>
     <div class="license-meta">
       
@@ -444,7 +451,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月27日</div>
+          <div>2024年7月7日</div>
         </div>
       
       
@@ -476,9 +483,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/27/tools/Kafka%E6%98%AF%E4%BB%80%E4%B9%88/" title="KafKa 介绍">
+                      <a href="/2024/07/07/go/%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/" title="语法笔记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">KafKa 介绍</span>
+                        <span class="hidden-mobile">语法笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -486,8 +493,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/27/tools/Mysql%E9%AB%98%E7%BA%A71/" title="Mysql高级1">
-                        <span class="hidden-mobile">Mysql高级1</span>
+                      <a href="/2024/07/07/linux/linux%E5%91%BD%E4%BB%A4/" title="常用linux笔记">
+                        <span class="hidden-mobile">常用linux笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

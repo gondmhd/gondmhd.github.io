@@ -19,7 +19,7 @@
     <meta name="description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用linux笔记">
-<meta property="og:url" content="http://gondmhd.github.io/2024/05/27/linux/linux%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2024/07/07/linux/linux%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
 <meta property="og:locale" content="zh_CN">
@@ -27,8 +27,8 @@
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155281.png">
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155510.png">
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071157969.png">
-<meta property="article:published_time" content="2024-05-27T14:58:52.392Z">
-<meta property="article:modified_time" content="2024-06-09T10:00:12.217Z">
+<meta property="article:published_time" content="2024-07-07T15:50:32.294Z">
+<meta property="article:modified_time" content="2024-07-07T15:50:32.294Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Linux笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-27 22:58" pubdate>
-          2024年5月27日 晚上
+        <time datetime="2024-07-07 23:50" pubdate>
+          2024年7月7日 晚上
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          21k 字
+          22k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          179 分钟
+          182 分钟
         
       </span>
     
@@ -316,7 +316,7 @@
 <h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">启动防火墙： systemctl start firewalld<br>查看防火墙状态： systemctl status firewalld<br>停止防火墙： systemctl stop firewalld<br>禁用防火墙： systemctl <span class="hljs-built_in">disable</span> firewalld<br>查看已经开放的端口 firewall-cmd --list-ports<br><br>开启指定端口（需 systemctl reload firewalld）<br>firewall-cmd --zone=public --add-port=[端口号]/[协议] --permanent<br>firewall-cmd --zone=public --add-port=80/tcp --permanent<br><br>--zone=&lt;zone&gt; <span class="hljs-comment"># 指定 zone</span><br>--add-port=&lt;portid&gt;]/&lt;protocol&gt; <span class="hljs-comment"># 端口id / 协议</span><br>--permanent <span class="hljs-comment"># 永久开启，不添加则重启失效</span><br><br>关闭指定端口（需 systemctl reload firewalld）<br>firewall-cmd --zone=public –remove-port=[端口号]/[协议] --permanent<br>firewall-cmd --zone=public –remove-port=80/tcp --permanent<br></code></pre></td></tr></table></figure>
 
 <p>centos scp传输命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp ./code.tar.gz root@192.168.5.16:/root/laozhao/<br>SA V3.1.1.0323-Release<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp -P 46022 ./code.tar.gz root@192.168.5.16:/root/laozhao/SA_V3.1.1.0323-Release	<span class="hljs-comment"># 上传					</span><br>scp -P 46022 root@1192.168.5.16:/home/tools/docker-20.10.21.tgz ./					<span class="hljs-comment"># 下载</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="tar使用命令"><a href="#tar使用命令" class="headerlink" title="tar使用命令"></a>tar使用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar x[z|J]f SMC-V1.0.0-2021xxxxxx-linux-x86_64-singleton.tar.[gz|xz]<br>不同格式压缩包使用不同命令参数解压，gz 格式使用 xzf 参数解压，xz 格式使用 xJf 参数解压<br></code></pre></td></tr></table></figure>
 
@@ -464,7 +464,7 @@
 
 
 
-<h1 id="10-git使用"><a href="#10-git使用" class="headerlink" title="10 git使用"></a>10 git使用</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">git branch [branch name]			#创建本地分支<br>git checkout [branch name]		#切换到新分支<br>git checkout -b [branch name]									#创建分支同时也切换分支<br>git stash 						# 暂存文件<br>git stash list 					# 查看stash了哪些存储<br>git stash apply stash@&#123;$num&#125;		# 应用某个储存<br>git stash pop						# 恢复缓存之前<br>git stash drop stash@&#123;$num&#125;		# 丢弃stash@&#123;$num&#125;存储，从列表中删除这个存储<br>git stash clear					# 删除所有缓存的stash<br>git branch -d [branch-name]		# 删除分支<br></code></pre></td></tr></table></figure>
+<h1 id="10-git使用"><a href="#10-git使用" class="headerlink" title="10 git使用"></a>10 git使用</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs shell">git branch [branch name]			#创建本地分支<br>git checkout [branch name]		#切换到新分支<br>git checkout -b [branch name]									#创建分支同时也切换分支<br>git stash 						# 暂存文件<br>git stash list 					# 查看stash了哪些存储<br>git stash apply stash@&#123;$num&#125;		# 应用某个储存<br>git stash pop						# 恢复缓存之前<br>git stash drop stash@&#123;$num&#125;		# 丢弃stash@&#123;$num&#125;存储，从列表中删除这个存储<br>git stash clear					# 删除所有缓存的stash<br>git branch -d [branch-name]		# 删除分支<br><br>项目目录创建 .gitignore 文件 忽略增加到git的目录或者文件<br>git rm --cached -r ./test/			# 删除增加过的文件或者目录缓存<br><br>git revert &lt;commit-hash&gt;			# 撤销提交<br>git reset --hard HEAD~1			# 撤销最近一次提交<br>git checkout -b new-branch-name abc123<br></code></pre></td></tr></table></figure>
 
 <h1 id="11-安装docker"><a href="#11-安装docker" class="headerlink" title="11 安装docker"></a>11 安装docker</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">安裝docker</span><br>yum install -y yum-utils device-mapper-persistent-data net-tools telnet<br>yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo<br>yum -y install docker-ce.x86_64 <br>systemctl start docker <br>systemctl enable docker<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">安裝docker-compose(上传docker-compose,移动到/usr/local/bin目录下，并授权)</span><br>mv docker-compose /usr/local/bin/<br>chmod +x /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_">#</span><span class="language-bash">安装docker-compose</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">下载最新docker-compose 保存到/usr/local/bin/docker-compose</span><br>sudo curl -L &quot;https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_"># </span><span class="language-bash">授权</span><br>sudo chmod +x /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_"># </span><span class="language-bash">卸载</span><br>sudo rm /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看是否有docker用户组</span><br>cat /etc/group ｜ grep docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">没有的话添加</span><br>sudo groupadd docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加当前用户到docker组</span><br>sudo usermod -aG docker $USER<br><span class="hljs-meta prompt_"># </span><span class="language-bash">更新用户组</span><br>newgrp docker                      <br></code></pre></td></tr></table></figure>
 
@@ -558,7 +558,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>常用linux笔记</div>
-      <div>http://gondmhd.github.io/2024/05/27/linux/linux命令/</div>
+      <div>http://gondmhd.github.io/2024/07/07/linux/linux命令/</div>
     </div>
     <div class="license-meta">
       
@@ -570,7 +570,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月27日</div>
+          <div>2024年7月7日</div>
         </div>
       
       
@@ -602,9 +602,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/27/java/Java%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/" title="java三大特性">
+                      <a href="/2024/07/07/tools/Mysql%E8%AF%AD%E5%8F%A5/" title="Mysql使用">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">java三大特性</span>
+                        <span class="hidden-mobile">Mysql使用</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -612,8 +612,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/27/linux/nginx%20%E6%8E%A5%E5%85%A5keycloak%20sso%E5%B9%B3%E5%8F%B0/" title="nginx集成keycloak">
-                        <span class="hidden-mobile">nginx集成keycloak</span>
+                      <a href="/2024/06/25/docker/Docker%E5%85%A5%E9%97%A8/" title="docker基础">
+                        <span class="hidden-mobile">docker基础</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -19,15 +19,15 @@
     <meta name="description" content="官方文档地址：https:&#x2F;&#x2F;www.docker.com&#x2F;get-started 中文参考手册：https:&#x2F;&#x2F;docker_practice.gitee.io&#x2F;zh-cn  一、概述1.1 什么是 dockerDocker 是一个用于开发、发布和运行应用程序的开放平台。Docker 使您能够将应用程序与基础架构分开，以便快速交付软件。使用 Docker 您可以使用与管理应用程序相同的方式管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker基础">
-<meta property="og:url" content="http://gondmhd.github.io/2024/05/27/docker/Docker%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2024/06/25/docker/Docker%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="官方文档地址：https:&#x2F;&#x2F;www.docker.com&#x2F;get-started 中文参考手册：https:&#x2F;&#x2F;docker_practice.gitee.io&#x2F;zh-cn  一、概述1.1 什么是 dockerDocker 是一个用于开发、发布和运行应用程序的开放平台。Docker 使您能够将应用程序与基础架构分开，以便快速交付软件。使用 Docker 您可以使用与管理应用程序相同的方式管理">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20240517140420277.png?raw=true">
 <meta property="og:image" content="https://s3.jpg.cm/2021/09/30/ImfzH5.png?raw=true">
 <meta property="og:image" content="https://s3.jpg.cm/2021/10/01/ImyooX.png?raw=true">
-<meta property="article:published_time" content="2024-05-27T14:58:52.356Z">
-<meta property="article:modified_time" content="2024-05-27T14:58:52.356Z">
+<meta property="article:published_time" content="2024-06-25T12:24:47.396Z">
+<meta property="article:modified_time" content="2024-06-25T12:24:47.396Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
@@ -212,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-27 22:58" pubdate>
-          2024年5月27日 晚上
+        <time datetime="2024-06-25 20:24" pubdate>
+          2024年6月25日 晚上
         </time>
       </span>
     
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          25k 字
+          26k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          209 分钟
+          215 分钟
         
       </span>
     
@@ -572,7 +572,7 @@
 <p>经过不懈努力终于在墙外找到了解决方案</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh<br></code></pre></td></tr></table></figure>
 
-<p>运行这个镜像，进入容器中 cd 到指定路径就能看到 mac 的挂载点，原理未知，知道原理的可以私信我，感谢！！！</p>
+<p>运行这个镜像，进入容器中 cd 到指定路径就能看到 mac 的挂载点</p>
 <h1 id="四、Dockerfile"><a href="#四、Dockerfile" class="headerlink" title="四、Dockerfile"></a>四、Dockerfile</h1><p>Dockerfile 是 Docker 镜像的描述文件，是由一系列命令和参数构成的脚本，主要作用是用来构建 docker 镜像的构建文件。</p>
 <h2 id="4-1-Dockerfile解析过程"><a href="#4-1-Dockerfile解析过程" class="headerlink" title="4.1 Dockerfile解析过程"></a>4.1 Dockerfile解析过程</h2><p>通常这个描述文件就叫 Dockerfile，该文件所在的目录称之为 docker 的上下文目录，当基于 Dockerfile 开始构建镜像时，首先将上下文目录里的所有文件发送给 docker server，在服务端完成构建；在构建镜像过程中，Dockerfile 中每一个命令都会生成一个镜像层，下一个的命令基于上一个命令生成的镜像继续构建，形成一个个的镜像层，同时每个镜像层都会被缓存，当遇到相同的命令会直接使用，最终构建完成后体现给用户的只有最终的镜像。</p>
 <p>根据上面的解释，一般在构建镜像时会新建一个空白目录，该目录仅放置 Dockerfile 和与构建镜像所必须的文件；无关紧要的文件会影响构建速度，但 docker 也提供类似 gitignore 的作用，在上下文目录中新建 .dockerignore 文件，docker 会忽略该文件里面指定的内容。</p>
@@ -798,7 +798,7 @@
 <p>如果变量名称或者值中用到 <code>true|false，yes|no</code> 等表达 <a target="_blank" rel="noopener" href="https://yaml.org/type/bool.html">布尔</a> 含义的词汇，最好放到引号里，避免 YAML 自动解析某些内容为对应的布尔语义。这些特定词汇，包括</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">y|Y|<span class="hljs-built_in">yes</span>|Yes|YES|n|N|no|No|NO|<span class="hljs-literal">true</span>|True|TRUE|<span class="hljs-literal">false</span>|False|FALSE|on|On|ON|off|Off|OFF<br></code></pre></td></tr></table></figure>
 
-<h4 id="healthcheck"><a href="#healthcheck" class="headerlink" title="healthcheck"></a><code>healthcheck</code></h4><p>通过命令检查容器是否健康运行。</p>
+<h4 id="healthcheck"><a href="#healthcheck" class="headerlink" title="healthcheck"></a><code>healthcheck</code></h4><p>通过命令检查容器是否健康运行。(使用curl需要构建镜像的时候安装了curl)</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">healthcheck:</span><br>  <span class="hljs-attr">test:</span> [<span class="hljs-string">&quot;CMD&quot;</span>, <span class="hljs-string">&quot;curl&quot;</span>, <span class="hljs-string">&quot;-f&quot;</span>, <span class="hljs-string">&quot;http://localhost&quot;</span>]<br>  <span class="hljs-attr">interval:</span> <span class="hljs-string">1m30s</span><br>  <span class="hljs-attr">timeout:</span> <span class="hljs-string">10s</span><br>  <span class="hljs-attr">retries:</span> <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
 
 <h4 id="image"><a href="#image" class="headerlink" title="image"></a><code>image</code></h4><p>指定为镜像名称或镜像 ID。如果镜像在本地不存在，<code>Compose</code> 将会尝试拉取这个镜像。</p>
@@ -825,6 +825,16 @@
 
 <p>如果路径为数据卷名称，必须在文件中配置数据卷。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;3&quot;</span><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">my_src:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mysql:8.0</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">mysql_data:/var/lib/mysql</span><br><br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">mysql_data:</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="restart"><a href="#restart" class="headerlink" title="restart"></a><code>restart</code></h4><p>在<code>docker-compose.yml</code>文件中，<code>restart</code>参数用于定义服务容器在退出后的重启策略。这个参数直接对应Docker守护进程重启容器的策略，可选的类别包括：</p>
+<ol>
+<li>**<code>no</code>**：容器不会自动重启，即使它意外退出（这是默认值）。</li>
+<li>**<code>on-failure</code>**：仅当容器以非零退出状态退出时，Docker才会自动重启容器。你可以选择性地指定一个重启次数限制，例如<code>on-failure:3</code>表示如果容器因为失败连续重启3次后，Docker将不再尝试重启。如果不指定次数，默认是无限重启。</li>
+<li>**<code>always</code>**：无论容器以何种状态退出（包括正常退出、被杀死或因错误退出），Docker都会自动重启容器。</li>
+<li>**<code>unless-stopped</code>**：容器会始终自动重启，除非它被明确地停止（通过<code>docker stop</code>或类似的命令）。即使Docker守护进程重启，此策略也会确保容器自动启动，前提是它之前是运行状态。</li>
+</ol>
+<p>​	</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3&#x27;</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">web:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">example/web</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>  <span class="hljs-attr">worker:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">example/worker</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">on-failure:5</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="5-4-常用命令"><a href="#5-4-常用命令" class="headerlink" title="5.4 常用命令"></a>5.4 常用命令</h2><h5 id="1-命令对象与格式"><a href="#1-命令对象与格式" class="headerlink" title="1. 命令对象与格式"></a>1. 命令对象与格式</h5><p>对于 Compose 来说，大部分命令的对象既可以是项目本身，也可以指定为项目中的服务或者容器。如果没有特别的说明，命令对象将是项目，这意味着项目中所有的服务都会受到命令影响。</p>
 <p>执行 <code>docker-compose [COMMAND] --help</code> 或者 <code>docker-compose help [COMMAND]</code> 可以查看具体某个命令的使用格式。</p>
@@ -853,12 +863,12 @@
 </li>
 <li><p>如果使用 <code>docker-compose up -d</code>，将会在后台启动并运行所有的容器。一般推荐生产环境下使用该选项。</p>
 </li>
-<li><p>默认情况，如果服务容器已经存在，<code>docker-compose up</code> 将会尝试停止容器，然后重新创建（保持使用 <code>volumes-from</code> 挂载的卷），以保证新启动的服务匹配 <code>docker-compose.yml</code> 文件的最新内容</p>
+<li><p>默认情况，如果服务容器已经存在，<code>docker-compose up</code> 将会尝试停止容器，然后重新创建（保持使用 <code>volumes-from</code> 挂载的卷），以保证新启动的服务匹配 <code>docker-compose.yml</code> 文件的最新内容，新增挂载卷则需要删除<code>rm</code>容器，重新启动，环境变量镜像等配置会更新</p>
 </li>
 </ul>
 <hr>
 <h5 id="down"><a href="#down" class="headerlink" title="down"></a><code>down</code></h5><ul>
-<li>此命令将会停止 <code>up</code> 命令所启动的容器，并移除网络</li>
+<li>此命令将会停止 <code>up</code> 命令所启动的容器并删除它们（但不会删除数据卷，除非你使用了 <code>--volumes</code> 选项）。</li>
 </ul>
 <hr>
 <h5 id="exec"><a href="#exec" class="headerlink" title="exec"></a><code>exec</code></h5><ul>
@@ -872,11 +882,11 @@
 <li><code>-q</code> 只打印容器的 ID 信息。</li>
 </ul>
 <hr>
-<h5 id="restart"><a href="#restart" class="headerlink" title="restart"></a><code>restart</code></h5><p>格式为 <code>docker-compose restart [options] [SERVICE...]</code>。</p>
+<h5 id="restart-1"><a href="#restart-1" class="headerlink" title="restart"></a><code>restart</code></h5><p>格式为 <code>docker-compose restart [options] [SERVICE...]</code>。</p>
 <p>重启项目中的服务。</p>
 <p>选项：</p>
 <ul>
-<li><code>-t, --timeout TIMEOUT</code> 指定重启前停止容器的超时（默认为 10 秒）。</li>
+<li><code>-t, --timeout TIMEOUT</code> 指定重启前停止容器的超时（默认为 10 秒），修改 的宿主机文件内容可以通过restart进行更新，修改的docker-compose.yaml配置文件不会进行更新运行，使用up。</li>
 </ul>
 <hr>
 <h5 id="rm"><a href="#rm" class="headerlink" title="rm"></a><code>rm</code></h5><p>格式为 <code>docker-compose rm [options] [SERVICE...]</code>。</p>
@@ -947,7 +957,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>docker基础</div>
-      <div>http://gondmhd.github.io/2024/05/27/docker/Docker入门/</div>
+      <div>http://gondmhd.github.io/2024/06/25/docker/Docker入门/</div>
     </div>
     <div class="license-meta">
       
@@ -959,7 +969,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月27日</div>
+          <div>2024年6月25日</div>
         </div>
       
       
@@ -991,9 +1001,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/27/tools/github%20%E5%9B%BE%E5%BA%8A/" title="typora 图床">
+                      <a href="/2024/07/07/linux/linux%E5%91%BD%E4%BB%A4/" title="常用linux笔记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">typora 图床</span>
+                        <span class="hidden-mobile">常用linux笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -1001,8 +1011,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/27/docker/Dockfile%E6%9E%84%E5%BB%BA%E6%8A%80%E5%B7%A7/" title="Dockerfile构建技巧">
-                        <span class="hidden-mobile">Dockerfile构建技巧</span>
+                      <a href="/2024/06/07/go/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B9%8B%E5%9D%91/" title="序列化之坑">
+                        <span class="hidden-mobile">序列化之坑</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

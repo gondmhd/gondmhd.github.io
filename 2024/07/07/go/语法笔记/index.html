@@ -19,12 +19,12 @@
     <meta name="description" content="记不住系列指针&amp;（取地址）和*（根据地址取值） 12345678910111213type MyInt inttype User1 struct &amp;#123;    IdOrName any   &#96;json:&quot;idOrName&quot;&#96;    M        MyInt &#96;json:&quot;m&quot;&#96;&amp;#125;func main() &amp;#123;    str">
 <meta property="og:type" content="article">
 <meta property="og:title" content="语法笔记">
-<meta property="og:url" content="http://gondmhd.github.io/2024/05/27/go/%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2024/07/07/go/%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="记不住系列指针&amp;（取地址）和*（根据地址取值） 12345678910111213type MyInt inttype User1 struct &amp;#123;    IdOrName any   &#96;json:&quot;idOrName&quot;&#96;    M        MyInt &#96;json:&quot;m&quot;&#96;&amp;#125;func main() &amp;#123;    str">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-05-27T14:58:52.392Z">
-<meta property="article:modified_time" content="2024-06-07T03:09:54.084Z">
+<meta property="article:published_time" content="2024-07-07T15:50:32.294Z">
+<meta property="article:modified_time" content="2024-07-07T15:50:32.294Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-27 22:58" pubdate>
-          2024年5月27日 晚上
+        <time datetime="2024-07-07 23:50" pubdate>
+          2024年7月7日 晚上
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          14k 字
+          17k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          121 分钟
+          144 分钟
         
       </span>
     
@@ -369,7 +369,7 @@
 <li><strong>优先级</strong>：<code>init</code> 函数在 main 函数之前执行，如果一个包被导入，那么该包的 <code>init</code> 函数将在 main 包的 <code>init</code> 函数之前运行。</li>
 </ol>
 <p>举例说明：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> example<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">var</span> globalVar = <span class="hljs-string">&quot;Initialized by init&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;Executing init function in example package&quot;</span>)<br>    <span class="hljs-comment">// 可以在这里进行初始化操作</span><br>    <span class="hljs-comment">// 例如，设置全局变量、初始化连接、注册函数等</span><br>    globalVar = <span class="hljs-string">&quot;Updated during init&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs golang"><span class="hljs-keyword">package</span> example<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">var</span> globalVar = <span class="hljs-string">&quot;Initialized by init&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;Executing init function in example package&quot;</span>)<br>    <span class="hljs-comment">// 可以在这里进行初始化操作</span><br>    <span class="hljs-comment">// 例如，设置全局变量、初始化连接、注册函数等</span><br>    globalVar = <span class="hljs-string">&quot;Updated during init&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>在这个例子中，当导入 <code>example</code> 包时，<code>init</code> 函数会被自动执行，并输出一条消息，同时更新全局变量 <code>globalVar</code> 的值。</p>
 <p><code>setup</code> 函数和 <code>init</code> 函数在 Go 语言中都用于初始化，但它们之间有明显的区别：</p>
@@ -406,7 +406,7 @@
 <li><strong>包含特殊字符无障碍</strong>：由于不解析转义字符，原生字符串尤其适合包含需要原样输出的特殊字符、正则表达式模式、HTML代码、JSON或XML片段等，避免了因转义导致的混淆或错误。</li>
 </ol>
 <p>示例：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-number">1</span><span class="hljs-comment">// 原生字符串字面量</span><br><span class="hljs-number">2</span>sqlQuery := <span class="hljs-string">`</span><br><span class="hljs-string">3    SELECT id, name, email</span><br><span class="hljs-string">4    FROM users</span><br><span class="hljs-string">5    WHERE active = true</span><br><span class="hljs-string">6`</span><br><span class="hljs-number">7</span><br><span class="hljs-number">8</span>regexPattern := <span class="hljs-string">`^https?://[a-zA-Z0-9._-]+(\.[a-zA-Z]&#123;2,&#125;)+/`</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 原生字符串字面量</span><br>sqlQuery := <span class="hljs-string">`</span><br><span class="hljs-string">    SELECT id, name, email</span><br><span class="hljs-string">    FROM users</span><br><span class="hljs-string">    WHERE active = true</span><br><span class="hljs-string">`</span><br><br>regexPattern := <span class="hljs-string">`^https?://[a-zA-Z0-9._-]+(\.[a-zA-Z]&#123;2,&#125;)+/`</span><br></code></pre></td></tr></table></figure>
 
 <p>在上述示例中：</p>
 <ul>
@@ -483,12 +483,12 @@
 <ol>
 <li><p><strong>类型断言</strong>： 类型断言应用于接口类型变量，用于检测接口值是否具有特定类型，并可选择地将其转换为该类型。基本语法如下：</p>
 <p>Go</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-number">1</span>value, ok := interfaceVariable.(typeName)<br></code></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs golang">value, ok := interfaceVariable.(typeName)<br></code></pre></td></tr></table></figure>
 
 <p>其中，<code>interfaceVariable</code> 是一个接口类型的变量，<code>typeName</code> 是你希望它实际具有的类型。如果接口变量的动态类型确实与<code>typeName</code>一致，那么<code>value</code>将得到接口值对应的底层值，<code>ok</code>将被设为<code>true</code>；如果不匹配，<code>ok</code>将为<code>false</code>，且<code>value</code>的值将是相应类型的零值。</p>
 <p>例如：</p>
 <p>Go</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-number">1</span><span class="hljs-keyword">var</span> i <span class="hljs-keyword">interface</span>&#123;&#125; = <span class="hljs-string">&quot;Hello, world!&quot;</span><br><span class="hljs-number">2</span>s, ok := i.(<span class="hljs-type">string</span>)<br><span class="hljs-number">3</span><span class="hljs-comment">// s == &quot;Hello, world!&quot;, ok == true</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> i <span class="hljs-keyword">interface</span>&#123;&#125; = <span class="hljs-string">&quot;Hello, world!&quot;</span><br>s, ok := i.(<span class="hljs-type">string</span>)<br><span class="hljs-comment">// s == &quot;Hello, world!&quot;, ok == true</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p><strong>类型断言在接口间转换</strong>： 类型断言也可用于将一个接口类型转换为另一个接口类型，只要它们的底层类型能够满足转换要求。</p>
 </li>
@@ -503,16 +503,16 @@
 
 <h2 id="拼接"><a href="#拼接" class="headerlink" title="拼接"></a>拼接</h2><ol>
 <li><p><strong>使用<code>+</code>操作符</strong>: 这是最直接的方式，但当拼接大量字符串时可能导致性能问题，因为它会产生许多临时字符串。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-number">1</span>name := <span class="hljs-string">&quot;Alice&quot;</span><br><span class="hljs-number">2</span>age := <span class="hljs-number">30</span><br><span class="hljs-number">3</span>result := <span class="hljs-string">&quot;My name is &quot;</span> + name + <span class="hljs-string">&quot;, and I am &quot;</span> + strconv.Itoa(age) + <span class="hljs-string">&quot; years old.&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">name := <span class="hljs-string">&quot;Alice&quot;</span><br>age := <span class="hljs-number">30</span><br>result := <span class="hljs-string">&quot;My name is &quot;</span> + name + <span class="hljs-string">&quot;, and I am &quot;</span> + strconv.Itoa(age) + <span class="hljs-string">&quot; years old.&quot;</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p><strong>使用<code>fmt.Sprintf</code></strong>: 更灵活，适合格式化输出，性能优于连续的<code>+</code>操作符。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-number">1</span>result := fmt.Sprintf(<span class="hljs-string">&quot;My name is %s, and I am %d years old.&quot;</span>, name, age)<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">result := fmt.Sprintf(<span class="hljs-string">&quot;My name is %s, and I am %d years old.&quot;</span>, name, age)<br></code></pre></td></tr></table></figure>
 </li>
 <li><p><strong>使用<code>strings.Builder</code></strong>: 对于大量字符串拼接操作，<code>strings.Builder</code>提供了更好的性能。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-number">1</span><span class="hljs-keyword">var</span> builder strings.Builder<br><span class="hljs-number">2</span>builder.WriteString(<span class="hljs-string">&quot;My name is &quot;</span>)<br><span class="hljs-number">3</span>builder.WriteString(name)<br><span class="hljs-number">4</span>builder.WriteString(<span class="hljs-string">&quot;, and I am &quot;</span>)<br><span class="hljs-number">5</span>builder.WriteString(strconv.Itoa(age))<br><span class="hljs-number">6</span>builder.WriteString(<span class="hljs-string">&quot; years old.&quot;</span>)<br><span class="hljs-number">7</span>result := builder.String()<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> builder strings.Builder<br>builder.WriteString(<span class="hljs-string">&quot;My name is &quot;</span>)<br>builder.WriteString(name)<br>builder.WriteString(<span class="hljs-string">&quot;, and I am &quot;</span>)<br>builder.WriteString(strconv.Itoa(age))<br>builder.WriteString(<span class="hljs-string">&quot; years old.&quot;</span>)<br>result := builder.String()<br></code></pre></td></tr></table></figure>
 </li>
 <li><p><strong>使用<code>bytes.Buffer</code></strong>: 类似于<code>strings.Builder</code>，但在处理字节层面，适用于二进制数据。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-number">1</span><span class="hljs-keyword">var</span> buffer bytes.Buffer<br><span class="hljs-number">2</span>buffer.WriteString(<span class="hljs-string">&quot;My name is &quot;</span>)<br><span class="hljs-number">3</span>buffer.WriteString(name)<br><span class="hljs-number">4</span>buffer.WriteString(<span class="hljs-string">&quot;, and I am &quot;</span>)<br><span class="hljs-number">5</span>buffer.WriteString(strconv.Itoa(age))<br><span class="hljs-number">6</span>buffer.WriteString(<span class="hljs-string">&quot; years old.&quot;</span>)<br><span class="hljs-number">7</span>result := buffer.String()<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> buffer bytes.Buffer<br>buffer.WriteString(<span class="hljs-string">&quot;My name is &quot;</span>)<br>buffer.WriteString(name)<br>buffer.WriteString(<span class="hljs-string">&quot;, and I am &quot;</span>)<br>buffer.WriteString(strconv.Itoa(age))<br>buffer.WriteString(<span class="hljs-string">&quot; years old.&quot;</span>)<br>result := buffer.String()<br></code></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="占位符"><a href="#占位符" class="headerlink" title="占位符"></a>占位符</h2><ul>
 <li><code>%s</code>: 字符串（string）</li>
@@ -560,12 +560,91 @@
 <li>切换非常快，成本低。一般占用栈大小远小于线程（协程 KB 级别，线程 MB 级别），所以可以开更多的协程</li>
 <li>协程比线程更轻量级</li>
 </ul>
-<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p><strong>判断一个字符串是否包含另一个特定的子字符串</strong></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	originalString := <span class="hljs-string">&quot;Hello, welcome to the Go world!&quot;</span><br>	substringToCheck := <span class="hljs-string">&quot;welcome&quot;</span><br><br>	<span class="hljs-comment">// 使用strings.Contains检查originalString是否包含substringToCheck</span><br>	<span class="hljs-keyword">if</span> strings.Contains(originalString, substringToCheck) &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;The string &#x27;%s&#x27; contains the substring &#x27;%s&#x27;.\n&quot;</span>, originalString, substringToCheck)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;The string &#x27;%s&#x27; does not contain the substring &#x27;%s&#x27;.\n&quot;</span>, originalString, substringToCheck)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="通道（channel）"><a href="#通道（channel）" class="headerlink" title="通道（channel）"></a>通道（channel）</h2><p>通道（channel）是一种用于在goroutine之间传递数据的安全方式，支持同步通信。通道可以被声明为有缓冲或无缓冲的，具体写法和使用方式如下：</p>
+<h3 id="通道的声明与初始化"><a href="#通道的声明与初始化" class="headerlink" title="通道的声明与初始化"></a>通道的声明与初始化</h3><p><strong>1. 无缓冲通道</strong>：数据的发送和接收操作必须同时发生，即发送者会阻塞，直到有接收者准备好接收数据。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>) <span class="hljs-comment">// 无缓冲通道，类型为int</span><br></code></pre></td></tr></table></figure>
 
-<p><strong>分割字符串</strong></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 使用逗号作为分隔符</span><br>	s := <span class="hljs-string">&quot;one,two,three&quot;</span><br>	parts := strings.Split(s, <span class="hljs-string">&quot;,&quot;</span>)<br>	fmt.Println(parts) <span class="hljs-comment">// 输出: [one two three]</span><br><br>	<span class="hljs-comment">// 使用空格作为分隔符</span><br>	s = <span class="hljs-string">&quot;The quick brown fox&quot;</span><br>	words := strings.Fields(s) <span class="hljs-comment">// 使用strings.Fields等同于Split(s, &quot; &quot;)</span><br>	fmt.Println(words) <span class="hljs-comment">// 输出: [The quick brown fox]</span><br><br>	<span class="hljs-comment">// 按照空格分割并去除空字符串</span><br>	s = <span class="hljs-string">&quot;   hello   world  &quot;</span><br>	trimmedWords := strings.Fields(strings.TrimSpace(s)) <span class="hljs-comment">// 先去除首尾空格，再分割</span><br>	fmt.Println(trimmedWords) <span class="hljs-comment">// 输出: [hello world]</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>2. 有缓冲通道</strong>：可以在没有接收者立即接收的情况下发送一定数量的数据，缓冲区满后，再发送数据将会阻塞。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, <span class="hljs-number">5</span>) <span class="hljs-comment">// 有缓冲通道，类型为int，缓冲区大小为5</span><br></code></pre></td></tr></table></figure>
 
+<h3 id="发送数据到通道"><a href="#发送数据到通道" class="headerlink" title="发送数据到通道"></a>发送数据到通道</h3><ul>
+<li><p><strong>基础发送</strong>：使用<code>&lt;-&quot;channel&quot;</code>语法发送数据到通道。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch &lt;- value <span class="hljs-comment">// 将value发送到通道ch</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="从通道接收数据"><a href="#从通道接收数据" class="headerlink" title="从通道接收数据"></a>从通道接收数据</h3><ul>
+<li><p><strong>基础接收</strong>：使用<code>value := &lt;-channel</code>语法从通道接收数据。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">receivedValue := &lt;-ch <span class="hljs-comment">// 从通道ch接收数据并存储在receivedValue中</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>​		 多goroutines读取通道数据，取决于Go 的调度器分配，可能会出现第一个写入的数据可能被第一个读取的 goroutine读取，第二个数据可能被第二个读取的 goroutine读取</p>
+<p>​	      当从一个通道进行接收操作时如果通道中没有数据可接收且通道未被关闭，该接收操作将会阻塞。这种阻塞本身并不会抛出异常或错误，而是会使当前的 goroutine 暂停执行，直到通道中有数据可用或通道被关闭。</p>
+<p><strong>阻塞问题：</strong></p>
+<ol>
+<li><p><strong>死锁</strong>：</p>
+<p>如果程序的逻辑设计不当，可能导致多个 goroutine 互相等待对方释放资源或发送&#x2F;接收数据，从而形成死锁。在这种情况下，程序将停止响应，因为没有任何 goroutine 能够继续执行。</p>
+</li>
+<li><p><strong>性能问题:</strong></p>
+<p>过度的阻塞可能会导致性能下降，尤其是在高并发的系统中。如果大量 goroutines 因为等待通道数据而阻塞，可能会影响系统的响应时间和吞吐量。</p>
+</li>
+<li><p><strong>资源浪费</strong>：</p>
+<p>长时间的阻塞也可能导致 CPU 时间片和其他系统资源的浪费，因为被阻塞的 goroutine 占用了调度器的注意力，而实际上它无法执行任何工作。</p>
+</li>
+<li><p><strong>逻辑错误</strong>：</p>
+<p><strong>逻辑错误</strong>： 如果预期一个通道应该有数据可接收，但实际上没有，这可能是程序逻辑上的错误。例如，可能有 goroutine 应该向通道发送数据，但由于某种原因未能执行。</p>
+</li>
+</ol>
+<p>为了避免这些问题，通常可以采用以下策略：</p>
+<ul>
+<li><strong>使用 select 语句</strong>：结合 default case 使用 select 语句可以防止无限期的阻塞，使 goroutine 在没有数据可接收时能够继续执行其他操作。</li>
+<li><strong>关闭通道</strong>：当不再需要向通道发送数据时，应该关闭通道。这可以通知所有等待接收数据的 goroutines，让它们知道没有更多数据可接收，从而避免无限期的阻塞。</li>
+<li><strong>超时机制</strong>：通过使用定时器或上下文（context）来限制等待时间，可以防止长时间的阻塞。</li>
+</ul>
+<h3 id="多路复用与默认选择"><a href="#多路复用与默认选择" class="headerlink" title="多路复用与默认选择"></a>多路复用与默认选择</h3><ul>
+<li><p><strong>多路复用</strong>：在<code>select</code>语句中，可以监听多个通道上的发送或接收操作。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">select</span> &#123;<br><span class="hljs-keyword">case</span> ch1 &lt;- value:<br>    <span class="hljs-comment">// 发送到ch1成功</span><br><span class="hljs-keyword">case</span> ch2 &lt;- value:<br>    <span class="hljs-comment">// 发送到ch2成功</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>带default的select</strong>：用于非阻塞接收或发送，或者执行默认操作。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">select</span> &#123;<br><span class="hljs-keyword">case</span> value := &lt;-ch:<br>    <span class="hljs-comment">// 从ch接收数据</span><br><span class="hljs-keyword">default</span>:<br>    <span class="hljs-comment">// 没有数据可接收时执行</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="关闭通道"><a href="#关闭通道" class="headerlink" title="关闭通道"></a>关闭通道</h3><ul>
+<li><p><strong>关闭通道</strong>：使用<code>close(channel)</code>可以关闭一个通道，表明不再会有数据发送到该通道。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-built_in">close</span>(ch) <span class="hljs-comment">// 关闭通道ch</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>唯一关闭原则：应该只有一个goroutine负责关闭管道。重复关闭管道会导致运行时panic（<code>panic: close of closed channel</code>）。</li>
+<li>接收者可以通过<code>v, ok := &lt;-ch</code>来检查通道是否已经关闭（<code>ok</code>为<code>false</code>表示通道已关闭且没有更多数据可接收）。</li>
+<li>向一个已关闭的通道发送数据会导致运行时panic，尝试从一个已关闭的无缓冲通道接收数据（如果没有其他发送者等待）也会导致接收操作立即返回零值和<code>false</code>的<code>ok</code>。</li>
+</ul>
+<h2 id="Switch-Select-区别"><a href="#Switch-Select-区别" class="headerlink" title="Switch\Select 区别"></a>Switch\Select 区别</h2><h3 id="Switch-语句"><a href="#Switch-语句" class="headerlink" title="Switch 语句"></a>Switch 语句</h3><ul>
+<li><strong>用途</strong>：主要用于基于不同条件（通常是变量的值）执行不同的代码路径。它可以处理多种情况，并且可以有一个可选的默认分支（<code>default</code> case）。</li>
+<li><strong>适用场景</strong>：当你需要根据某个表达式的值来做决策时，比如处理枚举类型、错误码等。</li>
+<li><strong>控制流</strong>：顺序执行，从上到下匹配<code>case</code>，一旦匹配成功执行相应代码块后（除非有<code>break</code>），会继续检查下一个<code>case</code>，直到遇到<code>break</code>或者执行完所有匹配的<code>case</code>（如果没有<code>break</code>）。</li>
+<li><strong>特点</strong>：不涉及并发，纯粹用于逻辑控制。</li>
+</ul>
+<h3 id="Select-语句"><a href="#Select-语句" class="headerlink" title="Select 语句"></a>Select 语句</h3><ul>
+<li><p><strong>用途</strong>：专门用于处理channel的操作，如接收或发送数据。它是Go语言并发模型中的一个重要组件，用于实现非阻塞的IO多路复用。</p>
+</li>
+<li><p><strong>适用场景</strong>：当你需要同时监听多个channel上的事件并作出响应时，比如在处理网络连接、信号量或是其他并发任务的协调时。</p>
+</li>
+<li><p><strong>控制流</strong>：非确定性选择，当有多个channel操作准备就绪时，会选择一个随机的（实际上是由运行时决定的）channel执行。如果没有channel准备好，select会阻塞，直到至少有一个channel可操作。</p>
+</li>
+<li><p>特点</p>
+<p>：</p>
+<ul>
+<li>可以有default子句，用于在没有任何channel操作准备就绪时执行。</li>
+<li>如果有多个channel同时就绪，select会随机选择一个执行，这对于需要公平性的情况需要注意。</li>
+<li>可以用来实现超时机制，通过配合time.After函数的channel。</li>
+</ul>
+</li>
+</ul>
+<p>总结来说，<code>switch</code>是用于控制流程的决策，基于表达式的值；而<code>select</code>则专注于并发编程中的通信，特别是与channel相关的操作，提供了在多个并发活动之间进行选择的能力。</p>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>Go语言中的<code>strings</code>包提供了许多用于操作字符串的实用函数。以下是一些最常用的方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs go">**<span class="hljs-string">`Contains(s, substr string) bool`</span>**<br>- 检查字符串<span class="hljs-string">`s`</span>是否包含子字符串<span class="hljs-string">`substr`</span>。如果包含，返回<span class="hljs-string">`true`</span>；否则返回<span class="hljs-string">`false`</span>。<br><br>**<span class="hljs-string">`Count(s, sep string) int`</span>**<br>- 计算字符串<span class="hljs-string">`s`</span>中非重叠的<span class="hljs-string">`sep`</span>出现次数。如果<span class="hljs-string">`sep`</span>为空，则返回<span class="hljs-string">`s`</span>中字符（非字节）的数量加一。<br><br>**<span class="hljs-string">`EqualFold(s, t string) bool`</span>**<br>- 比较<span class="hljs-string">`s`</span>和<span class="hljs-string">`t`</span>是否相等，忽略大小写。<br><br>**<span class="hljs-string">`Fields(s string) []string`</span>**<br>- 根据空白字符分割字符串<span class="hljs-string">`s`</span>，返回一个由字段组成的切片。<br><br>**<span class="hljs-string">`FieldsFunc(s string, f func(rune) bool) []string`</span>**<br>- 使用函数<span class="hljs-string">`f`</span>作为分隔符来分割<span class="hljs-string">`s`</span>，其中<span class="hljs-string">`f`</span>应该返回<span class="hljs-string">`true`</span>以指示分隔符。<br><br>**<span class="hljs-string">`Index(s, sep string) int`</span>**<br>- 返回<span class="hljs-string">`s`</span>中<span class="hljs-string">`sep`</span>第一次出现的索引，如果未找到则返回<span class="hljs-string">`-1`</span>。<br><br>**<span class="hljs-string">`Join(a []string, sep string) string`</span>**<br>- 使用<span class="hljs-string">`sep`</span>连接切片<span class="hljs-string">`a`</span>中的字符串元素。<br><br>**<span class="hljs-string">`LastIndex(s, sep string) int`</span>**<br>- 返回<span class="hljs-string">`s`</span>中最后一次<span class="hljs-string">`sep`</span>出现的索引，如果未找到则返回<span class="hljs-string">`-1`</span>。<br><br>**<span class="hljs-string">`Map(f func(rune) rune, s string) string`</span>**<br>- 将函数<span class="hljs-string">`f`</span>应用于<span class="hljs-string">`s`</span>中的每个字符，然后返回结果字符串。<br><br>**<span class="hljs-string">`Repeat(s string, count int) string`</span>**<br>- 返回<span class="hljs-string">`s`</span>重复<span class="hljs-string">`count`</span>次的结果。<br><br>**<span class="hljs-string">`Replace(s, old, new string, n int) string`</span>**<br>- 将<span class="hljs-string">`s`</span>中的前<span class="hljs-string">`n`</span>个<span class="hljs-string">`old`</span>替换为<span class="hljs-string">`new`</span>。如果<span class="hljs-string">`n`</span>小于<span class="hljs-number">0</span>，则替换所有出现。<br><br>**<span class="hljs-string">`Split(s, sep string) []string`</span>**<br>- 根据<span class="hljs-string">`sep`</span>分割<span class="hljs-string">`s`</span>，返回一个由子字符串组成的切片。<br><br>**<span class="hljs-string">`SplitAfter(s, sep string) []string`</span>**<br>- 类似于<span class="hljs-string">`Split`</span>，但在每个分割点之后保留<span class="hljs-string">`sep`</span>。<br><br>**<span class="hljs-string">`SplitN(s, sep string, n int) []string`</span>**<br>- 类似于<span class="hljs-string">`Split`</span>，但最多分割<span class="hljs-string">`n-1`</span>次，从而得到<span class="hljs-string">`n`</span>个元素。<br><br>**<span class="hljs-string">`Title(s string) string`</span>**<br>- 将<span class="hljs-string">`s`</span>转换为标题大小写，即每个单词的第一个字母大写，其余小写。<br><br>**<span class="hljs-string">`ToLower(s string) string`</span>**<br>- 将<span class="hljs-string">`s`</span>转换为小写。<br><br>**<span class="hljs-string">`ToUpper(s string) string`</span>**<br>- 将<span class="hljs-string">`s`</span>转换为大写。<br><br>**<span class="hljs-string">`Trim(s string, cutset string) string`</span>**<br>- 移除<span class="hljs-string">`s`</span>前后两端的<span class="hljs-string">`cutset`</span>字符。<br><br>**<span class="hljs-string">`TrimSpace(s string) string`</span>**<br>- 移除<span class="hljs-string">`s`</span>前后两端的空白字符。<br><br>**<span class="hljs-string">`HasPrefix(s, prefix string) bool`</span>**<br>- 检查<span class="hljs-string">`s`</span>是否以<span class="hljs-string">`prefix`</span>开始。<br><br>**<span class="hljs-string">`HasSuffix(s, suffix string) bool`</span>**<br>   - 检查<span class="hljs-string">`s`</span>是否以<span class="hljs-string">`suffix`</span>结束。<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<p>这些函数提供了强大的字符串处理能力，可以满足大多数字符串操作的需求</p>
 
                 
               </div>
@@ -612,7 +691,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>语法笔记</div>
-      <div>http://gondmhd.github.io/2024/05/27/go/语法笔记/</div>
+      <div>http://gondmhd.github.io/2024/07/07/go/语法笔记/</div>
     </div>
     <div class="license-meta">
       
@@ -624,7 +703,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月27日</div>
+          <div>2024年7月7日</div>
         </div>
       
       
@@ -656,9 +735,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/27/go/%E5%B8%B8%E7%94%A8%E4%B8%89%E6%96%B9%E5%BA%93/" title="常用三方库">
+                      <a href="/2024/07/07/go/gorm%E7%AC%94%E8%AE%B0/" title="gorm笔记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">常用三方库</span>
+                        <span class="hidden-mobile">gorm笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -666,8 +745,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/27/java/Java%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/" title="java三大特性">
-                        <span class="hidden-mobile">java三大特性</span>
+                      <a href="/2024/07/07/tools/Mysql%E8%AF%AD%E5%8F%A5/" title="Mysql使用">
+                        <span class="hidden-mobile">Mysql使用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
