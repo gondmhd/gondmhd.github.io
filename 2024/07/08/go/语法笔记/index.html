@@ -24,7 +24,7 @@
 <meta property="og:description" content="记不住系列指针&amp;（取地址）和*（根据地址取值） 12345678910111213type MyInt inttype User1 struct &amp;#123;    IdOrName any   &#96;json:&quot;idOrName&quot;&#96;    M        MyInt &#96;json:&quot;m&quot;&#96;&amp;#125;func main() &amp;#123;    str">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-08T00:46:42.345Z">
-<meta property="article:modified_time" content="2024-07-08T00:46:42.349Z">
+<meta property="article:modified_time" content="2024-07-08T02:55:57.551Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          21k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          161 分钟
+          178 分钟
         
       </span>
     
@@ -477,11 +477,42 @@
 <li><code>regexPattern</code> 是一个正则表达式，其中的斜线（<code>/</code>）和特殊字符无需转义，直接写入原生字符串即可。</li>
 </ul>
 <p>总之，在Go语言中，&#96;&#96; 符号用于创建原生字符串字面量，提供了一种方便的方式来编写包含复杂或特殊字符的字符串，且无需考虑转义问题。这对于需要保留原始文本格式或包含特殊字符的场景尤为有用。</p>
-<h2 id="函数与方法"><a href="#函数与方法" class="headerlink" title="函数与方法"></a>函数与方法</h2><ul>
-<li>函数（Function）：在包级别定义，不依赖于特定的接收者（receiver），可以在任何地方调用。</li>
-<li>方法（Method）：与一个具体类型相关联，定义在类型内部，并有一个接收者（receiver）参数，通常用来扩展类型的行为。</li>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="1-匿名函数"><a href="#1-匿名函数" class="headerlink" title="1.匿名函数 "></a>1.匿名函数<code> </code></h3><ul>
+<li><p>有时候我们想要完成某一特定功能，但该功能只在一个包中用到几次，我们可以不用将其封装为包级别的函数，而是使用匿名函数</p>
+</li>
+<li><p>匿名函数，就是可以省略函数名的函数</p>
+  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">r := <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(i <span class="hljs-type">int</span>)</span></span><span class="hljs-type">int</span>&#123; <span class="hljs-comment">// 匿名函数不需要函数名</span><br>		<span class="hljs-keyword">return</span> i<br>	&#125;(<span class="hljs-number">5</span>) <span class="hljs-comment">// 匿名函数通过后面的()向函数传参</span><br>	fmt.Println(r) <span class="hljs-comment">// 输出5</span><br></code></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> DevUser <span class="hljs-keyword">struct</span> &#123;<br>	ID    <span class="hljs-type">int</span>    <span class="hljs-string">`json:&quot;id&quot;`</span><br>	Name  <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;name&quot;`</span><br>	Email <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;email&quot;`</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="2-回调函数"><a href="#2-回调函数" class="headerlink" title="2.回调函数"></a>2.回调函数</h3><p>go语言是一种强类型语言，我们知道了函数的类型，就可以将其作为参数传入另一个函数,我们称这种函数为回调函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br> <br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br> <br><span class="hljs-keyword">type</span> FuncType <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-type">int</span>, <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> <span class="hljs-comment">//先用FuncType代表有两个int型参数和有一个int型返回值的函数，不用管该函数是否存在</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">add</span><span class="hljs-params">(a, b <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123; <span class="hljs-comment">//加法</span><br>	<span class="hljs-keyword">return</span> a + b<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minus</span><span class="hljs-params">(a, b <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123; <span class="hljs-comment">//减法</span><br>	<span class="hljs-keyword">return</span> a - b<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">multiple</span><span class="hljs-params">(a, b <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123; <span class="hljs-comment">//乘法</span><br>	<span class="hljs-keyword">return</span> a * b<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">divide</span><span class="hljs-params">(a, b <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123; <span class="hljs-comment">//除法</span><br>	<span class="hljs-keyword">return</span> a / b<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Calculate</span><span class="hljs-params">(a, b <span class="hljs-type">int</span>, fType FuncType)</span></span> (result <span class="hljs-type">int</span>) &#123; <span class="hljs-comment">//fType表示一个函数类型变量</span><br>	result = fType(a, b)<br>	<span class="hljs-keyword">return</span><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> x, y <span class="hljs-type">int</span><br>	fmt.Print(<span class="hljs-string">&quot;请输入两个数：&quot;</span>)<br>	fmt.Scan(&amp;x, &amp;y)<br>	fmt.Println(<span class="hljs-string">&quot;这两个数之和为：&quot;</span>, Calculate(x, y, add))<br>	fmt.Println(<span class="hljs-string">&quot;这两个数之差为：&quot;</span>, Calculate(x, y, minus))<br>	fmt.Println(<span class="hljs-string">&quot;这两个数之积为：&quot;</span>, Calculate(x, y, multiple))<br>	fmt.Println(<span class="hljs-string">&quot;这两个数之商为：&quot;</span>, Calculate(x, y, divide))<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-闭包"><a href="#3-闭包" class="headerlink" title="3.闭包"></a>3.闭包</h3><p>在一个函数中返回值是另外一个函数，我们称之为闭包。</p>
+<ul>
+<li><p>闭包的理解：内部函数访问外部函数的变量</p>
+</li>
+<li><p>闭包的作用：改变临时变量的生命周期</p>
+</li>
+<li><p>闭包示例</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 考虑这样一种应用场景，公司其他部门的同事提供给你API,该API要求输入参数为一个func()类型(无参数无返回值)</span><br><span class="hljs-comment">// 现在你有一个func(i int)类型的函数，如何才能调用上述的API呢，这就需要用到闭包</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f6</span><span class="hljs-params">(f <span class="hljs-keyword">func</span>()</span></span>)&#123;<br>	fmt.Println(<span class="hljs-string">&quot;I am f6()&quot;</span>)<br>	f()<br>&#125;<br> <br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f7</span><span class="hljs-params">(i <span class="hljs-type">int</span>)</span></span><span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;<br>		<span class="hljs-comment">// 可以看到，该匿名函数中并没有关于变量i的声明与定义，它引用了外部f7()的变量，延长了变量i的生命周期</span><br>		fmt.Printf(<span class="hljs-string">&quot;I am f7(),i have a parameter:%v\n&quot;</span>,i)<br>	&#125;<br>&#125;<br> <br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    f6(f7(<span class="hljs-number">9</span>)) <span class="hljs-comment">// 输出:I am f6() \n I am f7(),i have a parameter:9</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="4-递归"><a href="#4-递归" class="headerlink" title="4.递归"></a>4.递归</h3><ul>
+<li><p>函数在处理过程中调用自身，称之为递归。</p>
+</li>
+<li><p>递归必须有结束条件，否则会陷入死循环。</p>
+</li>
+<li><p>使用递归前，最好把问题进行数学抽象</p>
+</li>
+<li><p>递归示例：斐波那契数列</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 首先进行数学抽象，明确该函数返回值的意义</span><br><span class="hljs-comment">// 该函数返回值是斐波那契数列中第i个位置的值</span><br><span class="hljs-comment">// 根据斐波那契数列的数学规律，我们知道第i个位置的值等于其前两个位置值之和，即fibonacci(i-1)+fibonacci(i-2)</span><br><span class="hljs-comment">// 当处于第一或第二个位置时，由于其前面不足两个元素，因此要单独考虑</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">(i <span class="hljs-type">int</span>)</span></span><span class="hljs-type">int</span>&#123;<br>	<span class="hljs-keyword">if</span> i &lt;= <span class="hljs-number">2</span>&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> fibonacci(i<span class="hljs-number">-1</span>)+fibonacci(i<span class="hljs-number">-2</span>)<br>&#125;<br> <br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">for</span> i:=<span class="hljs-number">1</span>;i&lt;=<span class="hljs-number">10</span>;i++&#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%v &quot;</span>,fibonacci(i)) <span class="hljs-comment">// 输出：1 1 2 3 5 8 13 21 34 55</span><br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>函数（Function）：在包级别定义，不依赖于特定的接收者（receiver），可以在任何地方调用。</p>
+</li>
+<li><p>方法（Method）：与一个具体类型相关联，定义在类型内部，并有一个接收者（receiver）参数，通常用来扩展类型的行为。</p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-string">``</span><span class="hljs-string">`</span><br><span class="hljs-string"></span><br><span class="hljs-string">## 赋值</span><br><span class="hljs-string"></span><br><span class="hljs-string">`</span><span class="hljs-string">``</span><span class="hljs-keyword">go</span><br><span class="hljs-keyword">type</span> DevUser <span class="hljs-keyword">struct</span> &#123;<br>	ID    <span class="hljs-type">int</span>    <span class="hljs-string">`json:&quot;id&quot;`</span><br>	Name  <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;name&quot;`</span><br>	Email <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;email&quot;`</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 
