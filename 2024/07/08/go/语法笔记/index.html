@@ -24,7 +24,7 @@
 <meta property="og:description" content="记不住系列指针&amp;（取地址）和*（根据地址取值） 12345678910111213type MyInt inttype User1 struct &amp;#123;    IdOrName any   &#96;json:&quot;idOrName&quot;&#96;    M        MyInt &#96;json:&quot;m&quot;&#96;&amp;#125;func main() &amp;#123;    str">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-08T00:46:42.345Z">
-<meta property="article:modified_time" content="2024-07-08T02:55:57.551Z">
+<meta property="article:modified_time" content="2024-07-10T02:56:41.100Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          21k 字
+          22k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          178 分钟
+          182 分钟
         
       </span>
     
@@ -525,10 +525,22 @@
 <li><strong>情况一</strong>中，<code>createUser</code>变量未被初始化，其内部字段值为各自的零值。</li>
 <li><strong>情况二</strong>中，<code>createUser</code>变量被初始化为一个所有字段均为零值的<code>DevUser</code>实例。</li>
 </ul>
-<p><strong>Channel 接收操作 <code>&lt;-</code></strong></p>
-<p><code>&lt;-</code> 是Go语言中用于从channel接收数据的操作符。当你看到 <code>message := &lt;-claim.Messages()</code>，这意味着代码正在从 <code>claim.Messages()</code> 返回的channel中接收一个消息。这个channel是由Sarama库提供的，用于向消费者推送来自Kafka的新消息。每次有新消息到达时，<code>claim.Messages()</code> channel就会发送一个消息对象。</p>
-<p><strong>简短声明 <code>:=</code></strong></p>
-<p><code>= &lt;-</code> 后面紧跟的 <code>:=</code> 是Go中的简短声明操作符。简短声明允许你在声明并初始化一个变量时省略类型。例如，<code>message := &quot;Hello&quot;</code> 会声明一个string类型的变量<code>message</code>并将其初始化为<code>&quot;Hello&quot;</code>。在我们的例子中，<code>message := &lt;-claim.Messages()</code> 声明了一个名为<code>message</code>的变量，并将其初始化为从channel接收到的值。Go编译器会根据接收到的数据自动推断变量的类型，这里是<code>sarama.ConsumerMessage</code>类型（假设你已经正确导入了<code>sarama</code>包并使用了它的类型）。</p>
+<h2 id="引用传递和值传递"><a href="#引用传递和值传递" class="headerlink" title="引用传递和值传递"></a>引用传递和值传递</h2><p><strong>值传递</strong></p>
+<p>在 Go 中，当函数调用发生时，所有的参数都是按值传递的。这意味着函数接收到的是参数的值的副本，而不是原始值本身。对于基本数据类型（如 <code>int</code>, <code>float</code>, <code>bool</code>, <code>string</code> 等），这通常意味着创建一个完全独立的副本，对函数内的参数所做的任何修改都不会影响到外部的原始值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-comment">// 形参为 int类型的 x</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">addOne</span><span class="hljs-params">(x <span class="hljs-type">int</span>)</span></span> &#123;<br>    x++<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    n := <span class="hljs-number">10</span><br>    <span class="hljs-comment">// 实参为 n</span><br>    addOne(n)<br>    fmt.Println(n) <span class="hljs-comment">// 输出 10</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>引用传递（实际上是一种共享引用）</strong></p>
+<p>尽管 Go 没有真正的“引用传递”，但在处理复合类型（如切片、map、channel 和接口）时，情况有所不同。当传递这些类型时，实际上是传递了指向这些复合类型数据的引用。这意味着，虽然函数内部的操作是在局部变量上进行的，但由于这些局部变量持有原始数据的引用，所以对它们的修改会影响到外部的原始数据。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">appendItem</span><span class="hljs-params">(slice []<span class="hljs-type">int</span>)</span></span> &#123;<br>    slice = <span class="hljs-built_in">append</span>(slice, <span class="hljs-number">42</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    numbers := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;<br>    appendItem(numbers)<br>    fmt.Println(numbers) <span class="hljs-comment">// 输出 [1 2 3 42]</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>指针的使用</strong></p>
+<p>为了在函数间传递引用并允许直接修改原始数据，Go 支持指针类型。当你将一个指针传递给函数时，你实际上是传递了指向某个值的地址，这允许函数直接修改那个值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> Point <span class="hljs-keyword">struct</span> &#123;<br>    X, Y <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">movePoint</span><span class="hljs-params">(p *Point)</span></span> &#123;<br>    p.X++<br>    p.Y++<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    pt := Point&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>&#125;<br>    movePoint(&amp;pt)<br>    fmt.Println(pt) <span class="hljs-comment">// 输出 &#123;2 3&#125;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
 <h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>初始化和没有初始化的区别主要体现在变量或对象的状态以及其在程序中的可用性方面。下面是详细的对比：</p>
 <p><strong>未初始化：</strong></p>
 <ol>
