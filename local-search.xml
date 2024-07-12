@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>版本更新特性</title>
+    <link href="/2024/07/11/go/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E7%89%B9%E6%80%A7/"/>
+    <url>/2024/07/11/go/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    
+    <content type="html"><![CDATA[<h1 id="版本更新特性"><a href="#版本更新特性" class="headerlink" title="版本更新特性"></a>版本更新特性</h1><h2 id="Golang-1-22-对-for-循环作了两处更新"><a href="#Golang-1-22-对-for-循环作了两处更新" class="headerlink" title="Golang 1.22 对 for 循环作了两处更新"></a>Golang 1.22 对 for 循环作了两处更新</h2><ul><li><p>不再共享循环变量</p><p>Go 1.22 之前，<code>for</code> 循环声明的变量仅会创建一次，而在每次迭代时对变量值进行更新。Go 1.22 改为每次迭代时都创建新的变量。</p></li><li><p>支持对整数进行 <code>range</code> 遍历</p><p>Go 1.22 支持在 <code>for</code> 循环中对整数进行 <code>range</code> 遍历了。</p></li></ul><h3 id="1-不再共享循环变量"><a href="#1-不再共享循环变量" class="headerlink" title="1 不再共享循环变量"></a>1 不再共享循环变量</h3><p><strong>Go 1.22 之前的情况</strong></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// for_1_21.go</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++ &#123;<br><span class="hljs-comment">// for each iteration, start a goroutine to print i</span><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>fmt.Println(i)<br>&#125;()<br>&#125;<br><br><span class="hljs-comment">// waiting for 3 seconds</span><br>time.Sleep(time.Second * <span class="hljs-number">3</span>)<br>&#125;<br><br><span class="hljs-comment">// 输出结果 2 2 2</span><br></code></pre></td></tr></table></figure><p>这是为什么呢？这是因为 <code>for</code> 循环的 <code>i</code> 变量只在初始化块内声明了一次，而在每次迭代时对其重新赋值。这样，启动虽有顺序但执行却是异步的 <code>3</code> 个子 <code>goroutine</code> 访问的其实是同一个内存地址，所以打印的值有可能会相同。</p><p>老版本解决方案：可以通过给闭包函数增加一个参数或者新声明一个变量来解决。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// for_modified_1_21.go</span><br><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++ &#123;<br>  <span class="hljs-comment">// for each iteration, start a goroutine to print i</span><br>  <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i <span class="hljs-type">int</span>)</span></span> &#123;<br>    fmt.Println(i)<br>  &#125;(i)<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="2-支持对整数进行range遍历"><a href="#2-支持对整数进行range遍历" class="headerlink" title="2 支持对整数进行range遍历"></a>2 支持对整数进行range遍历</h3><p>在 Go 1.22 版本之前， <code>for</code> 仅支持对 <code>array</code>（或 <code>slice</code>）、<code>string</code>、<code>map</code> 和 <code>channel</code> 类型进行 <code>range</code> 遍历，而 Go 1.22 支持了对整数的 <code>range</code> 遍历，这样对于打印一个连续数值序列的写法就变得简单多了。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// for_range_int_1_22.go</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> <span class="hljs-number">3</span> &#123;<br>fmt.Println(i)<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Go笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>编译</title>
     <link href="/2024/07/08/go/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/"/>
     <url>/2024/07/08/go/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/</url>
