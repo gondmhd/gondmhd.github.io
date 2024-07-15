@@ -31,8 +31,10 @@
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20240516161150292.png?raw=true">
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20240516161542225.png?raw=true">
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20240712161448341.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img//GMP.jpg?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20240715100953101.png?raw=true">
 <meta property="article:published_time" content="2024-05-16T06:23:42.179Z">
-<meta property="article:modified_time" content="2024-07-12T08:20:13.557Z">
+<meta property="article:modified_time" content="2024-07-15T02:52:17.141Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -229,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.2k 字
+          8.6k 字
         
       </span>
     
@@ -240,7 +242,7 @@
         
         
         
-          52 分钟
+          72 分钟
         
       </span>
     
@@ -436,6 +438,41 @@
 <li>变量复用，减少对象分配</li>
 <li>增大GOGC的值，降低GC的运行频率</li>
 </ol>
+<h2 id="GMP调度"><a href="#GMP调度" class="headerlink" title="GMP调度"></a>GMP调度</h2><p>Goroutine是Go语言中实现并发的关键组件，它是一种轻量级的线程，由Go运行时系统管理调度。Goroutine的调度策略是Go并发模型的核心，它决定了Goroutine如何在多个处理器核心上运行，以及如何在系统资源有限的情况下高效地管理并发任务。以下是Goroutine调度策略的一些关键点：</p>
+<p><strong>调度器设计</strong></p>
+<p>Go的调度器设计为一个两级调度模型，它包括：</p>
+<ol>
+<li><strong>G</strong>：代表Goroutine，是用户级的轻量级线程，它们在P上运行。</li>
+<li><strong>M</strong>：代表Machine，即Go运行时系统中的逻辑处理器。每个M可以绑定到一个物理处理器核心上，负责执行P上的任务。</li>
+<li><strong>P</strong>：代表Processor，是调度单位，每个P维护了一个Goroutine的就绪队列。P的数量通常由<code>GOMAXPROCS</code>环境变量决定，它控制着并发处理器的数量。</li>
+</ol>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img//GMP.jpg?raw=true" srcset="/img/loading.gif" lazyload alt="GMP调度"></p>
+<p><strong>调度策略</strong></p>
+<ol>
+<li>**队列轮转: **P会周期性的将G调度到M中执行，执行一段时间后，保存上下文，将G放到队列尾部，然后从队列中再取出一个G进行调度，P还会周期性的查看全局队列是否有G等待调度到M中执行</li>
+</ol>
+<p>​	2.<strong>系统调用:</strong> 当G0即将进入系统调用时，M0将释放P，进而某个空闲的M1获取P，继续执行P队列中剩下的G。M1的来源有可能是M的缓存池，也可能是新建		的。</p>
+<p>​	3.<strong>G0系统调用结束后的调度</strong>：.当G0系统调用结束后，如果有空闲的P，则获取一个P，继续执行G0。如果没有，则将G0放入全局队列，等待被其他的P调度。		然后M0将进入缓存池睡眠。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20240715100953101.png?raw=true" srcset="/img/loading.gif" lazyload alt="Goroutine调度原理图"></p>
+<p><strong>Groutine的切换时机</strong></p>
+<p>​	1.select操作阻塞时<br>​	2.io阻塞<br>​	3.阻塞在channel<br>​	4.程序员显示编码操作<br>​	5.等待锁<br>​	6.程序调用</p>
+<p><strong>Goroutine调度原理</strong></p>
+<p>​	调度循环：每个p都有一个协程g0，调度时首先切换到协程g0，切换到接下来将要运行的协程g，再从协程g切换到协程g0，开始新一轮调度。</p>
+<p>​	goroutine调度的本质就是将**Goroutine(G)**按照一定算法放到CPU上去执行。</p>
+<p>​	CPU感知不到Goroutine，只知道内核线程，所以需要Go调度器将协程调度到内核线程上面去，然后操作系统调度器将内核线程放到CPU上去执行</p>
+<p>​	M是对内核级线程的封装，所以Go调度器的工作就是将G分配到M</p>
+<p>​	</p>
+<p>被调度的对象：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs tex">G的来源<br>P的runnext(只有1个G，局部性原理，永远会被最先调度执行)<br>P的本地队列（数组，最多256个G)<br>全局G队列(链表，无限制)<br>网络轮询器network poller (存放网络调用被阻塞的G)<br><br>P的来源<br>全局P队列(数组，GOMAXPROCS个P)<br><br>M的来源<br>休眠线程队列(未绑定P，长时间休眠会等待GC回收销毁)<br>运行线程（绑定P，指向P中的G)<br>自旋线程（(绑定P，指向M的GO)<br><br></code></pre></td></tr></table></figure>
+
+<p>运行线程数+自旋线程数&lt;&#x3D;P的数量（GOMAXPROCS），M个数&gt;&#x3D;P的个数</p>
+<p>G的生命周期：G从创建、保存、被获取、调度和执行、阻塞、销毁，步骤如下:</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs tex">步骤1:创建G，关键字go func( )创建G<br><br>步骤2∶保存G，创建的G优先保存到本地队列P，如果P满了，则会平衡部分P到全局队列中<br>保存G的详细流程如下:<br>执行go func的时候，主线程M0会调用newproc()生成一个G结构体，这里会先选定当前M0上的P结构<br>每个协程G都会被尝试先放到P中的runnext，若runnext 为空则放到runnext中，生产结束<br>若runnext满，则将原来runnext中的G踢到本地队列中，将当前G放到runnext中，生产结束<br>若本地队列也满了，则将本地队列中的G拿出一半，放到全局队列中，生产结束。<br><br>步骤3∶唤醒或者新建M执行任务，进入调度循环（步骤4,5,6)<br><br>步骤4∶M获取G，M首先从P的本地队列获取G，如果P为空，则从全局队列获取G，如果全局队列也为<br>空，则从另一个本地队列偷取一半数量的G(负载均衡)，这种从其它P偷的方式称之为work stealing<br><br>步骤5: M调度和执行G，M调用G.func()函数执行G<br>如果M在执行G的过程发生系统调用阻塞（同步)，会阻塞G和M(操作系统限制)，此时P会和当前M解绑，<br>并寻找新的M，如果没有空闲的M就会新建一个M，接管正在阻塞G所属的P，接着继续执行P中其余的<br>G，这种阻塞后释放P的方式称之为hand off。当系统调用结束后，这个G会尝试获取一个空闲的P执行，<br>优先获取之前绑定的P，并放入到这个P的本地队列，如果获取不到P，那么这个线程M变成休眠状态，加<br>入到空闲线程中，然后这个G会被放入到全局队列中。<br>如果M在执行G的过程发生网络IO等操作阻塞时(异步)，阻塞G，不会阻塞M。M会寻找P中其它可执行的	<br>G继续执行，G会被网络轮询器network poller接手，当阻塞的G恢复后，G1从network poller被移回到P的<br>LRQ中，重新进入可执行状态。异步情况下，通过调度，Go scheduler成功地将I/O的任务转变成了<br>CPU任务，或者说将内核级别的线程切换转变成了用户级别的goroutine切换，大大提高了效率。<br><br>步骤6∶M执行完G后清理现场，重新进入调度循环（将M上运行的goroutine切换为G0，G0负责调度时	<br>协程的切换)<br></code></pre></td></tr></table></figure>
+
+<p>使用什么策略来挑选下一个goroutine执行?</p>
+<p>由于P中的G分布在runnext、本地队列、全局队列、网络轮询器中，则需要挨个判断是否有可执行的G，大体逻辑如下:</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs tex">每执行61次调度循环，从全局队列获取G，若有则直接返回<br>从P上的runnext看一下是否有G，若有则直接返回<br>从P上的本地队列看一下是否有G，若有则直接返回<br>上面都没查找到时，则去全局队列、网络轮询器查找或者从其他Р中窃取,t一直阻塞直到获取到一个可用的G为止<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
