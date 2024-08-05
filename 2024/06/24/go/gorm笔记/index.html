@@ -24,7 +24,7 @@
 <meta property="og:description" content="gorm笔记什么是ORMObject Relational Mapping：对象关系映射 结构体 和 SQL数据库存在映射，这个时候就有了ORM语句 一句话说：就是将数据库中的表数据和结构体进行对应的关系 ORM的优缺点优点：  提高开发效率  缺点:  牺牲执行性能【中间多了一个环节】 牺牲灵活性 弱化SQL能力  GORM基本示例连接MySQL123456789101112import (	&amp;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-24T01:06:29.937Z">
-<meta property="article:modified_time" content="2024-07-31T06:05:07.914Z">
+<meta property="article:modified_time" content="2024-08-02T09:52:46.861Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -302,7 +302,6 @@
 <li><p>如果您想要显式地关闭整个连接池，可以使用 <code>db.Close</code> 方法。这通常在应用关闭时执行。</p>
 </li>
 <li><p>示例：</p>
-<p>go深色版本</p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">defer <span class="hljs-keyword">db</span>.<span class="hljs-keyword">Close</span>()<br></code></pre></td></tr></table></figure></li>
 </ul>
 </li>
