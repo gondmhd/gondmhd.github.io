@@ -25,8 +25,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img//image-20240722141955691.png?raw=true">
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20240722142418874.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20240807100325879.png?raw=true">
 <meta property="article:published_time" content="2024-07-22T05:55:29.780Z">
-<meta property="article:modified_time" content="2024-07-22T09:47:24.401Z">
+<meta property="article:modified_time" content="2024-08-07T02:33:48.547Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.8k 字
+          9.3k 字
         
       </span>
     
@@ -234,7 +235,7 @@
         
         
         
-          66 分钟
+          78 分钟
         
       </span>
     
@@ -400,7 +401,38 @@
 
 <h4 id="创建复杂类型"><a href="#创建复杂类型" class="headerlink" title="创建复杂类型"></a>创建复杂类型</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 代码示例：创建复杂类型</span><br>t := reflect.TypeOf(Student&#123;&#125;)<br>v := reflect.New(t).Elem()<br>v.FieldByName(<span class="hljs-string">&quot;Name&quot;</span>).SetString(<span class="hljs-string">&quot;Bob&quot;</span>)<br>v.FieldByName(<span class="hljs-string">&quot;Age&quot;</span>).SetInt(<span class="hljs-number">25</span>)<br>fmt.Println(v.Interface())  <span class="hljs-comment">// 输出 &#123;Bob 25&#125;</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="6、总结"><a href="#6、总结" class="headerlink" title="6、总结"></a>6、总结</h2><p>虽然反射很灵活（几乎可以干任何事情），下面有三点建议：</p>
+<h2 id="6、reflect-DeepEqual函数"><a href="#6、reflect-DeepEqual函数" class="headerlink" title="6、reflect.DeepEqual函数"></a>6、reflect.DeepEqual函数</h2><p><strong>1、介绍</strong></p>
+<p>在Go语言中，<code>reflect</code>包提供了一套功能强大的工具来检查、操作和修改程序的运行时表示。<code>reflect.DeepEqual</code>是<code>reflect</code>包中的一个重要函数，它用于判断两个值是否深度相等。</p>
+<p><strong>2、<code>reflect.DeepEqual</code>的基本使用</strong></p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20240807100325879.png?raw=true" srcset="/img/loading.gif" lazyload alt="可使用类型"></p>
+<p><strong>2.1 什么是深度相等？</strong></p>
+<p>深度相等是一种<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%AF%94%E8%BE%83%E6%96%B9%E6%B3%95&spm=1001.2101.3001.7020">比较方法</a>，旨在检查两个值的所有层级是否完全一致。这不仅仅包括表面值的比较，还涉及到内部所有元素的递归比较。简单来说，如果两个变量在结构和内容上完全一致，那么它们就是深度相等的。</p>
+<p>浅层相等主要用于比较变量的直接值或引用，而不关注其内部的元素或结构是否相同。这种比较方式通常适用于<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&spm=1001.2101.3001.7020">简单数据类型</a>或需要快速判断引用是否相同的情况。</p>
+<p><code>reflect.DeepEqual</code>函数可以比较任何类型的两个值，并确定它们是否在深度上相等。这意味着不仅比较基本类型的值，还会递归地比较复合类型的所有元素，如<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E7%BB%93%E6%9E%84%E4%BD%93&spm=1001.2101.3001.7020">结构体</a>、切片、映射等。</p>
+<p>实例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>    <span class="hljs-string">&quot;reflect&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    a := <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>&#123;<span class="hljs-string">&quot;one&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;two&quot;</span>: <span class="hljs-number">2</span>&#125;<br>    b := <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-type">int</span>&#123;<span class="hljs-string">&quot;one&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;two&quot;</span>: <span class="hljs-number">2</span>&#125;<br><br>    fmt.Println(reflect.DeepEqual(a, b)) <span class="hljs-comment">// 输出: true</span><br><br>    c := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;<br>    d := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>&#125;<br><br>    fmt.Println(reflect.DeepEqual(c, d)) <span class="hljs-comment">// 输出: false</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>3. 深入理解<code>reflect.DeepEqual</code></strong></p>
+<p><code>reflect.DeepEqual</code>函数的比较逻辑如下：</p>
+<ol>
+<li><strong>基本类型</strong>：直接比较值是否相等。</li>
+<li><strong>数组</strong>：比较每个元素是否相等。</li>
+<li><strong>切片</strong>：比较切片长度和每个元素是否相等。</li>
+<li><strong>映射</strong>：比较键值对的数量和每个键对应的值是否相等。</li>
+<li><strong>结构体</strong>：比较每个字段是否相等。</li>
+<li><strong>指针</strong>：比较指针指向的值是否相等。</li>
+<li><strong>接口</strong>：比较接口的动态类型和值是否相等。</li>
+</ol>
+<p><strong>4. <code>reflect.DeepEqual</code>的局限性</strong></p>
+<p>尽管<code>reflect.DeepEqual</code>非常强大，但在某些情况下可能会有意想不到的结果：</p>
+<ul>
+<li><strong>未导出字段</strong>：对于结构体的未导出字段，<code>reflect.DeepEqual</code>无法访问，因此无法比较。</li>
+<li><strong>函数比较</strong>：如果结构体或容器中包含函数，<code>reflect.DeepEqual</code>不会比较函数逻辑是否相同，只会比较函数指针是否相等。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>    <span class="hljs-string">&quot;reflect&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> T <span class="hljs-keyword">struct</span> &#123;<br>    f <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    t1 := T&#123;f: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span> &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> &#125;&#125;<br>    t2 := T&#123;f: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span> &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> &#125;&#125;<br><br>    fmt.Println(reflect.DeepEqual(t1, t2)) <span class="hljs-comment">// 输出: false</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上述示例中，尽管<code>t1</code>和<code>t2</code>的函数逻辑相同，但<code>reflect.DeepEqual</code>比较的是函数的指针，因此返回<code>false</code>。</p>
+<h2 id="7、总结"><a href="#7、总结" class="headerlink" title="7、总结"></a>7、总结</h2><p>虽然反射很灵活（几乎可以干任何事情），下面有三点建议：</p>
 <ul>
 <li>可以只使用 reflect.TypeOf 的话，就不要使用 reflect.ValueOf</li>
 <li>可以使用断言代替的话，就不要使用反射</li>
