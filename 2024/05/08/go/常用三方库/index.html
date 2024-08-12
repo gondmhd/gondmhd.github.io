@@ -24,7 +24,7 @@
 <meta property="og:description" content="常用三方库gjson快速使用先安装： 1go get github.com&#x2F;tidwall&#x2F;gjson  后使用： 1234567891011121314151617package mainimport (  &quot;fmt&quot;  &quot;github.com&#x2F;tidwall&#x2F;gjson&quot;)func main() &amp;#123;  json :&#x3D; &#96;&amp;#123;&quot;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-08T06:43:00.347Z">
-<meta property="article:modified_time" content="2024-07-31T01:32:05.560Z">
+<meta property="article:modified_time" content="2024-08-12T01:56:11.968Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          32k 字
+          36k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          266 分钟
+          305 分钟
         
       </span>
     
@@ -633,6 +633,79 @@
 <li>yaml空值，修改完成之后会丢失</li>
 <li>key全部自动转成小写，docker-compose里面容器大小写敏感</li>
 </ul>
+<h2 id="golang-set包"><a href="#golang-set包" class="headerlink" title="golang-set包"></a>golang-set包</h2><p>Set是一种基本的数据结构,它具备确定性、互异性、无序性三个特点。因此，在开发过程中我们通常用它来判断一些数据的集合与另一个数据集合或者元素的包含关系。在大部分开发语言中set都是一种基本的数据结构，但是golang不提供set类型。通常情况下，我们都会用map[interface{}]struct{}{}来代替set实现包含关系的判断。但事实上，我们在github上会发现一些第三方的开源包。例如<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/deckarep/golang-set">golang-set</a>就是一个相对成熟的包。截止到2021年3月份已经有1.8k的star和160+的fork。同时这个包本身也已经应用于docker项目中。是一个可用性和可靠性都经过验证的第三方包，可以放心使用</p>
+<p>golang-set包本身也是基于map[interface{}]struct{}{}结构实现的，同时golang-set包提供了线程安全和不保证安全的两种set类型，相比于线程安全的set对象，不保证安全的set对象执行效率会更高一点。</p>
+<h3 id="快速使用-3"><a href="#快速使用-3" class="headerlink" title="快速使用"></a>快速使用</h3><p>golang-set的使用也非常简单，只需导入该包然后创建set对象即可开始使用。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> mapset <span class="hljs-string">&quot;github.com/deckarep/golang-set&quot;</span><br><br>set := mapset.NewSet(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br>set.Add(<span class="hljs-number">6</span>)<br><br>set.Contains(<span class="hljs-number">5</span>)<br>set.Remove(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="set类型"><a href="#set类型" class="headerlink" title="set类型"></a>set类型</h3><p>golang 提供了两种set类型，一种是普通的集合对象，一种是线程安全的集合对象，通过结构嵌套的方式为普通集合对象新增了一个全局锁，实现了线程安全。具体如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> threadSafeSet <span class="hljs-keyword">struct</span> &#123;<br>    s threadUnsafeSet<br>    sync.RWMutex<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newThreadSafeSet</span><span class="hljs-params">()</span></span> threadSafeSet &#123;<br>    <span class="hljs-keyword">return</span> threadSafeSet&#123;s: newThreadUnsafeSet()&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p>golang-set包提供的集合操作方法包含如下23个方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Set <span class="hljs-keyword">interface</span> &#123;<br>    Add(i <span class="hljs-keyword">interface</span>&#123;&#125;) <span class="hljs-type">bool</span><br>    Cardinality() <span class="hljs-type">int</span><br>    Clear()<br>    Clone() Set<br>    Contains(i ...<span class="hljs-keyword">interface</span>&#123;&#125;) <span class="hljs-type">bool</span><br>    Difference(other Set) Set<br>    Equal(other Set) <span class="hljs-type">bool</span><br>    Intersect(other Set) Set<br>    IsProperSubset(other Set) <span class="hljs-type">bool</span><br>    IsProperSuperset(other Set) <span class="hljs-type">bool</span><br>    IsSubset(other Set) <span class="hljs-type">bool</span><br>    IsSuperset(other Set) <span class="hljs-type">bool</span><br>    Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> <span class="hljs-type">bool</span>)<br>    Iter() &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>&#123;&#125;<br>    Iterator() *Iterator<br>    Remove(i <span class="hljs-keyword">interface</span>&#123;&#125;)<br>    String() <span class="hljs-type">string</span><br>    SymmetricDifference(other Set) Set<br>    Union(other Set) Set<br>    Pop() <span class="hljs-keyword">interface</span>&#123;&#125;<br>    PowerSet() Set<br>    CartesianProduct(other Set) Set<br>    ToSlice() []<span class="hljs-keyword">interface</span>&#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>具体含义如下：</p>
+<ul>
+<li><p>Add(i interface{}) bool:用于向集合中添加某些元素</p>
+</li>
+<li><p>Cardinality() int ：返回集合元素个数</p>
+</li>
+<li><p>Clear() ：清空集合中全部元素，剩下一个空的集合，使用不需要通过NewSet进行初始化</p>
+</li>
+<li><p>Clone() Set ：复制一个一模一样的集合对象</p>
+</li>
+<li><p>Contains(i …interface{}) bool ：返回是否参数元素全部包含于集合中</p>
+</li>
+<li><p>Difference(other Set) Set ：将返回当前集合与参数集合的全部差异元素，这些元素包含于本集合但是不包含于参数集合。注意：入参的set类型与方法接受者set的类型必须一致，否则将导致panic。</p>
+</li>
+<li><p>Equal(other Set) bool ：如果参数集合与当前集合的容量和全部元素是相同的，那么会被然认为是相同的，无需考虑元素的顺序。注意：入参的set类型与方法接受者set的类型必须一致，否则将导致panic。</p>
+</li>
+<li><p>Intersect(other Set) Set：将返回两个集合的交集。注意：入参的set类型与方法接受者set的类型必须一致，否则将导致panic。</p>
+</li>
+<li><p>IsProperSubset(other Set) bool：判断当前set是否为参数set的真子集（包含但不相等）。注意：入参的set类型与方法接受者set的类型必须一致，否则将导致panic。</p>
+</li>
+<li><p>IsProperSuperset(other Set) bool：判断参数set是否为当前set的真子集（包含但不相等）。注意：入参的set类型与方法接受者set的类型必须一致，否则将导致panic。</p>
+</li>
+<li><p>IsSubset(other Set) bool：判断当前set是否为参数set的子集（包含，允许相等）。注意：入参的set类型与方法接受者set的类型必须一致，否则将导致panic。</p>
+</li>
+<li><p>IsSuperset(other Set) bool：判断参数set是否为当前set的子集（包含，允许相等）。注意：入参的set类型与方法接受者set的类型必须一致，否则将导致panic。</p>
+</li>
+<li><p>Each(func(interface{}) bool)：遍历元素，并对每个元素执行传递的func。如果传递的func返回true，则此时停止迭代。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">//clone a</span><br>b := NewSet()<br>a.Each(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(elem <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> <span class="hljs-type">bool</span> &#123;<br>    b.Add(elem)<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Iter() &lt;-chan interface{}：返回一个可以遍历set的channel</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">b := NewSet()<br><span class="hljs-keyword">for</span> val := <span class="hljs-keyword">range</span> a.Iter() &#123;<br>    b.Add(val)<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Iterator() *Iterator：返回一个Iterator对象，用于遍历set的全部参数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">b := NewThreadUnsafeSet()<br><span class="hljs-keyword">for</span> val := <span class="hljs-keyword">range</span> a.Iterator().C &#123;<br>    b.Add(val)<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Remove(i interface{}) :从当前集合中移除某个元素</p>
+</li>
+<li><p>String() string：返回集合的string格式，set:{}用于查看该集合</p>
+</li>
+<li><p>SymmetricDifference(other Set) Set：返回当前集合与参数集合的对称差集（对称差集中的元素要么包含于本集合，要么包含于参数集合，但是不能属于两者的交集）。注意：入参的set类型与方法接受者set的类型必须一致，否则将导致panic。</p>
+</li>
+<li><p>Union(other Set) Set：返回当前集合与参数集合的并集。注意：入参的set类型与方法接受者set的类型必须一致，否则将导致panic。</p>
+</li>
+<li><p>Pop() interface{}：移除并返回一个随机的元素</p>
+</li>
+<li><p>PowerSet() Set：返回当前集合的全部子集</p>
+</li>
+<li><p>CartesianProduct(other Set) Set：返回当前集合与参数集合的笛卡尔积结果集合</p>
+</li>
+<li><p>ToSlice() []interface{}：返回当前集合的切片对象。</p>
+</li>
+</ul>
+<h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><p>由上文可知，golang-set提供了普通和线程安全两种类型的集合对象。其中线程安全的集合对象，通过结构嵌套的方式为普通集合对象新增了一个全局锁，实现了线程安全。因此针对方法的实现主要通过普通集合对象的实现来介绍。</p>
+<p>golang-set包的具体实现其实非常简单，基于golang-set原生的map结构作为基本的存储结构，value以一个不占用内存空间的struct{}{}为值。其中一个我认为值得我们借鉴的开发技巧就是golang-set的遍历方法，具体源码如下所示：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs golang"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(set *threadUnsafeSet)</span></span> Iter() &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>&#123;&#125; &#123;<br>    ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>&#123;&#125;)<br>    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>        <span class="hljs-keyword">for</span> elem := <span class="hljs-keyword">range</span> *set &#123;<br>            ch &lt;- elem<br>        &#125;<br>        <span class="hljs-built_in">close</span>(ch)<br>    &#125;()<br><br>    <span class="hljs-keyword">return</span> ch<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>它通过创建一个协程去遍历set对象，同时返回一个channel 由用户去读取set的遍历结果，是的读取较大set对象时，用户无需等待，而直接读取，具有较高的效率，但是他的缺点也十分明显，那就是这个方式无法中途退出，也就是说，在使用该方法遍历时，用户必须保证会执行完全部的遍历结果。否则，由于返回的channel是无缓冲的channel,用户不读取时，Iterator()方法中的遍历协程将阻塞，而无法退出，就会发生内存泄漏，</p>
+<p>为了方便遍历方法的中途退出，golang-set又提供了另外一个遍历方法，通过返回一个美枚举对象来实现set对象的异步遍历。具体源码如下：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs golang"><span class="hljs-keyword">type</span> Iterator <span class="hljs-keyword">struct</span> &#123;<br>    C    &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>&#123;&#125;<br>    stop <span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">newIterator</span><span class="hljs-params">()</span></span> (*Iterator, <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-keyword">interface</span>&#123;&#125;, &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;) &#123;<br>    itemChan := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>&#123;&#125;)<br>    stopChan := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;)<br>    <span class="hljs-keyword">return</span> &amp;Iterator&#123;<br>        C:    itemChan,<br>        stop: stopChan,<br>    &#125;, itemChan, stopChan<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(set *threadUnsafeSet)</span></span> Iterator() *Iterator &#123;<br>    iterator, ch, stopCh := newIterator()<br><br>    <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>    L:<br>        <span class="hljs-keyword">for</span> elem := <span class="hljs-keyword">range</span> *set &#123;<br>            <span class="hljs-keyword">select</span> &#123;<br>            <span class="hljs-keyword">case</span> &lt;-stopCh:<br>                <span class="hljs-keyword">break</span> L<br>            <span class="hljs-keyword">case</span> ch &lt;- elem:<br>            &#125;<br>        &#125;<br>        <span class="hljs-built_in">close</span>(ch)<br>    &#125;()<br><br>    <span class="hljs-keyword">return</span> iterator<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>其中枚举对象Iterator中的C channel用于异步读取遍历结果，stop channel用于主动停止遍历协程，从而避免内存泄漏。具体的使用方法如下：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs golang">it := a.Iterator()<br><br><span class="hljs-keyword">for</span> v := <span class="hljs-keyword">range</span> it.C &#123;<br>    <span class="hljs-comment">//退出条件</span><br>    <span class="hljs-keyword">if</span> (v == <span class="hljs-number">10</span>)&#123;<br>        it.stop()<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
