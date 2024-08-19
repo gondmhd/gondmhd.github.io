@@ -24,7 +24,7 @@
 <meta property="og:description" content="Mysql用法1、查询相关 使用like关键字进行模糊匹配: 1select * from table where column like &amp;#x27; %pattern%&amp;#x27;;  使用正则表达式进行查询: 1select * from table where column regexp &amp;#x27;pattern&amp;#x27;;  子查询（Nested Queries） 子查询允许你将一个">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-21T12:03:57.870Z">
-<meta property="article:modified_time" content="2024-07-31T02:47:43.966Z">
+<meta property="article:modified_time" content="2024-08-19T03:37:30.835Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Tools">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.6k 字
+          6.3k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          31 分钟
+          53 分钟
         
       </span>
     
@@ -285,14 +285,125 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> Orders<br><span class="hljs-keyword">WHERE</span> OrderAmount <span class="hljs-operator">&gt;</span> (<span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">AVG</span>(OrderAmount) <span class="hljs-keyword">FROM</span> Orders);<br></code></pre></td></tr></table></figure>
 
 <p><strong>联接查询（JOINs）</strong></p>
-<p>​		联接多个表以获取相关数据。有多种类型的联接，如：</p>
-<ul>
-<li><p>内联接（INNER JOIN）：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> Orders.OrderID, Customers.CustomerName<br><span class="hljs-keyword">FROM</span> Orders<br><span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> Customers <span class="hljs-keyword">ON</span> Orders.CustomerID <span class="hljs-operator">=</span> Customers.CustomerID;<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>左联接（LEFT JOIN）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> Customers.CustomerName, Orders.OrderID<br><span class="hljs-keyword">FROM</span> Customers<br><span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> Orders <span class="hljs-keyword">ON</span> Customers.CustomerID <span class="hljs-operator">=</span> Orders.CustomerID;<br></code></pre></td></tr></table></figure></li>
-</ul>
+<p><strong>student</strong> :</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">---------------------- student-----------------------</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> student(<br>id <span class="hljs-type">int</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> auto_increment,<br>name <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>,<br>sex <span class="hljs-type">char</span>(<span class="hljs-number">1</span>),<br>submission_date <span class="hljs-type">date</span>,<br><span class="hljs-keyword">primary</span> key(id))engine<span class="hljs-operator">=</span>innodb <span class="hljs-type">character</span> <span class="hljs-keyword">set</span> utf8;<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> student (name, sex, submission_date)<br><span class="hljs-keyword">VALUES</span><br>    (&quot;张三&quot;, &quot;男&quot;, &quot;2010-10-10&quot;),<br>    (&quot;李四&quot;, &quot;男&quot;, &quot;2010-10-10&quot;),<br>    (&quot;王五&quot;, &quot;男&quot;, &quot;2010-10-10&quot;),<br>    (&quot;赵六&quot;, &quot;男&quot;, &quot;2010-10-10&quot;),<br>    (&quot;孙七&quot;, &quot;男&quot;, &quot;2010-10-10&quot;);<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">name</th>
+<th align="center">sex</th>
+<th align="center">submission_date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">张三</td>
+<td align="center">男</td>
+<td align="center">2010-10-10</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">李四</td>
+<td align="center">男</td>
+<td align="center">2010-10-10</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">王五</td>
+<td align="center">男</td>
+<td align="center">2010-10-10</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">赵六</td>
+<td align="center">男</td>
+<td align="center">2010-10-10</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">孙七</td>
+<td align="center">男</td>
+<td align="center">2010-10-10</td>
+</tr>
+</tbody></table>
+<p><strong>grade</strong>:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">------------------- grade-------------</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> grade(<br>id <span class="hljs-type">int</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> auto_increment,<br>stuid <span class="hljs-type">int</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>,<br>class <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>,<br>grade <span class="hljs-type">int</span>(<span class="hljs-number">3</span>),<br><span class="hljs-keyword">primary</span> key(id))engine<span class="hljs-operator">=</span>innodb <span class="hljs-type">character</span> <span class="hljs-keyword">set</span> utf8;<br><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> student (name, sex, submission_date)<br><span class="hljs-keyword">VALUES</span><br>    (&quot;张三&quot;, &quot;男&quot;, &quot;2010-10-10&quot;),<br>    (&quot;李四&quot;, &quot;男&quot;, &quot;2010-10-10&quot;),<br>    (&quot;王五&quot;, &quot;男&quot;, &quot;2010-10-10&quot;),<br>    (&quot;赵六&quot;, &quot;男&quot;, &quot;2010-10-10&quot;),<br>    (&quot;孙七&quot;, &quot;男&quot;, &quot;2010-10-10&quot;);<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">stuid</th>
+<th align="center">class</th>
+<th align="center">grade</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">计算机</td>
+<td align="center">100</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">guitar</td>
+<td align="center">90</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">美术</td>
+<td align="center">80</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">美术</td>
+<td align="center">80</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center">计算机</td>
+<td align="center">70</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">2</td>
+<td align="center">guitar</td>
+<td align="center">60</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">3</td>
+<td align="center">guitar</td>
+<td align="center">50</td>
+</tr>
+</tbody></table>
+<p><strong>查询每个学生的总成绩</strong>		</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">sum</span>(grade),stuid <span class="hljs-keyword">from</span> grade <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> stuid;			# 查询总成绩<br><br><span class="hljs-keyword">select</span> stuid,<span class="hljs-built_in">avg</span>(grade) <span class="hljs-keyword">from</span> grade <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> stuid;			# 查询平均成绩<br></code></pre></td></tr></table></figure>
+
+<p><strong>多表查询</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> a.name,<span class="hljs-built_in">sum</span>(grade) <span class="hljs-keyword">from</span> student a,grade b <span class="hljs-keyword">where</span> a.id <span class="hljs-operator">=</span> b.stuid <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> b.stuid;<br></code></pre></td></tr></table></figure>
+
+<p><strong>内连接</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> a.name,<span class="hljs-built_in">sum</span>(grade) <span class="hljs-keyword">from</span> student a <span class="hljs-keyword">inner</span> <span class="hljs-keyword">join</span> grade b <span class="hljs-keyword">on</span> a.id <span class="hljs-operator">=</span> b.stuid <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> b.stuid;<br><br># 对比直接多表查询（隐式连接）好处<br>## <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> 明确指出了连接条件，使得查询更容易理解和维护。<br>## 以轻松地添加更多的 <span class="hljs-keyword">JOIN</span> 子句来连接更多表，而不需要修改现有的 <span class="hljs-keyword">WHERE</span> 子句。<br>## 使用 <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> 可以帮助数据库查询优化器更好地理解查询意图，从而选择更高效的执行计划。显式连接条件可以帮助优化器确定哪些索引可以被利用。<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>左联接（LEFT JOIN）</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> student a <span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> grade b <span class="hljs-keyword">on</span> a.id <span class="hljs-operator">=</span>b.stuid <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> b.stuid;<br><br># a表的id在b表的stuid出现的话显示相关b表数据，若不出现在b表，则相关b表的数据列显示null.<br></code></pre></td></tr></table></figure>
+
+<p><strong>右连接(RIGHT JOIN)</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> student a  <span class="hljs-keyword">right</span> <span class="hljs-keyword">join</span> grade b <span class="hljs-keyword">on</span> a.id<span class="hljs-operator">=</span>b.stuid <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> a.id; <br><br># b表的stuid在a表的id出现的话显示相关a表数据，若不出现在a表，则相关a表的数据列显示<span class="hljs-keyword">null</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="union-all和union的区别"><a href="#union-all和union的区别" class="headerlink" title="union all和union的区别"></a>union all和union的区别</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">UNION</span> <span class="hljs-keyword">ALL</span>：用于合并多个查询结果，包括重复的行。<br><span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> student <span class="hljs-keyword">union</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">select</span> stuid <span class="hljs-keyword">from</span> grade;<br><br><br><span class="hljs-keyword">UNION</span>：用于合并多个查询结果，并且自动去除重复的行。<br><span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> student <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> stuid <span class="hljs-keyword">from</span> grade;<br></code></pre></td></tr></table></figure>
+
+
+
 <h2 id="2、数据类型"><a href="#2、数据类型" class="headerlink" title="2、数据类型"></a>2、数据类型</h2><hr>
 <p><strong>longtex类型</strong></p>
 <p>“LONGTEXT”数据类型是一种比较大的文本类型，可以容纳最大长度为4 GB的字符数据。</p>
@@ -337,6 +448,168 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"># 如果需要查出整行数据,可以在<span class="hljs-keyword">SELECT</span>和<span class="hljs-keyword">WHERE</span>中使用:<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> <span class="hljs-keyword">table</span><br><span class="hljs-keyword">WHERE</span> JSON_EXTRACT(metadata, <span class="hljs-string">&#x27;$.fields[0].fieldPath&#x27;</span>) <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;id&#x27;</span><br><br># 单独执行JSON_EXTRACT语句,直接获取字段值:<br><span class="hljs-keyword">SELECT</span> JSON_EXTRACT(metadata, <span class="hljs-string">&#x27;$.fields[0].fieldPath&#x27;</span>) <br><span class="hljs-keyword">FROM</span> <span class="hljs-keyword">table</span><br></code></pre></td></tr></table></figure>
 
+
+
+<p><strong>常用函数</strong></p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>函数名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串函数</td>
+<td><code>CHAR_LENGTH(str)</code></td>
+<td>返回字符串 <code>str</code> 的长度（以字符为单位）。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>CONCAT(str1, str2, ...)</code></td>
+<td>连接一个或多个字符串。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>LOWER(str)</code></td>
+<td>将字符串 <code>str</code> 转换为小写。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>UPPER(str)</code></td>
+<td>将字符串 <code>str</code> 转换为大写。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>SUBSTRING(str, start, len)</code></td>
+<td>返回从位置 <code>start</code> 开始的 <code>len</code> 个字符。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>REPLACE(str, find_str, replace_str)</code></td>
+<td>替换字符串中的子串。</td>
+</tr>
+<tr>
+<td>数学函数</td>
+<td><code>ABS(X)</code></td>
+<td>返回 <code>X</code> 的绝对值。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>POW(X, Y)</code></td>
+<td>返回 <code>X</code> 的 <code>Y</code> 次幂。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>RAND()</code></td>
+<td>返回一个随机数。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>ROUND(X, D)</code></td>
+<td>返回 <code>X</code> 四舍五入到 <code>D</code> 位小数的结果。</td>
+</tr>
+<tr>
+<td>日期时间函数</td>
+<td><code>NOW()</code></td>
+<td>返回当前的日期和时间。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>CURDATE()</code></td>
+<td>返回当前的日期。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>CURTIME()</code></td>
+<td>返回当前的时间。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>DATE_ADD(date, INTERVAL expr unit)</code></td>
+<td>添加时间间隔。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>TIMESTAMPDIFF(unit, datetime1, datetime2)</code></td>
+<td>计算时间差。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>FROM_UNIXTIME(unix_timestamp)</code></td>
+<td>返回datetime时间戳</td>
+</tr>
+<tr>
+<td></td>
+<td><code>UNIX_TIMESTAMP(datetime)</code></td>
+<td>返回unix时间戳</td>
+</tr>
+<tr>
+<td>控制流函数</td>
+<td><code>IF(condition, then, else)</code></td>
+<td>根据条件返回不同值。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>CASE</code></td>
+<td>根据多个条件返回不同值。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>COALESCE(expr1, expr2, ...)</code></td>
+<td>返回第一个非空表达式的值。</td>
+</tr>
+<tr>
+<td>加密解密函数</td>
+<td><code>ENCODE(str, key_str)</code></td>
+<td>使用 <code>key_str</code> 对 <code>str</code> 进行编码。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>DECODE(str, key_str)</code></td>
+<td>使用 <code>key_str</code> 对 <code>str</code> 进行解码。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>MD5(str)</code></td>
+<td>返回 <code>str</code> 的 MD5 散列值。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>SHA1(str)</code></td>
+<td>返回 <code>str</code> 的 SHA-1 散列值。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>SHA2(str, bit_length)</code></td>
+<td>返回 <code>str</code> 的 SHA-2 散列值。</td>
+</tr>
+<tr>
+<td>聚合函数</td>
+<td><code>COUNT(expr)</code></td>
+<td>返回 <code>expr</code> 的行数。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>SUM(expr)</code></td>
+<td>返回 <code>expr</code> 的总和。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>AVG(expr)</code></td>
+<td>返回 <code>expr</code> 的平均值。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>MIN(expr)</code></td>
+<td>返回 <code>expr</code> 的最小值。</td>
+</tr>
+<tr>
+<td></td>
+<td><code>MAX(expr)</code></td>
+<td>返回 <code>expr</code> 的最大值。</td>
+</tr>
+</tbody></table>
 <h2 id="4、Mysql5-7和Mysql8-0优缺点"><a href="#4、Mysql5-7和Mysql8-0优缺点" class="headerlink" title="4、Mysql5.7和Mysql8.0优缺点"></a>4、Mysql5.7和Mysql8.0优缺点</h2><hr>
 <p>MySQL 5.7优点:</p>
 <ul>
