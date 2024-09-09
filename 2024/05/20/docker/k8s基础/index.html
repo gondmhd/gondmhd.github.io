@@ -68,7 +68,7 @@
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/c7aecdad-99dc-48e7-a2d3-f4f9af68c624.png?raw=true">
 <meta property="og:image" content="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/XJ9LnWvP9VvWlvDe/img/fda98b1f-5f56-49d3-85a1-f982a6c0a61e.png?raw=true">
 <meta property="article:published_time" content="2024-05-20T03:14:05.724Z">
-<meta property="article:modified_time" content="2024-05-21T02:34:21.205Z">
+<meta property="article:modified_time" content="2024-09-09T07:40:19.121Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
@@ -322,7 +322,7 @@
 <h2 id="1、关于-k8s-的基本架构"><a href="#1、关于-k8s-的基本架构" class="headerlink" title="1、关于 k8s 的基本架构"></a>1、关于 k8s 的基本架构</h2><p>K8s 全称 kubernets，希腊语意为：舵手，是一种可自动实施 Linux容器操作的开源平台。前期由 Google 的工程师开发和设计，中期由红帽等一系列公司参与合作开发，后期由云原生计算基金会进行更新、迭代。其提供了应用部署、规划、更新、维护的一种机制，可以省去应用容器化过程的许多手动部署和扩展操作，将运行 Linux 容器的多组主机聚集在一起，轻松高效地管理集群。</p>
 <p>要学习使用K8s，首先要了解K8s的架构、组件以及特点，说到集群，我们不免会想到master、slaver 或者 node，k8s集群也是这样，由多台 master 和 node 组成，由 master 控制 node，由node（也可以是master）提供服务，如图一所示：</p>
 <p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20240520111740567.png?raw=true" srcset="/img/loading.gif" lazyload alt="image-20240520111740567"></p>
-<p><strong>什么是 master：</strong> master 的组件包括 apiserver、controller-manager、scheduler 和 etcd，那么这几个组件是用来做什么的呢？我做了个简单的比喻： 图</p>
+<p><strong>什么是 master(控制节点)：</strong> master 的组件包括 apiserver、controller-manager、scheduler 和 etcd，那么这几个组件是用来做什么的呢？我做了个简单的比喻： 图</p>
 <ul>
 <li><strong>Apiserver（房子入口）:</strong> K8S 对外的唯一接口，提供 HTTP&#x2F;HTTPS RESTful API，即所有的请求都需要经过这个接口进行通信</li>
 <li><strong>Etcd （后勤人员）：</strong> 负责保存 k8s 集群的配置信息和各种资源的状态信息，当数据发生变化时，etcd会快速地通知k8s相关组件</li>
