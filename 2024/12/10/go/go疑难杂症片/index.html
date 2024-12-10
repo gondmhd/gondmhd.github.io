@@ -1,0 +1,704 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Gond">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="go疑难杂症1、解决IDE golang 代码飘红报错 问题：引用方法或者第三方库，代码可正常运行，但是飘红，无法查看方法内部实现  解决方案： 1.1 goland 编辑器点击工具栏File，找到Invalidate Caches，点击Invalidate and Restart 按钮，清理缓存并且重启goland编辑器 1,2 检查goland 编辑器 go module配置，File-Set">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go疑难杂症">
+<meta property="og:url" content="http://gondmhd.github.io/2024/12/10/go/go%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87%E7%89%87/index.html">
+<meta property="og:site_name" content="Gond">
+<meta property="og:description" content="go疑难杂症1、解决IDE golang 代码飘红报错 问题：引用方法或者第三方库，代码可正常运行，但是飘红，无法查看方法内部实现  解决方案： 1.1 goland 编辑器点击工具栏File，找到Invalidate Caches，点击Invalidate and Restart 按钮，清理缓存并且重启goland编辑器 1,2 检查goland 编辑器 go module配置，File-Set">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20240812095307223.png?raw=true">
+<meta property="article:published_time" content="2024-12-10T09:36:28.537Z">
+<meta property="article:modified_time" content="2024-12-10T09:36:28.538Z">
+<meta property="article:author" content="Gond">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20240812095307223.png?raw=true">
+  
+  
+  
+  <title>go疑难杂症 - Gond</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"gondmhd.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Gond</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="go疑难杂症"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-10 17:36" pubdate>
+          2024年12月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">go疑难杂症</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="go疑难杂症"><a href="#go疑难杂症" class="headerlink" title="go疑难杂症"></a>go疑难杂症</h1><h2 id="1、解决IDE-golang-代码飘红报错"><a href="#1、解决IDE-golang-代码飘红报错" class="headerlink" title="1、解决IDE golang 代码飘红报错"></a>1、解决IDE golang 代码飘红报错</h2><blockquote>
+<p>问题：引用方法或者第三方库，代码可正常运行，但是飘红，无法查看方法内部实现</p>
+</blockquote>
+<p>解决方案：</p>
+<p>1.1 goland 编辑器点击工具栏File，找到Invalidate Caches，点击Invalidate and Restart 按钮，清理缓存并且重启goland编辑器</p>
+<p>1,2 检查goland 编辑器 go module配置，File-Setttings-GO Module,查看配置好GOPROXY环境变量，未配置需要配置</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">GOPROXY=https:<span class="hljs-comment">//goproxy.cn,https://goproxy.io,direct</span><br></code></pre></td></tr></table></figure>
+
+<p>设置 GOPROXY 代理，这里主要涉及到两个值，第一个是 <code>https://goproxy.cn</code>，它是由七牛云背书的一个强大稳定的 Go 模块代理，可以有效地解决你的外网问题；第二个是 <code>direct</code>，它是一个特殊的 fallback 选项，它的作用是用于指示 Go 在拉取模块时遇到错误会回源到模块版本的源地址去抓取（比如 GitHub 等）。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20240812095307223.png?raw=true" srcset="/img/loading.gif" lazyload alt="配置截图"></p>
+<h2 id="2-Go-Slice扩容之坑"><a href="#2-Go-Slice扩容之坑" class="headerlink" title="2 Go Slice扩容之坑"></a>2 Go Slice扩容之坑</h2><h3 id="知识重温"><a href="#知识重温" class="headerlink" title="知识重温"></a>知识重温</h3><p><strong>切片底层结构定义</strong>：包含<code>指向底层数组的指针</code>、<code>长度</code>和<code>容量</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> slice <span class="hljs-keyword">struct</span> &#123;<br>  array unsafe.Pointer<br>  <span class="hljs-built_in">len</span>   <span class="hljs-type">int</span><br>  <span class="hljs-built_in">cap</span>   <span class="hljs-type">int</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>append操作</strong>：可以是1个、多个、甚至整个切片（记得后面加…）；添加元素时当容量不足，则会自动触发切片扩容机制，产生切片副本，同时指向底层数组的指针发生变化</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> nums []<span class="hljs-type">int</span><br>nums = <span class="hljs-built_in">append</span>(nums, <span class="hljs-number">1</span>)<br>nums = <span class="hljs-built_in">append</span>(nums, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br>nums2 := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>&#125;<br>nums = <span class="hljs-built_in">append</span>(nums, nums2...)<br>fmt.Println(nums) <span class="hljs-comment">//[1 2 3 4 5 6 7]</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="案例1：传值-未扩容"><a href="#案例1：传值-未扩容" class="headerlink" title="案例1：传值+未扩容"></a>案例1：传值+未扩容</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>  s1 := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>)<br>  fmt.Println(<span class="hljs-string">&quot;s1切片: &quot;</span>, s1)<br>  appendFunc(s1)<br>  fmt.Println(<span class="hljs-string">&quot;s1切片: &quot;</span>, s1)<br>  fmt.Println(<span class="hljs-string">&quot;s1切片表达式: &quot;</span>, s1[:<span class="hljs-number">5</span>])<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">appendFunc</span><span class="hljs-params">(s2 []<span class="hljs-type">int</span>)</span></span> &#123;<br>  s2 = <span class="hljs-built_in">append</span>(s2, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br>  fmt.Println(<span class="hljs-string">&quot;s2切片: &quot;</span>, s2)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">s1切片:  []<br>s2切片:  [<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span>]<br>s1切片:  []<br>s1切片表达式:  [<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+
+<p>看到这个结果，大家就会有疑问了，<strong>明明切片是引用类型，为什么s2 append了新元素后，s2是有值了但s1却还是空的，并且对s1用切片表达式却能获取到值呢？</strong></p>
+<p>原因分析前，我们先来看看s1和s2到底是不是同一个切片，打印地址验证下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>  s1 := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>)<br>  fmt.Printf(<span class="hljs-string">&quot;s1切片地址: %p\n&quot;</span>, s1)<br>  appendFunc(s1)<br>  <span class="hljs-comment">//...</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">appendFunc</span><span class="hljs-params">(s2 []<span class="hljs-type">int</span>)</span></span> &#123;<br>  s2 = <span class="hljs-built_in">append</span>(s2, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br>  fmt.Printf(<span class="hljs-string">&quot;s2切片地址: %p\n&quot;</span>, s2)<br>  <span class="hljs-comment">//...</span><br>&#125;<br><br>输出结果：<br>s1切片地址: <span class="hljs-number">0xc000018150</span><br>s2切片地址: <span class="hljs-number">0xc000018150</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>两个切片的地址都是同一个，s2修改后s1也应该同步修改，应该都有值才对啊</strong></p>
+<p>继续再深究一下，<code>fmt包%p</code>打印的这个地址，到底是谁的地址</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-comment">//fmt/print.go</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p *pp)</span></span> fmtPointer(value reflect.Value, verb <span class="hljs-type">rune</span>) &#123;<br>  <span class="hljs-keyword">var</span> u <span class="hljs-type">uintptr</span><br>  <span class="hljs-keyword">switch</span> value.Kind() &#123;<br>  <span class="hljs-keyword">case</span> reflect.Chan, reflect.Func, reflect.Map, reflect.Ptr, reflect.Slice, reflect.UnsafePointer:<br>    u = value.Pointer()<br>  <span class="hljs-keyword">default</span>:<br>    p.badVerb(verb)<br>    <span class="hljs-keyword">return</span><br>  &#125;<br>  <span class="hljs-comment">//...</span><br>&#125;<br><br><span class="hljs-comment">//reflect/value.go</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(v Value)</span></span> Pointer() <span class="hljs-type">uintptr</span> &#123;<br>  k := v.kind()<br>  <span class="hljs-keyword">switch</span> k &#123;<br>  <span class="hljs-comment">//...</span><br>  <br>  <span class="hljs-keyword">case</span> Slice:<br>    <span class="hljs-keyword">return</span> (*SliceHeader)(v.ptr).Data<br>  &#125;<br>  <span class="hljs-built_in">panic</span>(&amp;ValueError&#123;<span class="hljs-string">&quot;reflect.Value.Pointer&quot;</span>, v.kind()&#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过分析fmt包的源码，不难发现，<strong>打印的地址，其实是切片里指向底层数组的指针存储的地址，并不是两个切片本身的地址</strong>。同时也说明这两切片是指向同一个底层数组。</p>
+<p><strong>原因正式分析</strong>：</p>
+<ol>
+<li><strong>传值操作</strong>，s1和s2是两个不同的切片变量，但是指向底层数组的指针是同一个；</li>
+<li><strong>长度和容量的变化</strong>：s1 Len&#x3D;0和Cap&#x3D;5，后来未发生过变化；s2一开始被赋值时 Len&#x3D;0和Cap&#x3D;5，在append操作后，Len&#x3D;3和Cap&#x3D;5，同时底层数组值从<code>[0,0,0,0,0]</code>被修改成了<code>[1,2,3,0,0]</code>;</li>
+<li><strong>输出结果</strong>，s1由于Len&#x3D;0所以输出空[]，而s1用切片表达式，是基于底层数组<code>[1,2,3,0,0]</code>进行切片，所以输出结果为<code>[1,2,3,0,0]</code>；</li>
+</ol>
+<h3 id="案例2：传值-扩容"><a href="#案例2：传值-扩容" class="headerlink" title="案例2：传值+扩容"></a>案例2：传值+扩容</h3><p>将案例1，append的元素个数超过切片容量，触发自动扩容，输出的结果又会是怎样的呢？</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>  s1 := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>)<br>  fmt.Println(<span class="hljs-string">&quot;s1切片: &quot;</span>, s1)<br>  appendFunc(s1)<br>  fmt.Println(<span class="hljs-string">&quot;s1切片: &quot;</span>, s1)<br>  fmt.Println(<span class="hljs-string">&quot;s1切片表达式: &quot;</span>, s1[:<span class="hljs-number">5</span>])<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">appendFunc</span><span class="hljs-params">(s2 []<span class="hljs-type">int</span>)</span></span> &#123;<br>  s2 = <span class="hljs-built_in">append</span>(s2, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>)<br>  fmt.Println(<span class="hljs-string">&quot;s2切片: &quot;</span>, s2)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><br>s1切片:  []<br>s2切片:  [<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span> <span class="hljs-number">6</span>]<br>s1切片:  []<br>s1切片表达式:  [<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+
+<p><strong>原因分析</strong>：</p>
+<ol>
+<li><strong>发生扩容后</strong>，s2指向的底层数组会产生副本，导致s1和s2不再指向同一个底层数组；</li>
+<li><strong>长度和容量的变化</strong>：s2 append后Len&#x3D;6、Cap&#x3D;10和底层数组值为<code>[1,2,3,4,5,6,0,0,0,0]</code>；s2的操作完全不影响s1的数据，s1仍然是Len&#x3D;0、Cap&#x3D;5和底层数组值为<code>[0,0,0,0,0]</code>；</li>
+<li><strong>输出结果</strong>，s2由于Len&#x3D;6所以输出<code>[1,2,3,4,5,6]</code>，s1由于Len&#x3D;0所以输出空[]，而s1用切片表达式，是基于底层数组<code>[0,0,0,0,0]</code>进行切片，所以输出结果为<code>[0,0,0,0,0]</code>；</li>
+</ol>
+<h3 id="案例3：传址-不关心扩容"><a href="#案例3：传址-不关心扩容" class="headerlink" title="案例3：传址+不关心扩容"></a>案例3：传址+不关心扩容</h3><p>上面两个传值操作的例子，不管扩容与否，都不会影响原切片s1的长度和容量。如果我们<strong>期望修改s2的同时也修改原切片s1，则需要用到切片指针，基于地址传递进行操作</strong>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>  s1 := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>)<br>  fmt.Println(<span class="hljs-string">&quot;s1切片: &quot;</span>, s1)<br>  fmt.Printf(<span class="hljs-string">&quot;s1切片地址: %p len:%d cap:%d\n&quot;</span>, &amp;s1, <span class="hljs-built_in">len</span>(s1), <span class="hljs-built_in">cap</span>(s1))<br>  appendFunc(&amp;s1)<br>  fmt.Println(<span class="hljs-string">&quot;s1切片: &quot;</span>, s1)<br>  fmt.Println(<span class="hljs-string">&quot;s1切片表达式: &quot;</span>, s1[:<span class="hljs-number">5</span>])<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">appendFunc</span><span class="hljs-params">(s2 *[]<span class="hljs-type">int</span>)</span></span> &#123;<br>  fmt.Printf(<span class="hljs-string">&quot;s2切片地址: %p len:%d cap:%d\n&quot;</span>, s2, <span class="hljs-built_in">len</span>(*s2), <span class="hljs-built_in">cap</span>(*s2))<br>  <span class="hljs-comment">//*s2 = append(*s2, 1, 2, 3)</span><br>  *s2 = <span class="hljs-built_in">append</span>(*s2, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>)<br>  fmt.Printf(<span class="hljs-string">&quot;append后s2切片地址: %p len:%d cap:%d\n&quot;</span>, s2, <span class="hljs-built_in">len</span>(*s2), <span class="hljs-built_in">cap</span>(*s2))<br>  fmt.Println(<span class="hljs-string">&quot;s2切片: &quot;</span>, *s2)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go">s1切片:  []<br>s1切片地址: <span class="hljs-number">0xc00000c030</span> <span class="hljs-built_in">len</span>:<span class="hljs-number">0</span> <span class="hljs-built_in">cap</span>:<span class="hljs-number">5</span><br>s2切片地址: <span class="hljs-number">0xc00000c030</span> <span class="hljs-built_in">len</span>:<span class="hljs-number">0</span> <span class="hljs-built_in">cap</span>:<span class="hljs-number">5</span><br><span class="hljs-built_in">append</span>后s2切片地址: <span class="hljs-number">0xc00000c030</span> <span class="hljs-built_in">len</span>:<span class="hljs-number">10</span> <span class="hljs-built_in">cap</span>:<span class="hljs-number">10</span><br>s2切片:  [<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span> <span class="hljs-number">6</span> <span class="hljs-number">7</span> <span class="hljs-number">8</span> <span class="hljs-number">9</span> <span class="hljs-number">10</span>]<br>s1切片:  [<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span> <span class="hljs-number">6</span> <span class="hljs-number">7</span> <span class="hljs-number">8</span> <span class="hljs-number">9</span> <span class="hljs-number">10</span>]<br>s1切片表达式:  [<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span>]<br></code></pre></td></tr></table></figure>
+
+<p>万变不离其宗，<strong>传址操作，始终操作的是同一个切片变量</strong>，append操作后，长度和容量都会同时发生变化，以及如果触发扩容，那么指向底层数组的指针，也都会同时发生变化。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>切片传值操作</strong>，append未触发扩容，会同时修改底层数组的值，但不会影响原切片的长度和容量；当触发扩容，那么会产生副本，后面的修改则会和原底层数组剥离开，互不影响。</p>
+<p>如果期望在修改切片后，对原切片也发生修改，则可以使用<strong>传址操作</strong>，始终基于同一个切片变量进行操作</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Go/" class="print-no-link">#Go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>go疑难杂症</div>
+      <div>http://gondmhd.github.io/2024/12/10/go/go疑难杂症片/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Gond</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年12月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/12/10/go/Go%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7pprof/" title="Go性能分析工具pprof">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Go性能分析工具pprof</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/12/10/docker/docker-compose%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" title="docker-compose网络关联配置">
+                        <span class="hidden-mobile">docker-compose网络关联配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

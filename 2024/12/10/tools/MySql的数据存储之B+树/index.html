@@ -1,0 +1,790 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Gond">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="MySql的数据存储之B+树1 MySql的实际存储位置B+树是MySql数据结构的主流存储方式，包括InnoDB和MYISAM引擎，它们的默认存储结构都是B+树 了解B+树前，我们先要知道MySql 的实际存储位置在哪？ 有人会说它存在我么的D盘或C盘的MySql文件夹的Data目录里，这个回答没错，我们在深入的了解一下呢？ 不管是在个人电脑上使用本机MySql或者在互联网上把信息存在服务器上，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql之B+树">
+<meta property="og:url" content="http://gondmhd.github.io/2024/12/10/tools/MySql%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B9%8BB+%E6%A0%91/index.html">
+<meta property="og:site_name" content="Gond">
+<meta property="og:description" content="MySql的数据存储之B+树1 MySql的实际存储位置B+树是MySql数据结构的主流存储方式，包括InnoDB和MYISAM引擎，它们的默认存储结构都是B+树 了解B+树前，我们先要知道MySql 的实际存储位置在哪？ 有人会说它存在我么的D盘或C盘的MySql文件夹的Data目录里，这个回答没错，我们在深入的了解一下呢？ 不管是在个人电脑上使用本机MySql或者在互联网上把信息存在服务器上，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Screenshot1.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513100745862-1612056196.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513103130886-1795854003-17236910800611.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513131455394-112588750.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513140022983-1295848335.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513142254511-1038566211.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513143219545-2067039685.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513151547063-131791169.png?raw=true">
+<meta property="article:published_time" content="2024-12-10T09:36:28.540Z">
+<meta property="article:modified_time" content="2024-12-10T09:36:28.540Z">
+<meta property="article:author" content="Gond">
+<meta property="article:tag" content="Tools">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Screenshot1.png?raw=true">
+  
+  
+  
+  <title>Mysql之B+树 - Gond</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"gondmhd.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Gond</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Mysql之B+树"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-10 17:36" pubdate>
+          2024年12月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          48 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Mysql之B+树</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="MySql的数据存储之B-树"><a href="#MySql的数据存储之B-树" class="headerlink" title="MySql的数据存储之B+树"></a>MySql的数据存储之B+树</h1><h2 id="1-MySql的实际存储位置"><a href="#1-MySql的实际存储位置" class="headerlink" title="1 MySql的实际存储位置"></a>1 MySql的实际存储位置</h2><p>B+树是MySql数据结构的主流存储方式，包括InnoDB和MYISAM引擎，它们的默认存储结构都是B+树</p>
+<p>了解B+树前，我们先要知道MySql 的实际存储位置在哪？</p>
+<p>有人会说它存在我么的D盘或C盘的MySql文件夹的Data目录里，这个回答没错，我们在深入的了解一下呢？</p>
+<p>不管是在个人电脑上使用本机MySql或者在互联网上把信息存在服务器上，其实它们最终的存储地址都是被写在了物理磁盘上，只有存在物理磁盘上，才能保证数据长久不丢失</p>
+<p>物理磁盘一般可以描述为：柱面，磁面，扇区，通过这三个参数可以精准定位到数据所在的地方</p>
+<p><strong>我们来看看一个普通的磁面：</strong></p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Screenshot1.png?raw=true" srcset="/img/loading.gif" lazyload alt="磁面图"></p>
+<p>我们可以看到这个磁面上记录着磁道和扇区，</p>
+<p>一般磁盘定位有固定头和移动头两种：</p>
+<p>固定头每个磁道上都有一个读写头，造价高，但是读写速度快，定位时间短</p>
+<p>移动头每个磁面上一个读写头，造价适中，读写速度主要取决于定位时间，从定位磁道，再到定位扇区所化的时间，现行的物理磁盘大多都是使用的移动头定位。</p>
+<p>我们在了解了我们的磁盘和移动头后，我们就需要了解一次物理磁盘的I&#x2F;O，它指的是对于磁盘来说，一次磁盘的连续读或者连续写称为一次磁盘 I&#x2F;O, 磁盘的 IOPS 就是每秒磁盘连续读次数和连续写次数之和。</p>
+<p>我们这里就把他当作读写一次扇区，即一次I&#x2F;O只读写一个扇区（实际上的I&#x2F;O指的是根据查询的数据大小，可能会连续读写好几个或者几百个扇区，但是也只进行了一次I&#x2F;O，因为I&#x2F;O读写的时间开销最大的还是在移动头的定位时间上）</p>
+<p>一个扇区的大小比较公认的是512字节（后面慢慢发展的也有一个扇区2048字节的，我们这里就举例512字节）</p>
+<p><strong>我们先简单的看一个数据表，数据在扇区上是怎么存储的：</strong></p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513100745862-1612056196.png?raw=true" srcset="/img/loading.gif" lazyload alt="2846424-20230513100745862-1612056196"></p>
+<p>这里我们定义了一张表，还有里面的数据，他有三个属性：id 8字节，name 40字节，no 16字节</p>
+<p>由此我们可以推出：这张表的一条记录就是8+40+16&#x3D;64字节，我们这会儿定义的这张表的一条记录就要占64字节</p>
+<p>一个扇区512字节：512&#x2F;64&#x3D;8</p>
+<p>所以一个扇区就只能装8条记录，我们这32条记录就需要32&#x2F;8&#x3D;4，就需要4个扇区去装入，</p>
+<p>如果我们按照规定的一次I&#x2F;O读写一个扇区，那我们要找到32这条记录的话需要4次I&#x2F;O操作，4次还算一般性能，但是我们在大型的数据库存储一张表可不止32条记录哦</p>
+<p>但我们简单的把记录加到800条的时候：800&#x2F;8 &#x3D; 100 ，也就是需要100个扇区来装入，那我们要查找第800条记录的时候就需要100次I&#x2F;O操作，显然这样的I&#x2F;O操作就太慢了，要是有1000个人需要查找，时间开销就很大了</p>
+<p>这种情况我们就需要引入索引；B+树的根节点几乎全是索引</p>
+<h2 id="2-MySql的索引"><a href="#2-MySql的索引" class="headerlink" title="2 MySql的索引"></a>2 MySql的索引</h2><p>什么是索引呢？</p>
+<p>索引是为了加速对表中数据行的检索而创建的一种分散的存储结构。索引是针对表而建立的，它是由数据页面以外的索引页面组成的，每个索引页面中的行都会含有逻辑指针，以便加速检索物理数据。</p>
+<p>简单的说，索引就是建表或者后期加入的，它可以分为主键索引，复合索引，普通索引，</p>
+<p>当我们建立索引以后，就会自动的把建立索引的属性或属性组单独的拿出来然后和这个属性所在的物理地址一起单独构成一个表来存放，虽然多了一个表但是因为属性较少，所占的空间少，查询效率高了</p>
+<p><strong>这里我们再来简单的看两个表：</strong></p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513103130886-1795854003-17236910800611.png?raw=true" srcset="/img/loading.gif" lazyload alt="2846424-20230513103130886-1795854003"></p>
+<p> 这里我们可以看到右边的表就是我们的数据表，它记录着800条记录，上面我们也看到了它要被查询到的话需要100次I&#x2F;O，所以我们考虑为id建一个索引</p>
+<p>当id被选为索引以后，id会和id所在的实际物理地址构成一个表，这个表id 8字节，地址 8字节，一共16字节，它也是存在一个扇区的还有可能没有和数据原表在相邻的扇区</p>
+<p>一个扇区的的大小512字节：512&#x2F;16 &#x3D; 32，所以这个索引表所在的扇区，可以装32条记录</p>
+<p>第一条记录：记录id为1，它所在的物理地址，</p>
+<p>第二条记录：记录id为33，它所在的物理地址，</p>
+<p>第三十二条记录：记录id为1023，它所在的物理地址</p>
+<p><strong>有了这个索引表之后，我们再查800条记录数据的过程就简单化了</strong></p>
+<p>首先，一次I&#x2F;O操作会把这个索引表查出来（要用到索引才能命中，也就是再sql语句中的条件判断语句带有id），这里只进行了一次I&#x2F;O就拿到了1<del>33，33</del>65，….~1023这些区间的信息</p>
+<p>然后，我们查第800条记录的时候我们很幸运，因为索引表中有一个区间是800~833就可以通过地址直接去读800所在的扇区 这里就也只用了一次I&#x2F;O操作</p>
+<p>这是最好的情况：2次I&#x2F;O就拿到了第800条件记录</p>
+<p>我们看看最坏的情况，细心的朋友可以发现再每个区间都有一个最坏情况，</p>
+<p>比如：</p>
+<p>1~33区间上，当我们要查询32时只能通过找到id&#x3D;1的扇区，然后依次读取直到读到id&#x3D;32的扇区</p>
+<p>33~65区间上，当我们要查询64时只能通过找到id&#x3D;33的扇区，然后依次读取直到读到id&#x3D;64的扇区</p>
+<p>……</p>
+<p>800~833区间上，我们去查找832时：</p>
+<p>只会给我们找到800的首地址，这是一次I&#x2F;O读写了</p>
+<p>从800读到832一共是32条记录：32&#x2F;8&#x3D;4（扇区），也就是我们要连续读取4个扇区才可以找到id &#x3D; 832这条记录，这就需要4次I&#x2F;O</p>
+<p>我们可以看到，即使是最坏的情况：1+4&#x3D;5，我们也只需要5次I&#x2F;O就可以拿到任意的数据了</p>
+<p>比起没有索引的查询：从第32条记录开始，就会成比例的不断增大读写次数</p>
+<p>有索引的情况的查询：最坏的情况也就5次I&#x2F;O操作，但是索引需要单独存储，总的来说还是利大于弊，不建议建立索引，因为索引的维护需要开销，一般只会给经</p>
+<p>常查询且不常更改的数据做索引</p>
+<p><strong>继续加大数据，这次存放80000条记录：</strong></p>
+<p>当数据量达到80000条的时候：我们的一级索引表（紧贴实际数据表的索引表被称为一级索引）就显得的很乏力了，</p>
+<p>我们简单的计算一下，我们的一级索引表只能存放1~1025记录的区间地址，当数据为80000</p>
+<p>80000&#x2F;1024 &#x3D; 78~79，我们需要79个扇区来存储</p>
+<p>如果是最坏的情况：我们要查找第80000条记录，那么在一级索引表中我们就进行了79次I&#x2F;O操作了，再加上一级索引表去查实际数据的地址又是4次I&#x2F;O，所以在这种情况下就是79+4&#x3D;83次I&#x2F;O</p>
+<p>对于80000条数据查询就需要83次I&#x2F;O，很显然，这个I&#x2F;O次数太多了，我们得想办法把I&#x2F;O次数压下去</p>
+<p> 这个时候我们的开发者想到的就是加一层，二级索引来指向一级索引，一级索引指向数据，对于B+树结构来说就是多了一层</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513131455394-112588750.png?raw=true" srcset="/img/loading.gif" lazyload alt="2846424-20230513131455394-112588750"></p>
+<p>在二级索引上的adress字段就是记录的一级索引的地址，而不直接指向数据，在二级索引就是记录一个一级扇区的位置</p>
+<p>比如：</p>
+<p>一级索引一个扇区的数据区间在1~1025</p>
+<p>二级索引一条记录的就是一级索引区间的1~1025</p>
+<p> 所以一个二级索引扇区可以记录一级索引区间的范围是：</p>
+<p>1024 * 32 &#x3D; 32768</p>
+<p>对于有80000条记录的表，二级索引扇区只需要3个就可以放下</p>
+<p><strong>这个时候利用二级索引查找80000：</strong></p>
+<p>1.首先我们要找到80000这个区间，他在第三个扇区上，那么在二级索引上的I&#x2F;O读写就需要 3次</p>
+<p>然后去一级索引上找，由于是二级索引提供的物理地址，只需要一次I&#x2F;O就可以读取到那个扇区，一级索引上有一个区间就是80000~81025，</p>
+<p>最后去找实际的数据刚好80000就是头指针，也只需要一次I&#x2F;O就可以完成</p>
+<p>这是最好的一种情况：3+1+1&#x3D;5，最好的状态5次I&#x2F;O就可以拿到数据了</p>
+<p> 2.最坏的情况也是出现在一级索引去找数据：就是80000~80033这个区间</p>
+<p>我们要找80032的时候，只能通过首地址为80000的地址去找，要连续查找4个扇区，就是4次I&#x2F;O操作才能拿到</p>
+<p>3+1+4&#x3D;8</p>
+<p>所以在B+树上加了一层以后最坏，不管什么情况下，查找任意数据都只需要8次I&#x2F;O操作，</p>
+<p>综上：查找80000条数据（最坏的情况）</p>
+<p>a.没有索引，一个扇区一个扇区的查找，80000&#x2F;8 &#x3D; 10000，没有索引需要10000次I&#x2F;O操作</p>
+<p>b.一级索引，由于第80000条记录在最后一个扇区上，80000&#x2F;1024 &#x3D; 79 ，一级索引需要79次I&#x2F;O，利用一级索引去查找数据4次I&#x2F;O，一级索引需要83次I&#x2F;O操作</p>
+<p>c.二级索引，由于第80000条记录在最后一个扇区上，80000 &#x2F; 32768 &#x3D; 3，二级索引需要3次I&#x2F;O，利用二级索引的区间地址去找一级索引只需要1次I&#x2F;O，然后一级索引去找数据需要4次I&#x2F;O，二级索引查找数据就只需要8次I&#x2F;O操作</p>
+<p><strong>可能对博客中的例子存在的疑问：</strong></p>
+<p>a.索引表的区间范围一定是32吗？</p>
+<p>不是，要根据开发人员的默认设置，或者后期数据库管理员去调整，一般人是更改不了物理存储的，只能了解原理</p>
+<p>b.索引的表每条记录都是16字节吗？</p>
+<p>不是，要根据建立索引属性的大小和实际物理地址大小而定，不一定每个扇区都能存刚好存32条索引记录</p>
+<p>c.800条记录没有索引的情况真的要100次I&#x2F;O操作吗？</p>
+<p>不是，要根据一次读取的页面大小，MySql的默认读取是16KB：16kb &#x2F; 64 &#x3D;250 条记录，一般的查询一次I&#x2F;O至少就是250条记录，</p>
+<p>根据计算机局部性原理，当一个扇区的数据被使用后，它周围的数据极有可能再最近会被用到，所以mysql的缓存机制会支持一次查询返回4页，即从查询的当前的页开始往后磁头移动4页的大小，4*16&#x3D;64kb</p>
+<p>也就是64kb &#x2F; 64 &#x3D; 100条记录，在缓存中有一次I&#x2F;O是有100条记录被返回，然后怎么查询就是InnoDB引擎所要了解的知识了</p>
+<h2 id="3-MySql中B-树索引存储结构的形成"><a href="#3-MySql中B-树索引存储结构的形成" class="headerlink" title="3 MySql中B+树索引存储结构的形成"></a>3 MySql中B+树索引存储结构的形成</h2><p><img src="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513140022983-1295848335.png?raw=true" srcset="/img/loading.gif" lazyload alt="2846424-20230513140022983-1295848335"></p>
+<p>这就是一颗较为完整的B+树了，我们在仔细的看看可以发现B+树的特征</p>
+<p>a.索引区间由根节点不断的变小，描述数据所在的扇区也越来越细化</p>
+<p>b.根节点存放的都是索引，只有最下面一层的子节点才是数据</p>
+<p>我们看完了B+树的形成过程以及它的大致模型，我们就不得不提一下它和B树的区别了，这是更深了解B+树的关键，</p>
+<p>现在图片上描述的B+树，其实B树有很大一部分都能做到，我们就来看看B树和B+树的区别吧</p>
+<h3 id="B树和B-树的区别（主要的区别）"><a href="#B树和B-树的区别（主要的区别）" class="headerlink" title="B树和B+树的区别（主要的区别）"></a><strong>B树和B+树的区别（主要的区别）</strong></h3><h4 id="区别1："><a href="#区别1：" class="headerlink" title="区别1："></a><strong>区别1：</strong></h4><p>B树的在根节点也存有数据，然后根节点存储的数据又是索引，又是数据</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513142254511-1038566211.png?raw=true" srcset="/img/loading.gif" lazyload alt="2846424-20230513142254511-1038566211"></p>
+<p> 如图，在索引上出现的数据就不会在子节点出现了</p>
+<p>可以说父节点可能既有索引又有数据，这就是B树的存储方式</p>
+<p>B+树根节点没有数据，只存放索引</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513143219545-2067039685.png?raw=true" srcset="/img/loading.gif" lazyload alt="2846424-20230513143219545-2067039685"></p>
+<p> 如图，数据都在最下面一层的子节点上，除了这一层以外的父节点全是索引没有数据</p>
+<p>B树，存在一种情况就是所查的数据在最上层，因为节点有数据可能第80000条记录在最上层区间上，所以一次I&#x2F;O就可以拿到数据，最坏的情况就和B+树一样，要到最后一层才能拿到数据</p>
+<p>B+树，每次拿数据都需要在最下一层去拿，即使我们去拿一个表的第一条记录，它也会从根结点一级一级的往下直到最后一层才有数据</p>
+<p>感觉有时候B树比B+树快啊，为什么MySql要用B+树呢？</p>
+<p>因为B+树的查询比B树更加稳定，有利于开发者，数据库管理员对其进行性能测试，运行时日志检测的数据也会很准确</p>
+<p>举个简单的例子，就以上面两张图片：我们要查询第7条数据和第8条数据，这两条记录是紧挨着的</p>
+<p>使用B树查询：</p>
+<p>第七条记录：1次I&#x2F;O</p>
+<p>第八条记录：2次I&#x2F;O</p>
+<p>使用B+树查询：</p>
+<p>第七条记录：2次I&#x2F;O</p>
+<p>第八条记录：2次I&#x2F;O</p>
+<p>我们可以看到使用B树的第一次查询需要1次I&#x2F;O，第二个需要2次I&#x2F;O，B+树则都需要两次</p>
+<p>这就很明显阿可以看出B树的查询效率很不稳定，尤其是层数变多，数据区间变得的时候，就更加明显</p>
+<h4 id="区别2"><a href="#区别2" class="headerlink" title="区别2"></a><strong>区别2</strong></h4><p>这个区别是B+树特有的，</p>
+<p>在B树上子节点和子节点是相互隔离开的，现在我们构造一种情况，B树中我们一条查询语句需要查询两条记录，</p>
+<p>比如  id &#x3D; 6  and id &#x3D; 8</p>
+<p>由于这是一条查询语句，所以要一起执行会发生什么，我们的磁头会先移动到根节点进行定位，然后就可以id &#x3D; 6这条记录，然后从新去根节点查索引，磁头再定</p>
+<p>位到 id &#x3D; 8 这条记录</p>
+<p>很显然我们的B树查询进行了两次磁头定位，我们知道在读写磁盘时，最大的开销就是磁头的定位，所以我们要尽量少的进行磁头定位</p>
+<p>所以，B+树在最后一层的数据结点上都加了指针（指向的是物理地址），让它指向下一个区间的开始位置，把尾部的数据又串起来了，就是专门对付这种相邻区间要重复磁头定位的情况</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/2846424-20230513151547063-131791169.png?raw=true" srcset="/img/loading.gif" lazyload alt="2846424-20230513151547063-131791169"></p>
+<p>有了这个尾部指针，我们在用B+树去查找 id &#x3D;6 和 id &#x3D; 8的记录，当经过一次磁头定位以后找到了id &#x3D; 6 的记录，它会根据尾指针直接读取 id &#x3D; 8的记录，加快了相邻扇或几个相邻扇区的读写速度</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4 总结"></a>4 总结</h2><p>在 B+树中，查询相隔多个数据页的数据时，一旦找到第一个数据页，后续查询通常不需要从根节点开始遍历。这是因为 B+树的叶子节点（数据页）之间通过双向链接相连，使得可以直接从一个叶子节点跳转到相邻的叶子节点。这意味着从第一个数据页开始，可以直接遍历到第二个数据页，而无需再次从根节点开始。</p>
+<p><strong>查询流程</strong></p>
+<ol>
+<li><strong>查找第一个数据页</strong>：<ul>
+<li>从根节点开始遍历 B+树，使用索引键值来定位到包含目标数据的第一个叶子节点（数据页）。</li>
+</ul>
+</li>
+<li><strong>访问第二个数据页</strong>：<ul>
+<li>一旦找到第一个数据页，可以直接通过该数据页与相邻叶子节点之间的链接来访问第二个数据页。</li>
+<li>不需要再次从根节点开始遍历 B+树。</li>
+</ul>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Tools/" class="category-chain-item">Tools</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Tools/" class="print-no-link">#Tools</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Mysql之B+树</div>
+      <div>http://gondmhd.github.io/2024/12/10/tools/MySql的数据存储之B+树/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Gond</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年12月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/12/10/linux/linux%E6%B3%A8%E5%86%8C%E5%8D%95%E5%85%83%E6%9C%8D%E5%8A%A1/" title="Linux 注册单元服务">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux 注册单元服务</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/12/10/go/%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/" title="语法笔记">
+                        <span class="hidden-mobile">语法笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
