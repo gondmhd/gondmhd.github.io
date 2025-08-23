@@ -224,15 +224,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/09/05/go/Go%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7pprof/" target="_self">
-          Go性能分析工具pprof
+        <a href="/2025/08/23/linux/linux%E5%91%BD%E4%BB%A4/" target="_self">
+          常用linux笔记
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/05/go/Go%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7pprof/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/23/linux/linux%E5%91%BD%E4%BB%A4/" target="_self">
         <div>
-          Go性能分析工具pprof一、什么是pprofpprof是Go官方提供的性能分析工具，可以分析程序的运行情况，并且提供可视化的功能。prof是profile（画像）的缩写，使用pprof可以分析以下几种指标数据：   allocs：程序启动之后内存分配的情况 block：导致阻塞操作的一些堆栈跟踪信息 cmdline：当前程序启动的命令行 goroutine：所有当前 goroutine 的堆栈跟
+          1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim /etc/hosts如：127.0.0.1 http://www.baidu.com
         </div>
       </a>
 
@@ -240,8 +240,130 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-09-05 15:32" pubdate>
-              2024-09-05
+            <time datetime="2025-08-23 14:42" pubdate>
+              2025-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux%E7%AC%94%E8%AE%B0/" class="category-chain-item">Linux笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Linux%E7%AC%94%E8%AE%B0/">#Linux笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/23/docker/k8s%E5%9F%BA%E7%A1%80/" target="_self">
+          k8s基础
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/23/docker/k8s%E5%9F%BA%E7%A1%80/" target="_self">
+        <div>
+          k8s基础 1、关于 k8s 的基本架构K8s 全称 kubernets，希腊语意为：舵手，是一种可自动实施 Linux容器操作的开源平台。前期由 Google 的工程师开发和设计，中期由红帽等一系列公司参与合作开发，后期由云原生计算基金会进行更新、迭代。其提供了应用部署、规划、更新、维护的一种机制，可以省去应用容器化过程的许多手动部署和扩展操作，将运行 Linux 容器的多组主机聚集在一起，轻松
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-23 14:42" pubdate>
+              2025-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">#docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/23/go/goland%E8%BF%9E%E6%8E%A5docker%E8%BF%9B%E8%A1%8Cdebug/" target="_self">
+          golang docker 远程环境调试
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/23/go/goland%E8%BF%9E%E6%8E%A5docker%E8%BF%9B%E8%A1%8Cdebug/" target="_self">
+        <div>
+          goland连接docker进行debug1 针对 golang 程序打断点有哪几种情况 临时进程：针对临时运行一次的 Golang 脚本，比如定时统计脚本，定时推送脚本。 常驻进程：针对一直在后台运行的 Golang 程序，比如 HTTP 或者 GRPC 服务。  2 临时进程断点 debug？2.1我们需要在一个 含有 Golang 程序的容器中安装 delve（简称dlv） 第一种安装方式：
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-23 14:42" pubdate>
+              2025-08-23
             </time>
           </div>
         
@@ -285,15 +407,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/08/15/tools/MySql%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B9%8BB+%E6%A0%91/" target="_self">
-          Mysql之B+树
+        <a href="/2025/08/23/go/golang%20%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
+          代码设计模式
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/08/15/tools/MySql%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B9%8BB+%E6%A0%91/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/23/go/golang%20%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
-          MySql的数据存储之B+树1 MySql的实际存储位置B+树是MySql数据结构的主流存储方式，包括InnoDB和MYISAM引擎，它们的默认存储结构都是B+树 了解B+树前，我们先要知道MySql 的实际存储位置在哪？ 有人会说它存在我么的D盘或C盘的MySql文件夹的Data目录里，这个回答没错，我们在深入的了解一下呢？ 不管是在个人电脑上使用本机MySql或者在互联网上把信息存在服务器上，
+          golang 设计模式工厂模式定义工厂模式是一种创建对象的设计模式，它将对象的创建和使用分离，把对象创建逻辑封装在一个工厂类或工厂函数中，这样可以提高代码的可维护性和可扩展性。 类型 简单工厂模式：一个工厂类负责创建所有类型的对象。 工厂方法模式：定义一个创建对象的接口，让子类决定实例化哪个类。 抽象工厂模式：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。  Go 语言实现简
         </div>
       </a>
 
@@ -301,8 +423,252 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-08-15 10:41" pubdate>
-              2024-08-15
+            <time datetime="2025-08-23 14:42" pubdate>
+              2025-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Go/">#Go</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/23/docker/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+          kubectl常用命令
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/23/docker/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+        <div>
+          kubectl常用命令1、kubectl  pod 常用命令介绍查看工作负载命令 123456kubectl get pod -A | grep asset-webXDR2.0.40.0(10.65.196.101) ~ # kubectl get pod -A | grep asset-web 命名空间（NAMESPACE）	Pod 名称（NAME）                     就绪
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-23 14:42" pubdate>
+              2025-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/docker/" class="category-chain-item">docker</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">#docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/23/go/linux%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91debug/" target="_self">
+          golang linux 远程环境调试
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/23/go/linux%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91debug/" target="_self">
+        <div>
+          golang远程linux环境开发调试1、linux环境配置go环境(最好和本地相同)go_1.20 Sdk下载地址 下载sdk 此处使用1.20版本 ,将下载好的tar.gz 上传到linux服务器 &#x2F;usr&#x2F;local 上面 ,然后解压 1tar -xzvf go1.20.8.linux-amd64.tar.gz  创建GOPATH目录(相当于workplace) 1234
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-23 14:42" pubdate>
+              2025-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Go/">#Go</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/23/go/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/" target="_self">
+          mysql主从复制实践
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/23/go/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E8%B7%B5/" target="_self">
+        <div>
+          mysql主从复制实践1、部署主从两个mysql节点本次使用docker-compose.yml 进行部署 12345678910111213141516171819202122232425262728293031version: &#x27;3&#x27;services:  mysql1:    image: mysql:5.7    restart: always    environmen
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-23 14:42" pubdate>
+              2025-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Go/">#Go</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/23/tools/Go-Nacos/" target="_self">
+          Go-Nacos
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/23/tools/Go-Nacos/" target="_self">
+        <div>
+          Go-Nacos配置中心使用部署1、编写配置文件 docker-compose.yaml 1234567891011121314151617181920212223242526version: &quot;3.0&quot;services:  Nacos:    container_name: nacos-standalone    image: nacos/nacos-server:v2.2.
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-23 14:42" pubdate>
+              2025-08-23
             </time>
           </div>
         
@@ -346,15 +712,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/08/12/go/go%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87%E7%89%87/" target="_self">
-          go疑难杂症
+        <a href="/2025/08/23/tools/MongoDb%E5%85%A5%E9%97%A8/" target="_self">
+          MongoDb 介绍
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/08/12/go/go%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87%E7%89%87/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/23/tools/MongoDb%E5%85%A5%E9%97%A8/" target="_self">
         <div>
-          go疑难杂症1、解决IDE golang 代码飘红报错 问题：引用方法或者第三方库，代码可正常运行，但是飘红，无法查看方法内部实现  解决方案： 1.1 goland 编辑器点击工具栏File，找到Invalidate Caches，点击Invalidate and Restart 按钮，清理缓存并且重启goland编辑器 1,2 检查goland 编辑器 go module配置，File-Set
+          MongoDb入门一、简介1、简单介绍 MongoDB是一个基于分布式文件存储的数据库 由C++语言编写，旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。 支持的数据结构非常松散，是类似json的bson格式，因此可以存储比较复杂的数据类型。 Mongo最大的特点是它支持的查询语言非常
         </div>
       </a>
 
@@ -362,8 +728,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-08-12 09:45" pubdate>
-              2024-08-12
+            <time datetime="2025-08-23 14:42" pubdate>
+              2025-08-23
             </time>
           </div>
         
@@ -378,7 +744,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
+  <a href="/categories/Tools/" class="category-chain-item">Tools</a>
   
   
 
@@ -393,7 +759,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Go/">#Go</a>
+              <a href="/tags/Tools/">#Tools</a>
             
           </div>
         
@@ -407,15 +773,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/08/01/linux/linux%E6%B3%A8%E5%86%8C%E5%8D%95%E5%85%83%E6%9C%8D%E5%8A%A1/" target="_self">
-          Linux 注册单元服务
+        <a href="/2025/08/23/tools/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" target="_self">
+          mysql分区表
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/08/01/linux/linux%E6%B3%A8%E5%86%8C%E5%8D%95%E5%85%83%E6%9C%8D%E5%8A%A1/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/23/tools/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" target="_self">
         <div>
-          Linux 注册单元服务概述 systemctl是一个系统软件服务的管理工具，可以用于启动、停止、重启和重新加载服务，查看服务状态以及设置默认启动级别等。它还可以管理服务之间的依赖关系，定制服务配置，并对服务的日志进行管理   Linux中，定义软件服务的文件通常是systemd服务单元文件，具有.service后缀，这些文件通常位于以下目录：  12345/etc/systemd/system/
+          mysql分区表1、分区的基本概念MySQL分区 是一种数据库优化的技术，它允许将一个大的表、索引或其子集分割成多个较小的、更易于管理的片段，这些片段称为“分区”。每个分区都可以独立于其他分区进行存储、备份、索引和其他操作。这种技术主要是为了改善大型数据库表的查询性能、维护的方便性以及数据管理效率。 物理存储与逻辑分割  物理上，每个分区可以存储在不同的文件或目录中，这取决于分区类型和配置。 逻辑
         </div>
       </a>
 
@@ -423,8 +789,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-08-01 13:54" pubdate>
-              2024-08-01
+            <time datetime="2025-08-23 14:42" pubdate>
+              2025-08-23
             </time>
           </div>
         
@@ -439,7 +805,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Linux%E7%AC%94%E8%AE%B0/" class="category-chain-item">Linux笔记</a>
+  <a href="/categories/Tools/" class="category-chain-item">Tools</a>
   
   
 
@@ -454,373 +820,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Linux%E7%AC%94%E8%AE%B0/">#Linux笔记</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/07/22/go/reflect%E5%8C%85%E5%8F%8D%E5%B0%84/" target="_self">
-          reflect反射笔记
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/22/go/reflect%E5%8C%85%E5%8F%8D%E5%B0%84/" target="_self">
-        <div>
-          reflect反射机制1、简介反射是一种让程序在运行时自省（introspect）和修改自身结构和行为的机制。虽然这听起来有点像“自我观察”，但实际上，反射在许多现代编程语言中都是一个非常强大和重要的工具。Go语言也不例外。在Go语言中，反射不仅能帮助你更深入地理解语言本身，而且还能极大地增加代码的灵活性和可维护性。 2、什么是反射反射（Reflection）在编程中通常被定义为在运行时检查程序的
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-22 13:55" pubdate>
-              2024-07-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Go/">#Go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/07/11/go/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E7%89%B9%E6%80%A7/" target="_self">
-          版本更新特性
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/11/go/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E7%89%B9%E6%80%A7/" target="_self">
-        <div>
-          版本更新特性Golang 1.22 对 for 循环作了两处更新 不再共享循环变量 Go 1.22 之前，for 循环声明的变量仅会创建一次，而在每次迭代时对变量值进行更新。Go 1.22 改为每次迭代时都创建新的变量。  支持对整数进行 range 遍历 Go 1.22 支持在 for 循环中对整数进行 range 遍历了。   1 不再共享循环变量Go 1.22 之前的情况 123456789
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-11 11:06" pubdate>
-              2024-07-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Go/">#Go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/07/08/go/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" target="_self">
-          编译
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/08/go/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" target="_self">
-        <div>
-          Golang交叉编译知识点  跨平台编译  1$ CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o go-gin-example .    一、CGO_ENABLED作用 用于标识（声明） cgo工具是否可用 意义 存在交叉编译的情况下，cgo工具是不可用的。在标准go命令的上下文环境中，交叉编译意味着程序构建环境中的目标计算架构
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-08 08:46" pubdate>
-              2024-07-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Go/">#Go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/07/08/go/%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/" target="_self">
-          语法笔记
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/08/go/%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0/" target="_self">
-        <div>
-          记不住系列指针&amp;（取地址）和*（根据地址取值） 12345678910111213type MyInt inttype User1 struct &#123;    IdOrName any   `json:&quot;idOrName&quot;`    M        MyInt `json:&quot;m&quot;`&#125;func main() &#123;    str
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-08 08:46" pubdate>
-              2024-07-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Go/">#Go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/06/24/go/gorm%E7%AC%94%E8%AE%B0/" target="_self">
-          gorm笔记
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/24/go/gorm%E7%AC%94%E8%AE%B0/" target="_self">
-        <div>
-          gorm笔记什么是ORMObject Relational Mapping：对象关系映射 结构体 和 SQL数据库存在映射，这个时候就有了ORM语句 一句话说：就是将数据库中的表数据和结构体进行对应的关系 ORM的优缺点优点：  提高开发效率  缺点:  牺牲执行性能【中间多了一个环节】 牺牲灵活性 弱化SQL能力  GORM基本示例连接MySQL123456789101112import (	&
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-06-24 09:06" pubdate>
-              2024-06-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Go/">#Go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/06/21/linux/linux%E5%91%BD%E4%BB%A4/" target="_self">
-          常用linux笔记
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/06/21/linux/linux%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim /etc/hosts如：127.0.0.1 http://www.baidu.com
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-06-21 20:03" pubdate>
-              2024-06-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Linux%E7%AC%94%E8%AE%B0/" class="category-chain-item">Linux笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Linux%E7%AC%94%E8%AE%B0/">#Linux笔记</a>
+              <a href="/tags/Tools/">#Tools</a>
             
           </div>
         
