@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>开发工具</title>
+    <link href="/2025/09/18/tools/%E5%8A%9E%E5%85%AC%E5%B7%A5%E5%85%B7/"/>
+    <url>/2025/09/18/tools/%E5%8A%9E%E5%85%AC%E5%B7%A5%E5%85%B7/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1、开发工具"><a href="#1、开发工具" class="headerlink" title="1、开发工具"></a>1、开发工具</h2><table><thead><tr><th>工具名称</th><th>下载地址</th></tr></thead><tbody><tr><td>golang sdk 1.21</td><td><a href="https://go.dev/dl/">All Realease</a></td></tr><tr><td>goland2024.1 （nocal 支持到这个版本）</td><td><a href="https://www.jetbrains.com/zh-cn/go/download/other.html">其他版本</a></td></tr><tr><td>jdk11</td><td><a href="https://repo.huaweicloud.com/java/jdk/">jdk</a></td></tr><tr><td>MobaXterm_Personal 汉化</td><td><a href="https://github.com/RipplePiam/MobaXterm-Chinese-Simplified">汉化</a></td></tr><tr><td>MobaXterm_Personal 破解</td><td><a href="https://github.com/Paper-Dragon/mobaxterm-crack">破解</a></td></tr><tr><td>hexhub （linux远程工具）</td><td><a href="https://www.hexhub.cn/">hexhub远程三合一</a></td></tr><tr><td>postman&#x2F;apifox&#x2F;apipost</td><td></td></tr><tr><td>dbeaver&#x2F;Navicat Premium 16</td><td><a href="https://dbeaver.io/download/">dbeaver</a> <a href="https://github.com/shuhongfan/NavicatCracker">navicat破解</a></td></tr><tr><td>Git Bash</td><td></td></tr><tr><td>ES-King.exe&#x2F;Kafka-King.exe</td><td><a href="https://github.com/Bronya0/ES-King">es-king</a> <a href="https://github.com/Bronya0/Kafka-King">kafka-king</a></td></tr><tr><td>Typora</td><td><a href="https://github.com/eglfiv/typora-activation">typora破解</a></td></tr><tr><td>Typora主题</td><td><a href="https://github.com/liangjingkanji/DrakeTyporaTheme">主题</a></td></tr><tr><td>思绪思维导图</td><td><a href="https://wanglin2.github.io/mind-map-docs/course/course1.html">思绪导图</a></td></tr><tr><td>Snipaste</td><td><a href="https://zh.snipaste.com/download.html">sni</a></td></tr><tr><td>vscode</td><td></td></tr><tr><td>Everything</td><td><a href="https://www.voidtools.com/zh-cn/">everything</a></td></tr><tr><td>tiny RDM redis管理工具</td><td><a href="https://redis.tinycraft.cc/">tiny RDM</a></td></tr><tr><td>compress mongo管理工具</td><td><a href="https://www.mongodb.com/try/download/compass">mongo可视化</a></td></tr></tbody></table><h2 id="2、开发插件"><a href="#2、开发插件" class="headerlink" title="2、开发插件"></a>2、开发插件</h2><p><a href="https://plugins.jetbrains.com/">网站插件地址</a></p><table><thead><tr><th>插件名称</th><th>插件说明</th></tr></thead><tbody><tr><td>key Promoter X</td><td>快捷键提示</td></tr><tr><td>plantuml4idea</td><td>代码即架构</td></tr><tr><td>trae</td><td>ai插件</td></tr><tr><td>Nocalhost</td><td>k8s集群配置插件</td></tr><tr><td>Open Markdown with Typora</td><td>ide里面快捷打开typora编辑</td></tr></tbody></table><h2 id="3、ide工具激活"><a href="#3、ide工具激活" class="headerlink" title="3、ide工具激活"></a>3、ide工具激活</h2><p><a href="https://3.jetbra.in/">插件激活工具地址</a></p><p>使用： </p><p>1 下载好 破解插件之后 解压 进入scripts 目录 先执行 uinstall 脚本 然后 install脚本</p><p>2 安装好企业版pycharm</p><p>3  通过activation code 进行激活使用</p><p>激活 出现<code>Unable to Save Data</code>问题 </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Bash">C:\Users\User\AppData\Roaming\JetBrains\IntelliJIdea2022.2\idea.key<br>一般是会提示这个目录拒绝访问<br><br>找到对应的key 重命名一下，重新打开idea或者对应的编辑器 则会重新生成对应的key<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Tools</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Tools</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>常用linux笔记</title>
     <link href="/2025/09/18/linux/linux%E5%91%BD%E4%BB%A4/"/>
     <url>/2025/09/18/linux/linux%E5%91%BD%E4%BB%A4/</url>
