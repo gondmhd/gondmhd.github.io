@@ -19,12 +19,12 @@
     <meta name="description" content="kubectl常用命令1、kubectl  pod 常用命令介绍查看工作负载命令 123456kubectl get pod -A | grep asset-webXDR2.0.40.0(10.65.196.101) ~ # kubectl get pod -A | grep asset-web 命名空间（NAMESPACE）	Pod 名称（NAME）                     就绪">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kubectl常用命令">
-<meta property="og:url" content="http://gondmhd.github.io/2025/08/23/docker/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2025/09/20/docker/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="kubectl常用命令1、kubectl  pod 常用命令介绍查看工作负载命令 123456kubectl get pod -A | grep asset-webXDR2.0.40.0(10.65.196.101) ~ # kubectl get pod -A | grep asset-web 命名空间（NAMESPACE）	Pod 名称（NAME）                     就绪">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-08-23T06:42:38.314Z">
-<meta property="article:modified_time" content="2025-08-23T06:42:38.314Z">
+<meta property="article:published_time" content="2025-09-20T06:56:08.473Z">
+<meta property="article:modified_time" content="2025-09-20T06:56:08.473Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-23 14:42" pubdate>
-          2025年8月23日 下午
+        <time datetime="2025-09-20 14:56" pubdate>
+          2025年9月20日 下午
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.6k 字
+          14k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          80 分钟
+          120 分钟
         
       </span>
     
@@ -423,6 +423,276 @@
 <li>也可以登录pod所在节点查看系统日志及kubelet、docker日志进一步排查</li>
 </ul>
 <p><strong>Pod 处于 Error 状态</strong><br>通常处于 Error 状态说明 Pod 启动过程中发生了错误。常见的原因包括<br>依赖的 ConfigMap、Secret 或者 PV 等不存在<br>请求的资源超过了管理员设置的限制，比如超过了 LimitRange 等<br>违反集群的安全策略，比如违反了 PodSecurityPolicy 等<br>容器无权操作集群内的资源，比如开启 RBAC 后，需要为 ServiceAccount 配置角色绑定</p>
+<h2 id="4、kubectl编辑（kubectl-edit）"><a href="#4、kubectl编辑（kubectl-edit）" class="headerlink" title="4、kubectl编辑（kubectl edit）"></a>4、kubectl编辑（<code>kubectl edit</code>）</h2><p>用于在线编辑 Kubernetes 资源的配置（会打开默认编辑器，保存后自动生效），语法： <code>kubectl edit &lt;资源类型&gt; &lt;资源名称&gt;</code></p>
+<table>
+<thead>
+<tr>
+<th>资源类型</th>
+<th>完整类型</th>
+<th>缩写</th>
+<th>编辑命令示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Pod</td>
+<td>pod</td>
+<td>pod</td>
+<td>kubectl edit pod my-pod</td>
+<td>编辑指定 Pod 的配置</td>
+</tr>
+<tr>
+<td>Service（svc）</td>
+<td>service</td>
+<td>svc</td>
+<td>kubectl edit svc my-svc</td>
+<td>编辑指定 Service 的配置</td>
+</tr>
+<tr>
+<td>Deployment</td>
+<td>deployment</td>
+<td>deploy</td>
+<td>kubectl edit deploy my-deploy</td>
+<td>编辑指定 Deployment（无状态工作负载）</td>
+</tr>
+<tr>
+<td>StatefulSet</td>
+<td>statefulset</td>
+<td>sts</td>
+<td>kubectl edit sts my-sts</td>
+<td>编辑指定 StatefulSet（有状态工作负载）</td>
+</tr>
+<tr>
+<td>DaemonSet</td>
+<td>daemonset</td>
+<td>ds</td>
+<td>kubectl edit ds my-ds</td>
+<td>编辑指定 DaemonSet（节点级工作负载）</td>
+</tr>
+<tr>
+<td>ReplicaSet</td>
+<td>replicaset</td>
+<td>rs</td>
+<td>kubectl edit rs my-rs</td>
+<td>编辑指定 ReplicaSet（副本集，Deployment 的底层控制器）</td>
+</tr>
+<tr>
+<td>Job</td>
+<td>job</td>
+<td>job</td>
+<td>kubectl edit job my-job</td>
+<td>编辑指定 Job（一次性任务）</td>
+</tr>
+<tr>
+<td>CronJob</td>
+<td>cronjob</td>
+<td>cj</td>
+<td>kubectl edit cj my-cronjob</td>
+<td>编辑指定 CronJob（定时任务）</td>
+</tr>
+</tbody></table>
+<h2 id="5-查看资源详情（kubectl-describe）"><a href="#5-查看资源详情（kubectl-describe）" class="headerlink" title="5 查看资源详情（kubectl describe）"></a>5 查看资源详情（<code>kubectl describe</code>）</h2><table>
+<thead>
+<tr>
+<th>资源类型</th>
+<th>完整类型</th>
+<th>缩写</th>
+<th>查看命令示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Pod</td>
+<td>pod</td>
+<td>pod</td>
+<td>kubectl describe pod my-pod</td>
+<td>查看指定 Pod 的详细状态（包括容器、事件、挂载等）</td>
+</tr>
+<tr>
+<td>Service（svc）</td>
+<td>service</td>
+<td>svc</td>
+<td>kubectl describe svc my-svc</td>
+<td>查看指定 Service 的详情（包括 endpoints、端口映射等）</td>
+</tr>
+<tr>
+<td>Deployment</td>
+<td>deployment</td>
+<td>deploy</td>
+<td>kubectl describe deploy my-deploy</td>
+<td>查看 Deployment 的详情（包括副本数、更新策略、关联 RS 等）</td>
+</tr>
+<tr>
+<td>StatefulSet</td>
+<td>statefulset</td>
+<td>sts</td>
+<td>kubectl describe sts my-sts</td>
+<td>查看 StatefulSet 的详情（包括有序部署、稳定网络标识等）</td>
+</tr>
+<tr>
+<td>DaemonSet</td>
+<td>daemonset</td>
+<td>ds</td>
+<td>kubectl describe ds my-ds</td>
+<td>查看 DaemonSet 的详情（包括节点选择、运行节点等）</td>
+</tr>
+<tr>
+<td>ReplicaSet</td>
+<td>replicaset</td>
+<td>rs</td>
+<td>kubectl describe rs my-rs</td>
+<td>查看 ReplicaSet 的详情（包括关联 Pod、副本状态等）</td>
+</tr>
+<tr>
+<td>Job</td>
+<td>job</td>
+<td>job</td>
+<td>kubectl describe job my-job</td>
+<td>查看 Job 的详情（包括任务状态、完成情况等）</td>
+</tr>
+<tr>
+<td>CronJob</td>
+<td>cronjob</td>
+<td>cj</td>
+<td>kubectl describe cj my-cronjob</td>
+<td>查看 CronJob 的详情（包括定时规则、历史任务等）</td>
+</tr>
+</tbody></table>
+<h2 id="6-configmap相关"><a href="#6-configmap相关" class="headerlink" title="6 configmap相关"></a>6 configmap相关</h2><p><strong>常用命令</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs Shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">当前命名空间</span><br>kubectl get cm<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">所有命名空间</span><br>kubectl get cm --all-namespaces<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看详细信息</span><br>kubectl describe cm my-config<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">指定格式</span><br>kubectl get cm my-config -o yaml<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看特定键值对</span><br>kubectl get cm my-config -o jsonpath=&#x27;&#123;.data.key1&#125;&#x27;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">先导出当前 ConfigMap 到文件</span><br>kubectl get cm my-config -o yaml &gt; configmap.yaml<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改文件后替换</span><br>kubectl replace -f configmap.yaml<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除</span><br>kubectl delete cm my-config<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除所有 ConfigMap（慎用）</span><br>kubectl delete cm --all<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">高级操作</span><br>kubectl get cm my-config -o yaml &gt; configmap.yaml    # 导出 ConfigMap 为 YAML 文件<br>kubectl apply -f configmap.yaml        # 从 YAML 文件恢复<br>kubectl set env deployment/my-deploy --from=configmap/my-config # 注入到 Deployment 环境变量<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">在 Pod 定义中使用 subPathvolumes:- name: config-volume 挂载到 Pod 特定路径（避免覆盖目录）</span><br>volumes:- name: config-volume<br>  configMap:name: my-config<br>containers:- name: my-container<br>  volumeMounts:- name: config-volume<br>    mountPath: /etc/conf/specific-file.conf<br>    subPath: specific-key<br></code></pre></td></tr></table></figure>
+
+<p>修改comfigmap流程</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">kubectl <span class="hljs-built_in">get</span> configmap chat-agent -n <span class="hljs-built_in">platform</span> -o yaml &gt; configmap.yaml                <span class="hljs-comment"># yaml格式化输出到comfigmap.yaml文件</span><br>cp configmap.yaml ./back-config/configmap-$(<span class="hljs-built_in">date</span> +%Y-%m-%d_%H-%M-%S).yaml        <span class="hljs-comment"># 通过时间格式备份文件</span><br>kubectl apply -f configmap.yaml -n <span class="hljs-built_in">platform</span>                                        <span class="hljs-comment"># 通过yaml文件更新configmap配置</span><br>kubectl <span class="hljs-built_in">get</span> configmap aiagent-imforward -n appstore-official -o yaml  <span class="hljs-comment"># 查看comfigmap配置信息 格式化</span><br>kubectl <span class="hljs-built_in">delete</span> pod chat-agent<span class="hljs-number">-875</span>c6c445-p4jwt -n <span class="hljs-built_in">platform</span>                <span class="hljs-comment"># 修改完成之后需要重启pod</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="7-helm-相关"><a href="#7-helm-相关" class="headerlink" title="7 helm 相关"></a>7 helm 相关</h2><p>快速使用命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-comment"># helm 配置 更新</span><br>helm get values -n platform chat-agent &gt; chat-agent.yaml  <span class="hljs-comment"># 导出原配置信息，备份，修改 dataupgrade.image(init-enc 镜像) 和 image.url(enc镜像)</span><br>helm upgrade -i -n platform chat-agent chat-agent-0.1.0-feature-1023755-mhd-9ddbc574.tgz -f chat-agent.yaml<br></code></pre></td></tr></table></figure>
+
+
+
+<p>1 安装 Helm</p>
+<p>在开始之前，确保你已经安装了 Helm, 推荐使用 Helm v3（Helm v2 的 Tiller 已被移除）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-comment"># Linux 上安装 Helm</span><br>curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3<br><span class="hljs-built_in">chmod</span> 700 get_helm.sh<br>./get_helm.sh<br></code></pre></td></tr></table></figure>
+
+<p>2 使用 helm create 创建 Chart 模板</p>
+<p>Helm 提供了 create 命令来生成一个基本的 Chart 模板结构：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">helm create <span class="hljs-keyword">my</span>-chart<br></code></pre></td></tr></table></figure>
+
+<p>执行后会生成一个包含以下结构的目录：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-keyword">my</span>-chart/<br>├── Chart.yaml        <span class="hljs-comment"># 包含 Chart 的元数据信息（名称、版本、描述等）</span><br>├── values.yaml       <span class="hljs-comment"># Chart 的默认配置参数</span><br>├── charts/           <span class="hljs-comment"># 依赖的其他 Chart（如子 Chart）</span><br>├── templates/        <span class="hljs-comment"># Kubernetes 资源模板（Deployment、Service、ConfigMap 等）</span><br>│   ├── deployment.yaml<br>│   ├── service.yaml<br>│   └── _helpers.tpl  <span class="hljs-comment"># 公共的模板辅助函数</span><br>└── README.md         <span class="hljs-comment"># Chart 的描述说明</span><br></code></pre></td></tr></table></figure>
+
+<p>🔧 values.yaml 是用户自定义配置的来源，templates&#x2F; 中的文件通过 <code> &#123;&#123; .Values &#125;&#125;</code> 获取配置。</p>
+<p>Helm Chart 结构说明</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Bash">Chart.yaml：定义 Chart 的元数据（名称、版本、描述等）<br>values.yaml：定义配置参数（支持嵌套、注释、环境区分）<br>templates/ ：所有 Kubernetes 资源文件，使用 Go 模板语法<br>charts/ ：用于引入依赖的 Chart（子 Chart）<br>_helpers.tpl：便于复用的模板片段<br>README.md：Chart 的简介或使用文档<br></code></pre></td></tr></table></figure>
+
+<p>Helm Chart 的基本开发流程</p>
+<p>1 编辑模板文件</p>
+<ul>
+<li>在 my-chart&#x2F;templates&#x2F; 中编写 Kubernetes 资源模板（如 Deployment、Service 等）</li>
+<li>使用 Helm 模板语法 <code>&#123;&#123; .Values &#125;&#125;</code> 来动态生成部署参数</li>
+</ul>
+<p>2 修改 values.yaml 配置</p>
+<ul>
+<li>定义默认值（比如镜像版本、资源请求、环境变量等）</li>
+<li>可以使用更复杂的结构（如 env: { debug: true }）来组织配置</li>
+</ul>
+<p>3 检查 Chart 是否符合规范</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">helm lint my-chart<br></code></pre></td></tr></table></figure>
+
+<p>4 打包 Chart</p>
+<p>在 Chart 目录中运行以下命令，生成 .tgz 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">helm package my-chart<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>生成的包会保存为 my-chart-<version>.tgz</li>
+<li>使用 –dry-run 参数可预览打包过程，不真正生成文件：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">helm package my-chart --dry-run<br></code></pre></td></tr></table></figure>
+
+<p>5 测试 Chart（可选）</p>
+<p><code>helm template</code> 命令允许你本地渲染 Chart 模板并输出生成后的 YAML 清单，而无需真正安装到 Kubernetes 集群中。这对于调试和验证模板是否正确非常有用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">helm template [RELEASE_NAME] [CHART_PATH] --debug --dry-run<br></code></pre></td></tr></table></figure>
+
+<p>或者更具体地，如果你只想查看 ConfigMap 的生成情况：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">helm template [RELEASE_NAME] [CHART_PATH] --show-only templates/configmap.yaml --debug --dry-run<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>[RELEASE_NAME]</code>**：为你这次检查随意起个名字。</li>
+<li>**<code>[CHART_PATH]</code>**：你的 Chart 目录的路径。</li>
+<li>**<code>--debug --dry-run</code>**：这两个选项组合使用，告诉 Helm 只渲染模板并输出结果，而不进行实际安装5。</li>
+<li>**<code>--show-only</code>**：这个选项非常有用，可以指定只渲染和显示特定模板文件（例如你的 <code>configmap.yaml</code>）的输出，避免被其他资源清单干扰。</li>
+</ul>
+<p>打包 Helm Chart 的完整示例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-built_in">cd</span> my-chart<br>helm lint<br>helm package . --version v1.0.0 --destination ./charts<br></code></pre></td></tr></table></figure>
+
+<p>Helm 常用命令</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">helm create <chart-name></td>
+<td align="left">创建一个新的 Chart 项目结构</td>
+</tr>
+<tr>
+<td align="left">helm lint <chart-path></td>
+<td align="left">检查 Chart 是否符合规范</td>
+</tr>
+<tr>
+<td align="left">helm package <chart-path></td>
+<td align="left">将 Chart 打包为 .tgz 文件</td>
+</tr>
+<tr>
+<td align="left">helm install <release-name> <chart-path></td>
+<td align="left">安装 Chart 到 Kubernetes 集群</td>
+</tr>
+<tr>
+<td align="left">helm upgrade <release-name> <chart-path></td>
+<td align="left">升级已安装的版本</td>
+</tr>
+<tr>
+<td align="left">helm rollback <release-name> <revision-number></td>
+<td align="left">回滚到某个历史版本</td>
+</tr>
+<tr>
+<td align="left">helm get all <release-name></td>
+<td align="left">查看已安装的释放的详细信息</td>
+</tr>
+<tr>
+<td align="left">helm list</td>
+<td align="left">列出当前集群中所有已安装的 Chart 发布版本</td>
+</tr>
+<tr>
+<td align="left">helm repo add <repo-name> <repo-url></td>
+<td align="left">添加远程 Helm 仓库</td>
+</tr>
+<tr>
+<td align="left">helm repo update</td>
+<td align="left">更新本地 Chart 仓库缓存</td>
+</tr>
+<tr>
+<td align="left">helm search repo <keyword></td>
+<td align="left">搜索远程仓库中的 Chart</td>
+</tr>
+<tr>
+<td align="left">helm repo list</td>
+<td align="left">查看当前配置的远程仓库列表</td>
+</tr>
+<tr>
+<td align="left">helm repo remove <repo-name></td>
+<td align="left">移除远程仓库</td>
+</tr>
+<tr>
+<td align="left">helm rollback <release-name> <revision></td>
+<td align="left">回滚某个发布的历史版本</td>
+</tr>
+<tr>
+<td align="left">helm history <release-name></td>
+<td align="left">查看某个发布的历史版本记录</td>
+</tr>
+</tbody></table>
 
                 
               </div>
@@ -469,7 +739,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>kubectl常用命令</div>
-      <div>http://gondmhd.github.io/2025/08/23/docker/k8s常用命令/</div>
+      <div>http://gondmhd.github.io/2025/09/20/docker/k8s常用命令/</div>
     </div>
     <div class="license-meta">
       
@@ -481,7 +751,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年8月23日</div>
+          <div>2025年9月20日</div>
         </div>
       
       
@@ -513,9 +783,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/23/go/golang%20%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="代码设计模式">
+                      <a href="/2025/09/20/tools/%E5%8A%9E%E5%85%AC%E5%B7%A5%E5%85%B7/" title="开发工具">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">代码设计模式</span>
+                        <span class="hidden-mobile">开发工具</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -523,8 +793,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/08/23/go/linux%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91debug/" title="golang linux 远程环境调试">
-                        <span class="hidden-mobile">golang linux 远程环境调试</span>
+                      <a href="/2025/08/23/docker/k8s%E5%9F%BA%E7%A1%80/" title="k8s基础">
+                        <span class="hidden-mobile">k8s基础</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
