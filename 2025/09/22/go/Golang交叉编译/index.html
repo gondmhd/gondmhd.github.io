@@ -19,12 +19,12 @@
     <meta name="description" content="Golang交叉编译知识点  跨平台编译  1$ CGO_ENABLED&#x3D;0 GOOS&#x3D;linux go build -a -installsuffix cgo -o go-gin-example .    一、CGO_ENABLED作用 用于标识（声明） cgo工具是否可用 意义 存在交叉编译的情况下，cgo工具是不可用的。在标准go命令的上下文环境中，交叉编译意味着程序构建环境中的目标计算架构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编译">
-<meta property="og:url" content="http://gondmhd.github.io/2024/05/27/go/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2025/09/22/go/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="Golang交叉编译知识点  跨平台编译  1$ CGO_ENABLED&#x3D;0 GOOS&#x3D;linux go build -a -installsuffix cgo -o go-gin-example .    一、CGO_ENABLED作用 用于标识（声明） cgo工具是否可用 意义 存在交叉编译的情况下，cgo工具是不可用的。在标准go命令的上下文环境中，交叉编译意味着程序构建环境中的目标计算架构">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-05-27T14:58:52.392Z">
-<meta property="article:modified_time" content="2024-07-07T22:13:40.043Z">
+<meta property="article:published_time" content="2025-09-22T10:30:07.241Z">
+<meta property="article:modified_time" content="2025-09-22T10:30:07.241Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-27 22:58" pubdate>
-          2024年5月27日 晚上
+        <time datetime="2025-09-22 18:30" pubdate>
+          2025年9月22日 晚上
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          2.4k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          11 分钟
+          20 分钟
         
       </span>
     
@@ -358,6 +358,28 @@
 <p>如果使用 -race 标识，则后缀就会默认设置为  -race标识，用于区分race和普通的版本</p>
 <p><strong>-o</strong></p>
 <p>指定编译后的可执行文件名称</p>
+<h2 id="七-Go-静态编译机制"><a href="#七-Go-静态编译机制" class="headerlink" title="七 Go 静态编译机制"></a>七 Go 静态编译机制</h2><h3 id="GO-的可移植性"><a href="#GO-的可移植性" class="headerlink" title="GO 的可移植性"></a>GO 的可移植性</h3><p>Go语言的强大之处在于其极佳的可移植性。它的源代码可以在任何平台上编译，生成的二进制可执行文件可以在同种类型的操作系统下运行，不同于如Java诸如此类需要特定运行环境的语言，Go的二进利用了静态链接，不需要任何外部依赖就能运行。</p>
+<p>为了实现这样的可移植性，Go标准库为常见的操作系统和硬件架构提供了编译支持。这意味着只需改变编译选项，Go代码就可以轻松地在Windows、Linux、macOS、ARM、AMD64等平台上编译和运行。</p>
+<p>例如，以下命令可以编译一个适用于Linux的AMD64二进制：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GOOS=linux GOARCH=amd64 go build -o app ./main.go<br></code></pre></td></tr></table></figure>
+
+<h3 id="GO-的静态链接"><a href="#GO-的静态链接" class="headerlink" title="GO 的静态链接"></a>GO 的静态链接</h3><p>Go程序的可移植性大部分归功于其静态链接的特性。静态链接意味着所有程序需求的库都会被包含在生成的二进制文件中。</p>
+<p>例如，Go去除了C语言里常见的依赖于glibc的动态链接，而选择直接与操作系统的系统调用接口交互。这使得Go程序不仅在运行环境的选择上有更大自由度，同时，静态链接也使得程序在速度、安全性等方面有显著优势。</p>
+<p>对静态链接的理解可以从以下常见命令开始：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go build -ldflags=<span class="hljs-string">&quot;-s -w&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>这条指令屏蔽了所有符号表和调试信息，使得二进制文件更加紧凑。常见错误之一就是忘记在编译时添加这个选项，导致产生的文件过大。</p>
+<h3 id="CGO-影响可移植性"><a href="#CGO-影响可移植性" class="headerlink" title="CGO 影响可移植性"></a>CGO 影响可移植性</h3><p>虽然Go语言强大并且简洁，但也并非万能。一些特定的任务可能需要调用由其他语言写的库，尤其是C语言。这时候就需要使用cgo。</p>
+<p>但是cgo给Go带来的问题也很明显，cgo会破坏Go原生的静态链接，导致生成的二进制文件依赖于C库，并对特定的硬件和操作系统产生依赖。</p>
+<p>关闭cgo的编译命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CGO_ENABLED=0 go build -ldflags=<span class="hljs-string">&quot;-s -w&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="纯静态编译"><a href="#纯静态编译" class="headerlink" title="纯静态编译"></a>纯静态编译</h3><p>Go程序的纯静态编译是保证其有很高可移植性的重要方式。纯静态编译的二进制文件没有任何动态链接依赖，可以在任何环境下运行。</p>
+<p>纯静态编译的命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CGO_ENABLED=0 GOOS=linux go build -a -ldflags <span class="hljs-string">&#x27;-extldflags &quot;-static&quot;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>然而纯静态编译也不是完美的，一些基于glibc的功能，如DNS解析，可能会在静态编译下失效。</p>
+<p>总结而言，Go语言的可移植性，静态链接等特性使其在编译复杂程序时有着显著优势。然而使用cgo时需要注意可能带来的问题，而纯静态编制可能会影响Go某些基于glibc功能的正常使用，这需要根据实际使用情况做适当调整。</p>
 
                 
               </div>
@@ -404,7 +426,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>编译</div>
-      <div>http://gondmhd.github.io/2024/05/27/go/Golang交叉编译/</div>
+      <div>http://gondmhd.github.io/2025/09/22/go/Golang交叉编译/</div>
     </div>
     <div class="license-meta">
       
@@ -416,7 +438,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月27日</div>
+          <div>2025年9月22日</div>
         </div>
       
       
@@ -448,18 +470,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/27/go/GO%E8%A7%A3%E9%87%8A%E5%99%A8%E5%A4%9A%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85/" title="gvm版本管理">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">gvm版本管理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/27/go/Session%E3%80%81Cookie%E3%80%81Token%E4%BB%8B%E7%BB%8D/" title="验证机制">
-                        <span class="hidden-mobile">验证机制</span>
+                      <a href="/2025/09/22/linux/linux%E5%91%BD%E4%BB%A4/" title="常用linux笔记">
+                        <span class="hidden-mobile">常用linux笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

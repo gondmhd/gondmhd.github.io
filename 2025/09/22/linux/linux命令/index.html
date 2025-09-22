@@ -19,7 +19,7 @@
     <meta name="description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用linux笔记">
-<meta property="og:url" content="http://gondmhd.github.io/2025/09/18/linux/linux%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2025/09/22/linux/linux%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
 <meta property="og:locale" content="zh_CN">
@@ -27,8 +27,8 @@
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155281.png">
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155510.png">
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071157969.png">
-<meta property="article:published_time" content="2025-09-18T06:15:21.078Z">
-<meta property="article:modified_time" content="2025-09-18T06:15:21.079Z">
+<meta property="article:published_time" content="2025-09-22T10:30:07.241Z">
+<meta property="article:modified_time" content="2025-09-22T10:30:07.241Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Linux笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-18 14:15" pubdate>
-          2025年9月18日 下午
+        <time datetime="2025-09-22 18:30" pubdate>
+          2025年9月22日 晚上
         </time>
       </span>
     
@@ -541,7 +541,8 @@
 
 <h1 id="11-安装docker"><a href="#11-安装docker" class="headerlink" title="11 安装docker"></a>11 安装docker</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">安裝docker</span><br>yum install -y yum-utils device-mapper-persistent-data net-tools telnet<br>yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo<br>yum -y install docker-ce.x86_64 <br>systemctl start docker <br>systemctl enable docker<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">安裝docker-compose(上传docker-compose,移动到/usr/local/bin目录下，并授权)</span><br>mv docker-compose /usr/local/bin/<br>chmod +x /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_">#</span><span class="language-bash">安装docker-compose</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">下载最新docker-compose 保存到/usr/local/bin/docker-compose</span><br>sudo curl -L &quot;https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_"># </span><span class="language-bash">授权</span><br>sudo chmod +x /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_"># </span><span class="language-bash">卸载</span><br>sudo rm /usr/local/bin/docker-compose<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看是否有docker用户组</span><br>cat /etc/group ｜ grep docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">没有的话添加</span><br>sudo groupadd docker<br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加当前用户到docker组</span><br>sudo usermod -aG docker $USER<br><span class="hljs-meta prompt_"># </span><span class="language-bash">更新用户组</span><br>newgrp docker                      <br></code></pre></td></tr></table></figure>
 
-<h3 id="docker配置镜像加速方案"><a href="#docker配置镜像加速方案" class="headerlink" title="&#x3D;&#x3D;docker配置镜像加速方案&#x3D;&#x3D;"></a>&#x3D;&#x3D;docker配置镜像加速方案&#x3D;&#x3D;</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;&#123;</span><br><span class="hljs-string">    &quot;registry-mirrors&quot;:[</span><br><span class="hljs-string">        &quot;https://hub.uuuadc.top&quot;,</span><br><span class="hljs-string">        &quot;https://docker.anyhub.us.kg&quot;,</span><br><span class="hljs-string">        &quot;https://dockerhub.jobcher.com&quot;,</span><br><span class="hljs-string">        &quot;https://dockerhub.icu&quot;,</span><br><span class="hljs-string">        &quot;https://docker.ckyl.me&quot;,</span><br><span class="hljs-string">        &quot;https://docker.awsl9527.cn&quot;</span><br><span class="hljs-string">    ],</span><br><span class="hljs-string">    &quot;data-root&quot;:&quot;/home/dockerdate&quot;,</span><br><span class="hljs-string">    &quot;log-driver&quot;:&quot;json-file&quot;,</span><br><span class="hljs-string">    &quot;log-opts&quot;:&#123;</span><br><span class="hljs-string">        &quot;max-size&quot;:&quot;512m&quot;,&quot;max-file&quot;:&quot;3&quot;</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">&#125;&#x27;</span> | sudo <span class="hljs-built_in">tee</span> /etc/docker/daemon.json<br></code></pre></td></tr></table></figure>
+<h3 id="docker配置镜像加速方案"><a href="#docker配置镜像加速方案" class="headerlink" title="docker配置镜像加速方案"></a>docker配置镜像加速方案</h3><p>由于国内镜像源变动封禁问题 推荐使用 <a target="_blank" rel="noopener" href="https://1ms.run/">毫秒镜像</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;&#123;</span><br><span class="hljs-string">    &quot;registry-mirrors&quot;:[</span><br><span class="hljs-string">        &quot;https://hub.uuuadc.top&quot;,</span><br><span class="hljs-string">        &quot;https://docker.anyhub.us.kg&quot;,</span><br><span class="hljs-string">        &quot;https://dockerhub.jobcher.com&quot;,</span><br><span class="hljs-string">        &quot;https://dockerhub.icu&quot;,</span><br><span class="hljs-string">        &quot;https://docker.ckyl.me&quot;,</span><br><span class="hljs-string">        &quot;https://docker.awsl9527.cn&quot;</span><br><span class="hljs-string">    ],</span><br><span class="hljs-string">    &quot;data-root&quot;:&quot;/home/dockerdate&quot;,</span><br><span class="hljs-string">    &quot;log-driver&quot;:&quot;json-file&quot;,</span><br><span class="hljs-string">    &quot;log-opts&quot;:&#123;</span><br><span class="hljs-string">        &quot;max-size&quot;:&quot;512m&quot;,&quot;max-file&quot;:&quot;3&quot;</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">&#125;&#x27;</span> | sudo <span class="hljs-built_in">tee</span> /etc/docker/daemon.json<br></code></pre></td></tr></table></figure>
 
 <p>重启docker</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl restart docker<br></code></pre></td></tr></table></figure>
@@ -631,7 +632,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>常用linux笔记</div>
-      <div>http://gondmhd.github.io/2025/09/18/linux/linux命令/</div>
+      <div>http://gondmhd.github.io/2025/09/22/linux/linux命令/</div>
     </div>
     <div class="license-meta">
       
@@ -643,7 +644,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年9月18日</div>
+          <div>2025年9月22日</div>
         </div>
       
       
@@ -675,9 +676,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/09/18/tools/%E5%8A%9E%E5%85%AC%E5%B7%A5%E5%85%B7/" title="开发工具">
+                      <a href="/2025/09/22/go/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" title="编译">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">开发工具</span>
+                        <span class="hidden-mobile">编译</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -685,8 +686,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/09/09/go/linux%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91debug/" title="golang linux 远程环境调试">
-                        <span class="hidden-mobile">golang linux 远程环境调试</span>
+                      <a href="/2025/09/22/tools/Typora%E7%AC%94%E8%AE%B0/" title="Typora 用法">
+                        <span class="hidden-mobile">Typora 用法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
