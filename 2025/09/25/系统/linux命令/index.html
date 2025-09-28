@@ -19,7 +19,7 @@
     <meta name="description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用linux笔记">
-<meta property="og:url" content="http://gondmhd.github.io/2025/09/22/linux/linux%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2025/09/25/%E7%B3%BB%E7%BB%9F/linux%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
 <meta property="og:locale" content="zh_CN">
@@ -27,10 +27,10 @@
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155281.png">
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071155510.png">
 <meta property="og:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071157969.png">
-<meta property="article:published_time" content="2025-09-22T10:30:07.241Z">
-<meta property="article:modified_time" content="2025-09-22T10:30:07.241Z">
+<meta property="article:published_time" content="2025-09-25T02:38:55.613Z">
+<meta property="article:modified_time" content="2025-09-25T02:38:55.614Z">
 <meta property="article:author" content="Gond">
-<meta property="article:tag" content="Linux笔记">
+<meta property="article:tag" content="系统">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://typrao-mhd.oss-cn-hangzhou.aliyuncs.com/picture/202306071154535.png">
   
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-22 18:30" pubdate>
-          2025年9月22日 晚上
+        <time datetime="2025-09-25 10:38" pubdate>
+          2025年9月25日 上午
         </time>
       </span>
     
@@ -367,7 +367,7 @@
 
 <h2 id="修改ip"><a href="#修改ip" class="headerlink" title="修改ip"></a>修改ip</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># vim /etc/sysconfig/network-scripts/ifcfg-网卡名</span><br>我们需要修改BOOTPROTO=<span class="hljs-string">&quot;static&quot;</span>也就是将dhcp改为static，<br><br>修改ONBOOT=<span class="hljs-string">&quot;yes&quot;</span> 意思是将网卡设置 为开机启用，<br><br>同时在文字下方添加<br><br>IPADDR=192.168.0.230 <span class="hljs-comment">#</span><br>静态IP  <br><br>GATEWAY=192.168.0.1 <span class="hljs-comment">#默认网关  </span><br><br>NETMASK=255.255.255.0 <span class="hljs-comment">#子网掩码  </span><br><br>DNS1=192.168.0.1 <span class="hljs-comment">#DNS 配置  </span><br><br>DNS2=8.8.8.8        <span class="hljs-comment">#谷歌地址</span><br>重启网卡<br>systemctl restart NetworkManager.service<br></code></pre></td></tr></table></figure>
 
-<h2 id="获取公网ip"><a href="#获取公网ip" class="headerlink" title="获取公网ip"></a>获取公网ip</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">linux 命令：curl cip.cc<br></code></pre></td></tr></table></figure>
+<h2 id="获取公网ip"><a href="#获取公网ip" class="headerlink" title="获取公网ip"></a>获取公网ip</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">系统 命令：curl cip.cc<br></code></pre></td></tr></table></figure>
 
 
 
@@ -390,9 +390,9 @@
 <p>centos scp传输命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp -P 46022 ./code.tar.gz root@192.168.5.16:/root/laozhao/SA_V3.1.1.0323-Release	<span class="hljs-comment"># 上传					</span><br>scp -P 46022 root@1192.168.5.16:/home/tools/docker-20.10.21.tgz ./					<span class="hljs-comment"># 下载</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="tar使用命令"><a href="#tar使用命令" class="headerlink" title="tar使用命令"></a>tar使用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar x[z|J]f SMC-V1.0.0-2021xxxxxx-linux-x86_64-singleton.tar.[gz|xz]<br>不同格式压缩包使用不同命令参数解压，gz 格式使用 xzf 参数解压，xz 格式使用 xJf 参数解压<br></code></pre></td></tr></table></figure>
+<h2 id="tar使用命令"><a href="#tar使用命令" class="headerlink" title="tar使用命令"></a>tar使用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar x[z|J]f SMC-V1.0.0-2021xxxxxx-系统-x86_64-singleton.tar.[gz|xz]<br>不同格式压缩包使用不同命令参数解压，gz 格式使用 xzf 参数解压，xz 格式使用 xJf 参数解压<br></code></pre></td></tr></table></figure>
 
-<h2 id="Centos7性能查看"><a href="#Centos7性能查看" class="headerlink" title="Centos7性能查看"></a>Centos7性能查看</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">linux CPU大小<br><span class="hljs-built_in">cat</span> /proc/cpuinfo |grep <span class="hljs-string">&quot;model name&quot;</span> &amp;&amp; <span class="hljs-built_in">cat</span> /proc/cpuinfo |grep <span class="hljs-string">&quot;physical id&quot;</span><br>或者 lscpu<br>内存大小<br><span class="hljs-built_in">cat</span> /proc/meminfo |grep MemTotal或者（free -m  total显示总内存 ）<br>硬盘大小<br>fdisk -l |grep Disk<br></code></pre></td></tr></table></figure>
+<h2 id="Centos7性能查看"><a href="#Centos7性能查看" class="headerlink" title="Centos7性能查看"></a>Centos7性能查看</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">系统 CPU大小<br><span class="hljs-built_in">cat</span> /proc/cpuinfo |grep <span class="hljs-string">&quot;model name&quot;</span> &amp;&amp; <span class="hljs-built_in">cat</span> /proc/cpuinfo |grep <span class="hljs-string">&quot;physical id&quot;</span><br>或者 lscpu<br>内存大小<br><span class="hljs-built_in">cat</span> /proc/meminfo |grep MemTotal或者（free -m  total显示总内存 ）<br>硬盘大小<br>fdisk -l |grep Disk<br></code></pre></td></tr></table></figure>
 
 <h2 id="centos7查看系统版本"><a href="#centos7查看系统版本" class="headerlink" title="centos7查看系统版本"></a>centos7查看系统版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /etc/redhat-release<br></code></pre></td></tr></table></figure>
 
@@ -604,7 +604,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Linux%E7%AC%94%E8%AE%B0/" class="category-chain-item">Linux笔记</a>
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
   
   
 
@@ -619,7 +619,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Linux%E7%AC%94%E8%AE%B0/" class="print-no-link">#Linux笔记</a>
+        <a href="/tags/%E7%B3%BB%E7%BB%9F/" class="print-no-link">#系统</a>
       
     </div>
   
@@ -632,7 +632,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>常用linux笔记</div>
-      <div>http://gondmhd.github.io/2025/09/22/linux/linux命令/</div>
+      <div>http://gondmhd.github.io/2025/09/25/系统/linux命令/</div>
     </div>
     <div class="license-meta">
       
@@ -644,7 +644,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年9月22日</div>
+          <div>2025年9月25日</div>
         </div>
       
       
@@ -676,9 +676,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/09/22/go/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" title="编译">
+                      <a href="/2025/09/25/tools/Ubuntu_for_clash/" title="Ubuntu_for_clash">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">编译</span>
+                        <span class="hidden-mobile">Ubuntu_for_clash</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -686,8 +686,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/09/22/tools/Typora%E7%AC%94%E8%AE%B0/" title="Typora 用法">
-                        <span class="hidden-mobile">Typora 用法</span>
+                      <a href="/2025/09/18/tools/%E5%8A%9E%E5%85%AC%E5%B7%A5%E5%85%B7/" title="开发工具">
+                        <span class="hidden-mobile">开发工具</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

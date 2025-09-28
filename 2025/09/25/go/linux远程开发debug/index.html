@@ -16,22 +16,27 @@
   <meta name="author" content="Gond">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Typora的语法表格可以在—分割线加入：设置表格对齐方式“:——–“表示左对齐，”:———:“表示居中对齐，”———-:”表示右对齐 无序列表：- + 空格有序列表：1. + 空格引用：&gt; + 空格标题：ctrl + 数字表格：ctrl + t 表格增加一行快捷键：选择行数 按下ctrl+enther  生成目录：[TOC] + 回车选中一整行：ctrl + l选中单词：ctrl + d选">
+    <meta name="description" content="golang远程linux环境开发调试1、linux环境配置go环境(最好和本地相同)go_1.20 Sdk下载地址 下载sdk 此处使用1.20版本 ,将下载好的tar.gz 上传到linux服务器 &#x2F;usr&#x2F;local 上面 ,然后解压 1tar -xzvf go1.20.8.系统-amd64.tar.gz  创建GOPATH目录(相当于workplace) 1234567">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Typora 用法">
-<meta property="og:url" content="http://gondmhd.github.io/2025/09/22/tools/Typora%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="golang 系统 远程环境调试">
+<meta property="og:url" content="http://gondmhd.github.io/2025/09/25/go/linux%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91debug/index.html">
 <meta property="og:site_name" content="Gond">
-<meta property="og:description" content="Typora的语法表格可以在—分割线加入：设置表格对齐方式“:——–“表示左对齐，”:———:“表示居中对齐，”———-:”表示右对齐 无序列表：- + 空格有序列表：1. + 空格引用：&gt; + 空格标题：ctrl + 数字表格：ctrl + t 表格增加一行快捷键：选择行数 按下ctrl+enther  生成目录：[TOC] + 回车选中一整行：ctrl + l选中单词：ctrl + d选">
+<meta property="og:description" content="golang远程linux环境开发调试1、linux环境配置go环境(最好和本地相同)go_1.20 Sdk下载地址 下载sdk 此处使用1.20版本 ,将下载好的tar.gz 上传到linux服务器 &#x2F;usr&#x2F;local 上面 ,然后解压 1tar -xzvf go1.20.8.系统-amd64.tar.gz  创建GOPATH目录(相当于workplace) 1234567">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-09-22T10:30:07.241Z">
-<meta property="article:modified_time" content="2025-09-22T10:30:07.241Z">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823144826129.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823145220032.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823145421902.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823150244043.png?raw=true">
+<meta property="article:published_time" content="2025-09-25T02:38:55.613Z">
+<meta property="article:modified_time" content="2025-09-25T02:38:55.613Z">
 <meta property="article:author" content="Gond">
-<meta property="article:tag" content="Tools">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823144826129.png?raw=true">
   
   
   
-  <title>Typora 用法 - Gond</title>
+  <title>golang 系统 远程环境调试 - Gond</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Typora 用法"></span>
+            <span id="subtitle" data-typed-text="golang 系统 远程环境调试"></span>
           
         </div>
 
@@ -208,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-22 18:30" pubdate>
-          2025年9月22日 晚上
+        <time datetime="2025-09-25 10:38" pubdate>
+          2025年9月25日 上午
         </time>
       </span>
     
@@ -220,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          385 字
+          1.3k 字
         
       </span>
     
@@ -231,7 +236,7 @@
         
         
         
-          4 分钟
+          11 分钟
         
       </span>
     
@@ -268,20 +273,49 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Typora 用法</h1>
+            <h1 id="seo-header">golang 系统 远程环境调试</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="Typora的语法"><a href="#Typora的语法" class="headerlink" title="Typora的语法"></a>Typora的语法</h2><p>表格<br>可以在—分割线加入：设置表格对齐方式<br>“:——–“表示左对齐，”:———:“表示居中对齐，”———-:”表示右对齐</p>
-<p>无序列表：- + 空格<br>有序列表：1. + 空格<br>引用：&gt; + 空格<br>标题：ctrl + 数字<br>表格：ctrl + t</p>
-<p>表格增加一行快捷键：选择行数 按下ctrl+enther </p>
-<p>生成目录：[TOC] + 回车<br>选中一整行：ctrl + l<br>选中单词：ctrl + d<br>选中相同格式的文字：ctrl + e<br>跳转到文章开头：ctrl + home<br>跳转到文章结尾：ctrl + end<br>搜索：ctrl + f<br>替换：ctrl + h<br>加粗：ctrl + b<br>倾斜：ctrl + i<br>下划线：ctrl + u<br>删除线：alt + shift + 5<br>插入图片：直接拖动到指定位置即可或者ctrl + shift + i<br>插入链接：ctrl + k</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40896997/article/details/106551767">表情</a></p>
-<p>:white_check_mark:</p>
-<p>:x:</p>
-<p>:heavy_check_mark:</p>
-<p>导出pdf主题，选择<code>Drake</code> </p>
+                <h1 id="golang远程linux环境开发调试"><a href="#golang远程linux环境开发调试" class="headerlink" title="golang远程linux环境开发调试"></a>golang远程linux环境开发调试</h1><h2 id="1、linux环境配置go环境-最好和本地相同"><a href="#1、linux环境配置go环境-最好和本地相同" class="headerlink" title="1、linux环境配置go环境(最好和本地相同)"></a>1、linux环境配置go环境(最好和本地相同)</h2><p><a target="_blank" rel="noopener" href="https://go.dev/dl/go1.20.8.linux-amd64.tar.gz">go_1.20 Sdk下载地址</a></p>
+<p>下载sdk 此处使用1.20版本 ,将下载好的tar.gz 上传到linux服务器 &#x2F;usr&#x2F;local 上面 ,然后解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">tar -xzvf go1.20.8.系统-amd64.tar.gz<br></code></pre></td></tr></table></figure>
+
+<p>创建GOPATH目录(相当于workplace)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir  /root/mhd/code/go<br><br>cd  /root/mhd/code/go<br>mkdir &#123;bin,src,pkg&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">src		里面每一个子目录 就是一个包 包内是Go的源码文件</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">pkg		编译后生成的 包的目标文件</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">bin 		生成的可执行文件</span><br></code></pre></td></tr></table></figure>
+
+<p>编辑配置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo vim /etc/profile<br>export GOROOT=&quot;/usr/local/go&quot; # go源码包所在路径<br>export GOPATH=/root/mhd/code/go  #工作开发代码所在的路径,可随便指定<br>export PATH=$PATH:$GOROOT/bin:$GOPATH/bin # go install 命令安装的包,会安装到GOPATH/BIN目录<br><br><br>保存 之后 soucrce 环境变量文件<br>source /etc/profile<br></code></pre></td></tr></table></figure>
+
+<p>验证是否安装成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">XDR2.0.40.0(10.65.196.101) ~/mhd/code/go # go version<br>go version go1.20.8 系统/amd64<br></code></pre></td></tr></table></figure>
+
+<h2 id="2、goland-配置ssh-session-连接会话"><a href="#2、goland-配置ssh-session-连接会话" class="headerlink" title="2、goland 配置ssh session 连接会话"></a>2、goland 配置ssh session 连接会话</h2><p>goland-file-setting 里面搜索 SSH Configurations 配置 好ssh服务器信息 进行保存</p>
+<p>goland-tools-start ssh session 选择配置的ssh服务器连接</p>
+<h2 id="3、goland-配置远程-执行"><a href="#3、goland-配置远程-执行" class="headerlink" title="3、goland 配置远程 执行"></a>3、goland 配置远程 执行</h2><p>右上角run的位置 下拉 Edit Configurations</p>
+<p>点击加号  选择 go build  然后 Run on选择 ssh 选到前面配置的ssh连接 等待检验</p>
+<p>RUN kind 选择 Directory</p>
+<p>Directory 选择 本地目录</p>
+<p>Working directory 选择本地目录</p>
+<p>然后通过配置好的 go build 进行debug 或者run即可</p>
+<h2 id="4、goland配置文件映射"><a href="#4、goland配置文件映射" class="headerlink" title="4、goland配置文件映射"></a>4、goland配置文件映射</h2><p><strong>4.1 配置远程开发机</strong></p>
+<p>ctl+alt+s（设置）  - 搜索Deployment - Configuration - ➕ - SFTP - 配置主机IP、端口、登录用户、鉴权方式等</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823144826129.png?raw=true" srcset="/img/loading.gif" lazyload alt="image-20250823144826129"></p>
+<p>选择远程主机配置 ，Root path 可以选择不填 也可以自动填充，相当于mapping里面的前缀</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823145220032.png?raw=true" srcset="/img/loading.gif" lazyload alt="image-20250823145220032"></p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823145421902.png?raw=true" srcset="/img/loading.gif" lazyload alt="image-20250823145421902"></p>
+<p>创建完成应用即可 ，映射是针对目录级别的</p>
+<p><strong>4.2 查看远程开发配置</strong></p>
+<p>Tools - Deployment - Browse Remote Host</p>
+<p>此处由于文件过多 更改成了java目录</p>
+<p>绿色的就是映射的目录了</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823150244043.png?raw=true" srcset="/img/loading.gif" lazyload alt="image-20250823150244043"></p>
+<p><strong>4.3 第一次同步需要手动</strong></p>
+<p>Tools - Deployment - Sync with local - Synchronize All</p>
+<p><strong>4.4 勾选自动同步</strong></p>
+<p>Tools - Deployment - Automatic Upload (Always)<br>这时候在Goland的修改都会自动同步到远程开发机了</p>
+<p><strong>4.5 至此配置完成</strong></p>
 
                 
               </div>
@@ -300,7 +334,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Tools/" class="category-chain-item">Tools</a>
+  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
   
   
 
@@ -315,7 +349,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Tools/" class="print-no-link">#Tools</a>
+        <a href="/tags/Go/" class="print-no-link">#Go</a>
       
     </div>
   
@@ -327,8 +361,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Typora 用法</div>
-      <div>http://gondmhd.github.io/2025/09/22/tools/Typora笔记/</div>
+      <div>golang 系统 远程环境调试</div>
+      <div>http://gondmhd.github.io/2025/09/25/go/linux远程开发debug/</div>
     </div>
     <div class="license-meta">
       
@@ -340,7 +374,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年9月22日</div>
+          <div>2025年9月25日</div>
         </div>
       
       
@@ -372,9 +406,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/09/22/linux/linux%E5%91%BD%E4%BB%A4/" title="常用linux笔记">
+                      <a href="/2025/09/25/go/goland%E8%BF%9E%E6%8E%A5docker%E8%BF%9B%E8%A1%8Cdebug/" title="golang docker 远程环境调试">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">常用linux笔记</span>
+                        <span class="hidden-mobile">golang docker 远程环境调试</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -382,8 +416,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/09/18/tools/%E5%8A%9E%E5%85%AC%E5%B7%A5%E5%85%B7/" title="开发工具">
-                        <span class="hidden-mobile">开发工具</span>
+                      <a href="/2025/09/25/tools/Ubuntu_for_clash/" title="Ubuntu_for_clash">
+                        <span class="hidden-mobile">Ubuntu_for_clash</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

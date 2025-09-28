@@ -19,14 +19,14 @@
     <meta name="description" content="Ubuntu配置翻墙软件参考地址 安装包配置1、下载安装包创建文件夹1mkdir clash &amp;&amp; cd clash    1wget https:&#x2F;&#x2F;github.com&#x2F;Dreamacro&#x2F;clash&#x2F;releases&#x2F;download&#x2F;v1.18.0&#x2F;clash-linux-amd64-v1.18.0.gz  2、解压授权123456789# 解压文件gzip -d clas">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu_for_clash">
-<meta property="og:url" content="http://gondmhd.github.io/2024/05/27/tools/Ubuntu_for_clash/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2025/09/25/tools/Ubuntu_for_clash/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="Ubuntu配置翻墙软件参考地址 安装包配置1、下载安装包创建文件夹1mkdir clash &amp;&amp; cd clash    1wget https:&#x2F;&#x2F;github.com&#x2F;Dreamacro&#x2F;clash&#x2F;releases&#x2F;download&#x2F;v1.18.0&#x2F;clash-linux-amd64-v1.18.0.gz  2、解压授权123456789# 解压文件gzip -d clas">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/gondmhd/blogImage/main/img/202310271642850.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gondmhd/blogImage/main/img/202310271644906.png">
-<meta property="article:published_time" content="2024-05-27T14:58:52.392Z">
-<meta property="article:modified_time" content="2024-05-27T14:58:52.392Z">
+<meta property="article:published_time" content="2025-09-25T02:38:55.613Z">
+<meta property="article:modified_time" content="2025-09-25T02:38:55.613Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Tools">
 <meta name="twitter:card" content="summary_large_image">
@@ -211,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-27 22:58" pubdate>
-          2024年5月27日 晚上
+        <time datetime="2025-09-25 10:38" pubdate>
+          2025年9月25日 上午
         </time>
       </span>
     
@@ -283,9 +283,9 @@
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://github.com/Dreamacro/clash/releases/download/v1.18.0/clash-linux-amd64-v1.18.0.gz<br></code></pre></td></tr></table></figure>
 
-<h3 id="2、解压授权"><a href="#2、解压授权" class="headerlink" title="2、解压授权"></a>2、解压授权</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 解压文件</span><br>gzip -d clash-linux-amd64-v1.18.0.gz<br><br><span class="hljs-comment"># 给予权限</span><br><span class="hljs-built_in">chmod</span> +x clash-linux-amd64-v1.18.0<br><br><br><span class="hljs-comment"># 查看版本</span><br>./clash-linux-amd64-v1.18.0 -v<br></code></pre></td></tr></table></figure>
+<h3 id="2、解压授权"><a href="#2、解压授权" class="headerlink" title="2、解压授权"></a>2、解压授权</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 解压文件</span><br>gzip -d clash-系统-amd64-v1.18.0.gz<br><br><span class="hljs-comment"># 给予权限</span><br><span class="hljs-built_in">chmod</span> +x clash-系统-amd64-v1.18.0<br><br><br><span class="hljs-comment"># 查看版本</span><br>./clash-系统-amd64-v1.18.0 -v<br></code></pre></td></tr></table></figure>
 
-<h3 id="3、启动创建文件夹"><a href="#3、启动创建文件夹" class="headerlink" title="3、启动创建文件夹"></a>3、启动创建文件夹</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 启动 Clash</span><br>./clash-linux-amd64-v1.18.0<br><br><span class="hljs-comment"># 进入目录</span><br><span class="hljs-built_in">cd</span> ~/.config/clash/<br><br><span class="hljs-comment"># 导入订阅(尝试失败)</span><br>wget -O config.yaml 订阅地址<br><br><span class="hljs-comment"># 手动节点（适用于自建 复制config地址信息）</span><br><br>vim ~/.config/clash/config.yaml<br></code></pre></td></tr></table></figure>
+<h3 id="3、启动创建文件夹"><a href="#3、启动创建文件夹" class="headerlink" title="3、启动创建文件夹"></a>3、启动创建文件夹</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 启动 Clash</span><br>./clash-系统-amd64-v1.18.0<br><br><span class="hljs-comment"># 进入目录</span><br><span class="hljs-built_in">cd</span> ~/.config/clash/<br><br><span class="hljs-comment"># 导入订阅(尝试失败)</span><br>wget -O config.yaml 订阅地址<br><br><span class="hljs-comment"># 手动节点（适用于自建 复制config地址信息）</span><br><br>vim ~/.config/clash/config.yaml<br></code></pre></td></tr></table></figure>
 
 <p><img src="https://raw.githubusercontent.com/gondmhd/blogImage/main/img/202310271642850.png" srcset="/img/loading.gif" lazyload alt="image-20231027164226790"></p>
 <h3 id="4、配置环境变量"><a href="#4、配置环境变量" class="headerlink" title="4、配置环境变量"></a>4、配置环境变量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;export http_proxy=http://127.0.0.1:7890\nexport https_proxy=http://127.0.0.1:7890&quot;</span> &gt;&gt; ~/.bashrc<br></code></pre></td></tr></table></figure>
@@ -371,7 +371,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Ubuntu_for_clash</div>
-      <div>http://gondmhd.github.io/2024/05/27/tools/Ubuntu_for_clash/</div>
+      <div>http://gondmhd.github.io/2025/09/25/tools/Ubuntu_for_clash/</div>
     </div>
     <div class="license-meta">
       
@@ -383,7 +383,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月27日</div>
+          <div>2025年9月25日</div>
         </div>
       
       
@@ -415,9 +415,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/27/tools/Redis%E5%85%A5%E9%97%A8/" title="Redis 入门">
+                      <a href="/2025/09/25/go/linux%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91debug/" title="golang 系统 远程环境调试">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Redis 入门</span>
+                        <span class="hidden-mobile">golang 系统 远程环境调试</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -425,8 +425,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/27/tools/github%20%E5%9B%BE%E5%BA%8A/" title="typora 图床">
-                        <span class="hidden-mobile">typora 图床</span>
+                      <a href="/2025/09/25/%E7%B3%BB%E7%BB%9F/linux%E5%91%BD%E4%BB%A4/" title="常用linux笔记">
+                        <span class="hidden-mobile">常用linux笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

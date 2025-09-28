@@ -1,0 +1,729 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Gond">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="环境配置go 解释器配置(window)linux使用gvm配置 window使用g配置 检查本机是否存在golang解释器1go version  步骤 1：设置 GOROOT（ Go 环境所在目录的配置） 为了使所有的计算机用户都可以使用 Go 环境，我们就在系统变量之中配置。点击系统变量下的新建，在变量名一栏输入 GOROOT ，在变量值一栏输入 你解压文件所在的目录D:\路径\go。最后点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="window环境配置">
+<meta property="og:url" content="http://gondmhd.github.io/2025/09/25/%E7%B3%BB%E7%BB%9F/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Gond">
+<meta property="og:description" content="环境配置go 解释器配置(window)linux使用gvm配置 window使用g配置 检查本机是否存在golang解释器1go version  步骤 1：设置 GOROOT（ Go 环境所在目录的配置） 为了使所有的计算机用户都可以使用 Go 环境，我们就在系统变量之中配置。点击系统变量下的新建，在变量名一栏输入 GOROOT ，在变量值一栏输入 你解压文件所在的目录D:\路径\go。最后点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-25T02:38:55.614Z">
+<meta property="article:modified_time" content="2025-09-25T02:38:55.614Z">
+<meta property="article:author" content="Gond">
+<meta property="article:tag" content="系统">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>window环境配置 - Gond</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"gondmhd.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Gond</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="window环境配置"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-09-25 10:38" pubdate>
+          2025年9月25日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">window环境配置</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="go-解释器配置-window"><a href="#go-解释器配置-window" class="headerlink" title="go 解释器配置(window)"></a>go 解释器配置(window)</h2><p><a target="_blank" rel="noopener" href="https://github.com/moovweb/gvm">linux使用gvm配置</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/voidint/g/blob/master/README_CN.md">window使用g配置</a></p>
+<h4 id="检查本机是否存在golang解释器"><a href="#检查本机是否存在golang解释器" class="headerlink" title="检查本机是否存在golang解释器"></a>检查本机是否存在golang解释器</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">go</span> version<br></code></pre></td></tr></table></figure>
+
+<h4 id="步骤-1：设置-GOROOT（-Go-环境所在目录的配置）"><a href="#步骤-1：设置-GOROOT（-Go-环境所在目录的配置）" class="headerlink" title="步骤 1：设置 GOROOT（ Go 环境所在目录的配置）"></a>步骤 1：设置 <code>GOROOT</code>（ Go 环境所在目录的配置）</h4><blockquote>
+<p>为了使所有的计算机用户都可以使用 Go 环境，我们就在系统变量之中配置。点击系统变量下的新建，在变量名一栏输入 GOROOT ，在变量值一栏输入 你解压文件所在的目录D:\路径\go。<br>最后点击确定，就将 GOROOT 新建完毕。</p>
+</blockquote>
+<ol>
+<li>右键「此电脑」→ 选择「属性」→ 点击「高级系统设置」→ 点击「环境变量」。</li>
+<li>在「系统变量」中点击「新建」。</li>
+<li>变量名：<code>GOROOT</code></li>
+<li>变量值：Go 的安装目录（如 <code>C:\Program Files\Go</code> 或 <code>D:\Go</code>）。</li>
+</ol>
+<h4 id="步骤-2：设置-GOPATH（工作区路径，存放项目和依赖）"><a href="#步骤-2：设置-GOPATH（工作区路径，存放项目和依赖）" class="headerlink" title="步骤 2：设置 GOPATH（工作区路径，存放项目和依赖）"></a>步骤 2：设置 <code>GOPATH</code>（工作区路径，存放项目和依赖）</h4><blockquote>
+<p>GOPATH和GOROOT的配置略有不同，我建议配置两个GOPATH目录，第一个用于放 Go 语言的第三方包，第二个用于放自己的开发代码。我们来新建GOPATH。点击系统变量下的新建，在变量名一栏输入GOPATH，在变量值一栏输入任意两个目录，中间用英文分号隔开。</p>
+<p>示例：D:\路径\go\library;D:\路径\go\workspace</p>
+</blockquote>
+<ol>
+<li>在「系统变量」中点击「新建」（若不存在则新建）。</li>
+<li>变量名：<code>GOPATH</code></li>
+<li>变量值：自定义工作区路径（如 <code>D:\路径\go\library;D:\路径\go\workspace</code>，建议单独创建空目录）。<ul>
+<li>说明：Go 1.13 后支持模块（<code>go mod</code>），<code>GOPATH</code> 的作用弱化，但仍用于存放 <code>go install</code> 安装的工具（如 <code>gopls</code> 语言服务器）。</li>
+</ul>
+</li>
+</ol>
+<h4 id="步骤-3：设置-Path（添加-Go-命令路径）"><a href="#步骤-3：设置-Path（添加-Go-命令路径）" class="headerlink" title="步骤 3：设置 Path（添加 Go 命令路径）"></a>步骤 3：设置 <code>Path</code>（添加 Go 命令路径）</h4><ol>
+<li>在「系统变量」中找到 <code>Path</code> 变量，双击打开编辑界面。</li>
+<li>点击「新建」，添加以下路径：<ul>
+<li><code>%GOROOT%\bin</code>（Go 编译器、工具（如 <code>go</code>、<code>gofmt</code>）的路径）。</li>
+</ul>
+</li>
+</ol>
+<h4 id="校验是否配置成功"><a href="#校验是否配置成功" class="headerlink" title="校验是否配置成功"></a>校验是否配置成功</h4><blockquote>
+<p><strong>windows+R 输入 cmd 打开终端，输入go version，如果输出如下图所示，则安装成功。</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs bssh">#查看Go版本<br>go version<br><br>#查看Go环境变量<br>go env<br><br><br>$ go env<br>set GO111MODULE=on<br>set GOARCH=amd64<br>set GOBIN=<br>set GOCACHE=C:\Users\mhd\AppData\Local\go-build<br>set GOENV=C:\Users\mhd\AppData\Roaming\go\env<br>set GOEXE=.exe<br>set GOEXPERIMENT=<br>set GOFLAGS=<br>set GOHOSTARCH=amd64<br>set GOHOSTOS=windows<br>set GOINSECURE=<br>set GOMODCACHE=D:\go-work\go\library\pkg\mod<br>set GONOPROXY=<br>set GONOSUMDB=<br>set GOOS=windows<br>set GOPATH=D:\go-work\go\library;D:\go-work\go\workspace<br>set GOPRIVATE=<br>set GOPROXY=https://goproxy.cn,direct<br>set GOROOT=D:\go-sdk\go1.23.12.windows-amd64\go<br>set GOSUMDB=off<br>set GOTMPDIR=<br>set GOTOOLCHAIN=auto<br>set GOTOOLDIR=D:\go-sdk\go1.23.12.windows-amd64\go\pkg\tool\windows_amd64<br>set GOVCS=<br>set GOVERSION=go1.23.12<br>set GODEBUG=<br>set GOTELEMETRY=local<br>set GOTELEMETRYDIR=C:\Users\mhd\AppData\Roaming\go\telemetry<br>set GCCGO=gccgo<br>set GOAMD64=v1<br>set AR=ar<br>set CC=gcc<br>set CXX=g++<br>set CGO_ENABLED=0<br>set GOMOD=NUL<br>set GOWORK=<br>set CGO_CFLAGS=-O2 -g<br>set CGO_CPPFLAGS=<br>set CGO_CXXFLAGS=-O2 -g<br>set CGO_FFLAGS=-O2 -g<br>set CGO_LDFLAGS=-O2 -g<br>set PKG_CONFIG=pkg-config<br>set GOGCCFLAGS=-m64 -fno-caret-diagnostics -Qunused-arguments -Wl,--no-gc-sectio<br>ns -fmessage-length=0 -ffile-prefix-map=C:\Users\mhd\AppData\Local\Temp\go-build<br>3401154908=/tmp/go-build -gno-record-gcc-switches<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="配置-GO111MODULE、GOPROXY、GOSUMDB"><a href="#配置-GO111MODULE、GOPROXY、GOSUMDB" class="headerlink" title="配置 GO111MODULE、GOPROXY、GOSUMDB"></a>配置 GO111MODULE、GOPROXY、GOSUMDB</h4><blockquote>
+<p>Go默认的GOPROXY的值是：GOPROXY&#x3D;<a target="_blank" rel="noopener" href="https://proxy.golang.org,direct.这个goproxy在使用go/">https://proxy.golang.org,direct。这个goproxy在使用go</a> get安装第三方库的时候会报错，导致无法下载成功，所以必须要修改一下。</p>
+<p>比如改为：<a target="_blank" rel="noopener" href="https://goproxy.io,direct/">https://goproxy.io,direct</a> （七牛镜像）或 <a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/goproxy%EF%BC%88%E9%98%BF%E9%87%8C%E4%BA%91%E9%95%9C%E5%83%8F%EF%BC%89">https://mirrors.aliyun.com/goproxy（阿里云镜像）</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#开启mod模式（项目管理需要用到）</span><br>go <span class="hljs-built_in">env</span> -w GO111MODULE=on<br><span class="hljs-comment">#重新设置成七牛镜像源（推荐）或阿里镜像源（用原有的会比较慢）</span><br>go <span class="hljs-built_in">env</span> -w GOPROXY=https://goproxy.cn,direct<br>go <span class="hljs-built_in">env</span> -w GOPROXY=https://mirrors.aliyun.com/goproxy<br><br><span class="hljs-comment">#关闭包的MD5校验</span><br>go <span class="hljs-built_in">env</span> -w GOSUMDB=off<br><br><span class="hljs-comment">#查看环境变量</span><br>go <span class="hljs-built_in">env</span><br><br>...<br></code></pre></td></tr></table></figure>
+
+<h4 id="查看配置的环境变量"><a href="#查看配置的环境变量" class="headerlink" title="查看配置的环境变量"></a>查看配置的环境变量</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> %GOPATH%<br><span class="hljs-built_in">echo</span> %GOROOT%<br></code></pre></td></tr></table></figure>
+
+<p><strong>至此,配置完成🎉</strong></p>
+<h4 id="window多版本golang配置"><a href="#window多版本golang配置" class="headerlink" title="window多版本golang配置"></a>window多版本golang配置</h4><p>只需要在<code>goland</code> -&gt; GO-&gt; GOROOT 选择不同的go解释器路径即可</p>
+<h2 id="java-解释器配置"><a href="#java-解释器配置" class="headerlink" title="java 解释器配置"></a>java 解释器配置</h2><h3 id="1、检查本地是否配置java-jdk环境"><a href="#1、检查本地是否配置java-jdk环境" class="headerlink" title="1、检查本地是否配置java jdk环境"></a>1、检查本地是否配置java jdk环境</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">java -version  # 查看 JDK 版本（应输出 &quot;jdk 11.x.x&quot;）<br>javac -version  # 查看编译器版本（应输出 &quot;javac 11.x.x&quot;）<br></code></pre></td></tr></table></figure>
+
+<p>不存在则配置环境变量</p>
+<h3 id="2、下载jdk11版本"><a href="#2、下载jdk11版本" class="headerlink" title="2、下载jdk11版本"></a>2、下载jdk11版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">通过镜像站下载 <br>https://repo.huaweicloud.com/java/jdk/11.0.2+9/<br></code></pre></td></tr></table></figure>
+
+<h3 id="3、window系统环境变量配置"><a href="#3、window系统环境变量配置" class="headerlink" title="3、window系统环境变量配置"></a>3、window系统环境变量配置</h3><h4 id="步骤-1：打开环境变量设置界面"><a href="#步骤-1：打开环境变量设置界面" class="headerlink" title="步骤 1：打开环境变量设置界面"></a>步骤 1：打开环境变量设置界面</h4><ul>
+<li><strong>Windows 11&#x2F;10</strong>：右键「此电脑」→ 选择「属性」→ 点击左侧「高级系统设置」→ 点击右下角「环境变量」。</li>
+</ul>
+<h4 id="步骤-2：设置-JAVA-HOME（必选）"><a href="#步骤-2：设置-JAVA-HOME（必选）" class="headerlink" title="步骤 2：设置 JAVA_HOME（必选）"></a>步骤 2：设置 <code>JAVA_HOME</code>（必选）</h4><ol>
+<li>在「系统变量」区域点击「新建」。</li>
+<li>变量名：<code>JAVA_HOME</code>（严格区分大小写）。</li>
+<li>变量值：JDK 的安装目录（如 <code>C:\Program Files\Java\jdk-11.0.20</code>，需根据实际安装路径调整）。<ul>
+<li>验证：确保路径末尾是 <code>jdk-11.x.x</code>（非 <code>jre</code> 目录），且包含 <code>bin</code>、<code>lib</code> 子目录。</li>
+</ul>
+</li>
+</ol>
+<h4 id="步骤-3：设置-Path（必选）"><a href="#步骤-3：设置-Path（必选）" class="headerlink" title="步骤 3：设置 Path（必选）"></a>步骤 3：设置 <code>Path</code>（必选）</h4><ol>
+<li>在「系统变量」中找到 <code>Path</code> 变量，双击打开编辑界面。</li>
+<li>点击「新建」，添加以下两个路径（按顺序）：<ul>
+<li><code>%JAVA_HOME%\bin</code>（JDK 命令工具路径，如 <code>java</code>、<code>javac</code>）。</li>
+<li><code>%JAVA_HOME%\jre\bin</code>（可选，若需兼容旧版 JRE 相关工具）。</li>
+<li>注意：Windows 10&#x2F;11 支持直接输入变量名，系统会自动解析为 <code>C:\Program Files\Java\jdk-11.0.20\bin</code>。</li>
+</ul>
+</li>
+</ol>
+<h4 id="步骤-4：设置-CLASSPATH（可选，仅旧项目需要）"><a href="#步骤-4：设置-CLASSPATH（可选，仅旧项目需要）" class="headerlink" title="步骤 4：设置 CLASSPATH（可选，仅旧项目需要）"></a>步骤 4：设置 <code>CLASSPATH</code>（可选，仅旧项目需要）</h4><ol>
+<li><p>在「系统变量」中点击「新建」（若不存在则新建）。</p>
+</li>
+<li><p>变量名：<code>CLASSPATH</code>。</p>
+</li>
+<li><p>变量值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar<br></code></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>说明：<code>.</code> 表示当前目录（运行类文件时需依赖），<code>dt.jar</code> 和 <code>tools.jar</code> 是 JDK 核心库（旧版项目可能需要）。</li>
+</ul>
+<h3 id="4、验证是否配置成功"><a href="#4、验证是否配置成功" class="headerlink" title="4、验证是否配置成功"></a>4、验证是否配置成功</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">java -version  # 查看 JDK 版本（应输出 &quot;jdk 11.x.x&quot;）<br>javac -version  # 查看编译器版本（应输出 &quot;javac 11.x.x&quot;）<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/window/" class="category-chain-item">window</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%B3%BB%E7%BB%9F/" class="print-no-link">#系统</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>window环境配置</div>
+      <div>http://gondmhd.github.io/2025/09/25/系统/环境配置/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Gond</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年9月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/09/25/%E7%B3%BB%E7%BB%9F/linux%E6%B3%A8%E5%86%8C%E5%8D%95%E5%85%83%E6%9C%8D%E5%8A%A1/" title="Linux 注册单元服务">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux 注册单元服务</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/09/25/%E7%B3%BB%E7%BB%9F/nginx%20%E6%8E%A5%E5%85%A5keycloak%20sso%E5%B9%B3%E5%8F%B0/" title="nginx集成keycloak">
+                        <span class="hidden-mobile">nginx集成keycloak</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

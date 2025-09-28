@@ -16,27 +16,22 @@
   <meta name="author" content="Gond">
   <meta name="keywords" content="">
   
-    <meta name="description" content="golang远程linux环境开发调试1、linux环境配置go环境(最好和本地相同)go_1.20 Sdk下载地址 下载sdk 此处使用1.20版本 ,将下载好的tar.gz 上传到linux服务器 &#x2F;usr&#x2F;local 上面 ,然后解压 1tar -xzvf go1.20.8.linux-amd64.tar.gz  创建GOPATH目录(相当于workplace) 1234">
+    <meta name="description" content="Typora的语法1 格式表格可以在—分割线加入：设置表格对齐方式“:——–“表示左对齐，”:———:“表示居中对齐，”———-:”表示右对齐 无序列表：- + 空格有序列表：1. + 空格引用：&gt; + 空格 分割线: ---回车即可 引用 md 文件内部内容：  [需要跳转的文本](#destination)  &lt;a id&#x3D;&quot;destination&quot;&gt;正常显">
 <meta property="og:type" content="article">
-<meta property="og:title" content="golang linux 远程环境调试">
-<meta property="og:url" content="http://gondmhd.github.io/2025/09/09/go/linux%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91debug/index.html">
+<meta property="og:title" content="Typora 用法">
+<meta property="og:url" content="http://gondmhd.github.io/2025/09/28/tools/Typora%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Gond">
-<meta property="og:description" content="golang远程linux环境开发调试1、linux环境配置go环境(最好和本地相同)go_1.20 Sdk下载地址 下载sdk 此处使用1.20版本 ,将下载好的tar.gz 上传到linux服务器 &#x2F;usr&#x2F;local 上面 ,然后解压 1tar -xzvf go1.20.8.linux-amd64.tar.gz  创建GOPATH目录(相当于workplace) 1234">
+<meta property="og:description" content="Typora的语法1 格式表格可以在—分割线加入：设置表格对齐方式“:——–“表示左对齐，”:———:“表示居中对齐，”———-:”表示右对齐 无序列表：- + 空格有序列表：1. + 空格引用：&gt; + 空格 分割线: ---回车即可 引用 md 文件内部内容：  [需要跳转的文本](#destination)  &lt;a id&#x3D;&quot;destination&quot;&gt;正常显">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823144826129.png?raw=true">
-<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823145220032.png?raw=true">
-<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823145421902.png?raw=true">
-<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823150244043.png?raw=true">
-<meta property="article:published_time" content="2025-09-09T12:24:53.241Z">
-<meta property="article:modified_time" content="2025-09-09T12:24:53.241Z">
+<meta property="article:published_time" content="2025-09-28T12:54:40.423Z">
+<meta property="article:modified_time" content="2025-09-28T12:54:40.423Z">
 <meta property="article:author" content="Gond">
-<meta property="article:tag" content="Go">
+<meta property="article:tag" content="Tools">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823144826129.png?raw=true">
   
   
   
-  <title>golang linux 远程环境调试 - Gond</title>
+  <title>Typora 用法 - Gond</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="golang linux 远程环境调试"></span>
+            <span id="subtitle" data-typed-text="Typora 用法"></span>
           
         </div>
 
@@ -213,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-09 20:24" pubdate>
-          2025年9月9日 晚上
+        <time datetime="2025-09-28 20:54" pubdate>
+          2025年9月28日 晚上
         </time>
       </span>
     
@@ -236,7 +231,7 @@
         
         
         
-          11 分钟
+          12 分钟
         
       </span>
     
@@ -273,49 +268,56 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">golang linux 远程环境调试</h1>
+            <h1 id="seo-header">Typora 用法</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="golang远程linux环境开发调试"><a href="#golang远程linux环境开发调试" class="headerlink" title="golang远程linux环境开发调试"></a>golang远程linux环境开发调试</h1><h2 id="1、linux环境配置go环境-最好和本地相同"><a href="#1、linux环境配置go环境-最好和本地相同" class="headerlink" title="1、linux环境配置go环境(最好和本地相同)"></a>1、linux环境配置go环境(最好和本地相同)</h2><p><a target="_blank" rel="noopener" href="https://go.dev/dl/go1.20.8.linux-amd64.tar.gz">go_1.20 Sdk下载地址</a></p>
-<p>下载sdk 此处使用1.20版本 ,将下载好的tar.gz 上传到linux服务器 &#x2F;usr&#x2F;local 上面 ,然后解压</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">tar -xzvf go1.20.8.linux-amd64.tar.gz<br></code></pre></td></tr></table></figure>
+                <h2 id="Typora的语法"><a href="#Typora的语法" class="headerlink" title="Typora的语法"></a>Typora的语法</h2><h3 id="1-格式"><a href="#1-格式" class="headerlink" title="1 格式"></a>1 格式</h3><p><strong>表格</strong><br>可以在—分割线加入：设置表格对齐方式<br>“:——–“表示左对齐，”:———:“表示居中对齐，”———-:”表示右对齐</p>
+<p><strong>无序列表：</strong><code>-</code> + 空格<br>有序列表：<code>1.</code> + 空格<br><strong>引用：</strong><code>&gt;</code> + 空格</p>
+<p><strong>分割线:</strong> <code>---</code>回车即可</p>
+<p><strong>引用</strong> <code>md</code> 文件内部内容：</p>
+<ul>
+<li><p><code>[需要跳转的文本](#destination)</code></p>
+</li>
+<li><p><code>&lt;a id=&quot;destination&quot;&gt;正常显示的文本&lt;/a&gt;</code></p>
+</li>
+</ul>
+<p>使用上述语法，即可通过<code>需要跳转的文本</code>跳转到<code>正常显示的文本</code> 例如 <a href="#enjoy">表情</a></p>
+<p>高亮: </p>
+<ul>
+<li><code>==高亮文本==</code> typora需要偏好设置里面开启一下</li>
+<li><code>&lt;mark&gt;highlight 2&lt;/mark&gt;</code></li>
+</ul>
+<p><strong>复选框：</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> 未完成的任务</li>
+<li><input checked="" disabled="" type="checkbox"> 已完成的任务</li>
+<li><input disabled="" type="checkbox"> 另一个未完成的任务</li>
+</ul>
+<p>此处typora 需要先写<code>- </code>后面的内容 因为 <code>-</code> 空格直接就变成无序了</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-bullet">- </span>[ ] 未完成的任务<br><span class="hljs-bullet">- </span>[x] 已完成的任务<br><span class="hljs-bullet">- </span>[ ] 另一个未完成的任务<br></code></pre></td></tr></table></figure>
 
-<p>创建GOPATH目录(相当于workplace)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir  /root/mhd/code/go<br><br>cd  /root/mhd/code/go<br>mkdir &#123;bin,src,pkg&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">src		里面每一个子目录 就是一个包 包内是Go的源码文件</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">pkg		编译后生成的 包的目标文件</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">bin 		生成的可执行文件</span><br></code></pre></td></tr></table></figure>
+<p><strong>注解：</strong></p>
+<p>创建脚注格式类似这样 [^RUNOOB]。</p>
+<p>[^RUNOOB]: 菜鸟教程 – 学的不仅是技术，更是梦想！！！</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">创建脚注格式类似这样 [^RUNOOB]。<br><br>[<span class="hljs-symbol">^RUNOOB</span>]: <span class="hljs-link">菜鸟教程 -- 学的不仅是技术，更是梦想！！！</span><br></code></pre></td></tr></table></figure>
 
-<p>编辑配置环境变量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo vim /etc/profile<br>export GOROOT=&quot;/usr/local/go&quot; # go源码包所在路径<br>export GOPATH=/root/mhd/code/go  #工作开发代码所在的路径,可随便指定<br>export PATH=$PATH:$GOROOT/bin:$GOPATH/bin # go install 命令安装的包,会安装到GOPATH/BIN目录<br><br><br>保存 之后 soucrce 环境变量文件<br>source /etc/profile<br></code></pre></td></tr></table></figure>
 
-<p>验证是否安装成功</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">XDR2.0.40.0(10.65.196.101) ~/mhd/code/go # go version<br>go version go1.20.8 linux/amd64<br></code></pre></td></tr></table></figure>
 
-<h2 id="2、goland-配置ssh-session-连接会话"><a href="#2、goland-配置ssh-session-连接会话" class="headerlink" title="2、goland 配置ssh session 连接会话"></a>2、goland 配置ssh session 连接会话</h2><p>goland-file-setting 里面搜索 SSH Configurations 配置 好ssh服务器信息 进行保存</p>
-<p>goland-tools-start ssh session 选择配置的ssh服务器连接</p>
-<h2 id="3、goland-配置远程-执行"><a href="#3、goland-配置远程-执行" class="headerlink" title="3、goland 配置远程 执行"></a>3、goland 配置远程 执行</h2><p>右上角run的位置 下拉 Edit Configurations</p>
-<p>点击加号  选择 go build  然后 Run on选择 ssh 选到前面配置的ssh连接 等待检验</p>
-<p>RUN kind 选择 Directory</p>
-<p>Directory 选择 本地目录</p>
-<p>Working directory 选择本地目录</p>
-<p>然后通过配置好的 go build 进行debug 或者run即可</p>
-<h2 id="4、goland配置文件映射"><a href="#4、goland配置文件映射" class="headerlink" title="4、goland配置文件映射"></a>4、goland配置文件映射</h2><p><strong>4.1 配置远程开发机</strong></p>
-<p>ctl+alt+s（设置）  - 搜索Deployment - Configuration - ➕ - SFTP - 配置主机IP、端口、登录用户、鉴权方式等</p>
-<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823144826129.png?raw=true" srcset="/img/loading.gif" lazyload alt="image-20250823144826129"></p>
-<p>选择远程主机配置 ，Root path 可以选择不填 也可以自动填充，相当于mapping里面的前缀</p>
-<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823145220032.png?raw=true" srcset="/img/loading.gif" lazyload alt="image-20250823145220032"></p>
-<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823145421902.png?raw=true" srcset="/img/loading.gif" lazyload alt="image-20250823145421902"></p>
-<p>创建完成应用即可 ，映射是针对目录级别的</p>
-<p><strong>4.2 查看远程开发配置</strong></p>
-<p>Tools - Deployment - Browse Remote Host</p>
-<p>此处由于文件过多 更改成了java目录</p>
-<p>绿色的就是映射的目录了</p>
-<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/image-20250823150244043.png?raw=true" srcset="/img/loading.gif" lazyload alt="image-20250823150244043"></p>
-<p><strong>4.3 第一次同步需要手动</strong></p>
-<p>Tools - Deployment - Sync with local - Synchronize All</p>
-<p><strong>4.4 勾选自动同步</strong></p>
-<p>Tools - Deployment - Automatic Upload (Always)<br>这时候在Goland的修改都会自动同步到远程开发机了</p>
-<p><strong>4.5 至此配置完成</strong></p>
+<hr>
+<h3 id="2、快捷键"><a href="#2、快捷键" class="headerlink" title="2、快捷键"></a>2、快捷键</h3><p>标题：ctrl + 数字<br>表格：ctrl + t</p>
+<p>表格增加一行快捷键：选择行数 按下ctrl+enther </p>
+<p>生成目录：[TOC] + 回车<br>选中一整行：ctrl + l<br>选中单词：ctrl + d<br>选中相同格式的文字：ctrl + e<br>跳转到文章开头：ctrl + home<br>跳转到文章结尾：ctrl + end<br>搜索：ctrl + f<br>替换：ctrl + h<br>加粗：ctrl + b<br>倾斜：ctrl + i<br>下划线：ctrl + u<br>删除线：alt + shift + 5<br>插入图片：直接拖动到指定位置即可或者ctrl + shift + i<br>插入链接：ctrl + k</p>
+<hr>
+<h3 id="3、表情"><a href="#3、表情" class="headerlink" title="3、表情"></a>3、<a id="enjoy">表情</a></h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40896997/article/details/106551767">表情</a></p>
+<p>:white_check_mark:  <code>:white_check_mark:</code></p>
+<p>:x: <code>:x:</code></p>
+<p>:heavy_check_mark: <code>:heavy_check_mark:</code></p>
+<p>window 快捷键 <code>win + .</code></p>
+<p><strong>常用颜色</strong><br><code>&lt;font color=maroon&gt;红色&lt;/font&gt;</code> <font color=maroon>红色</font><br>color&#x3D;grey<br>color&#x3D;silver<br>color&#x3D;lightgrey<br>color&#x3D;HotPink<br>color&#x3D;DeepPink<br>color&#x3D;VioletRed<br>color&#x3D;Purple<br>color&#x3D;navy<br>color&#x3D;Blue<br>color&#x3D;DeepSkyBlue<br>color&#x3D;LightSkyBlue<br>color&#x3D;aqua<br>color&#x3D;DarkTurquoise<br>color&#x3D;LightSeaGreen<br>color&#x3D;YellowGreen<br>color&#x3D;LawnGreen<br>color&#x3D;GreenYellow<br>color&#x3D;Yellow<br>color&#x3D;Tomato<br>color&#x3D;red<br>color&#x3D;fuchsia<br>color&#x3D;MediumOrchid<br>color&#x3D;DarkViolet</p>
+<hr>
+<h3 id="4、主题"><a href="#4、主题" class="headerlink" title="4、主题"></a>4、主题</h3><p>导出pdf主题，选择<code>Drake</code> </p>
 
                 
               </div>
@@ -334,7 +336,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Go%E7%AC%94%E8%AE%B0/" class="category-chain-item">Go笔记</a>
+  <a href="/categories/Tools/" class="category-chain-item">Tools</a>
   
   
 
@@ -349,7 +351,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Go/" class="print-no-link">#Go</a>
+        <a href="/tags/Tools/" class="print-no-link">#Tools</a>
       
     </div>
   
@@ -361,8 +363,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>golang linux 远程环境调试</div>
-      <div>http://gondmhd.github.io/2025/09/09/go/linux远程开发debug/</div>
+      <div>Typora 用法</div>
+      <div>http://gondmhd.github.io/2025/09/28/tools/Typora笔记/</div>
     </div>
     <div class="license-meta">
       
@@ -374,7 +376,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年9月9日</div>
+          <div>2025年9月28日</div>
         </div>
       
       
@@ -406,18 +408,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/09/18/tools/%E5%8A%9E%E5%85%AC%E5%B7%A5%E5%85%B7/" title="开发工具">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">开发工具</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/12/docker/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="kubectl常用命令">
-                        <span class="hidden-mobile">kubectl常用命令</span>
+                      <a href="/2025/09/25/%E7%B3%BB%E7%BB%9F/linux%E6%B3%A8%E5%86%8C%E5%8D%95%E5%85%83%E6%9C%8D%E5%8A%A1/" title="Linux 注册单元服务">
+                        <span class="hidden-mobile">Linux 注册单元服务</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

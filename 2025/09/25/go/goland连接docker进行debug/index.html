@@ -19,14 +19,14 @@
     <meta name="description" content="goland连接docker进行debug1 针对 golang 程序打断点有哪几种情况 临时进程：针对临时运行一次的 Golang 脚本，比如定时统计脚本，定时推送脚本。 常驻进程：针对一直在后台运行的 Golang 程序，比如 HTTP 或者 GRPC 服务。  2 临时进程断点 debug？2.1我们需要在一个 含有 Golang 程序的容器中安装 delve（简称dlv） 第一种安装方式：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang docker 远程环境调试">
-<meta property="og:url" content="http://gondmhd.github.io/2025/06/12/go/goland%E8%BF%9E%E6%8E%A5docker%E8%BF%9B%E8%A1%8Cdebug/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2025/09/25/go/goland%E8%BF%9E%E6%8E%A5docker%E8%BF%9B%E8%A1%8Cdebug/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="goland连接docker进行debug1 针对 golang 程序打断点有哪几种情况 临时进程：针对临时运行一次的 Golang 脚本，比如定时统计脚本，定时推送脚本。 常驻进程：针对一直在后台运行的 Golang 程序，比如 HTTP 或者 GRPC 服务。  2 临时进程断点 debug？2.1我们需要在一个 含有 Golang 程序的容器中安装 delve（简称dlv） 第一种安装方式：">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250611222952923.png?raw=true">
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/image-20250611223444271.png?raw=true">
-<meta property="article:published_time" content="2025-06-12T04:14:46.595Z">
-<meta property="article:modified_time" content="2025-06-12T04:16:48.941Z">
+<meta property="article:published_time" content="2025-09-25T02:38:55.613Z">
+<meta property="article:modified_time" content="2025-09-25T02:38:55.613Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -211,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-12 12:14" pubdate>
-          2025年6月12日 中午
+        <time datetime="2025-09-25 10:38" pubdate>
+          2025年9月25日 上午
         </time>
       </span>
     
@@ -286,7 +286,7 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">FROM</span> <span class="hljs-string">golang:1.20.2</span> <span class="hljs-string">AS</span> <span class="hljs-string">builder</span><br> <br><span class="hljs-string">WORKDIR</span> <span class="hljs-string">/build</span><br> <br><span class="hljs-comment"># 这里他的 main.go 没有直接在项目主目录，不同于其他 golang 开源项目。</span><br><span class="hljs-string">RUN</span> <span class="hljs-string">git</span> <span class="hljs-string">clone</span> <span class="hljs-string">--depth</span> <span class="hljs-number">1</span> <span class="hljs-string">--branch</span> <span class="hljs-string">v1.20.2</span> <span class="hljs-string">https://github.com/go-delve/delve.git</span> <span class="hljs-string">&amp;&amp;</span> <span class="hljs-string">\</span><br>    <span class="hljs-string">cd</span> <span class="hljs-string">/build/delve/cmd/dlv</span> <span class="hljs-string">&amp;&amp;</span> <span class="hljs-string">\</span><br>    <span class="hljs-string">go</span> <span class="hljs-string">build</span> <span class="hljs-string">-o</span> <span class="hljs-string">/build/delve/bin/dlv</span><br> <br> <br><span class="hljs-string">FROM</span> <span class="hljs-string">golang:1.20.2</span><br> <br><span class="hljs-string">COPY</span> <span class="hljs-string">--from=builder</span> <span class="hljs-string">/build/delve/bin/dlv</span> <span class="hljs-string">/usr/local/bin/dlv</span><br></code></pre></td></tr></table></figure>
 
 <p>执行命令进行编译（双版本）：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker buildx build --platform linux/amd64,linux/arm64 -t golang:1.20.2-debug .<br>或者<br>docker  build  -t golang:1.20.2-debug . 正常构建<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker buildx build --platform 系统/amd64,系统/arm64 -t golang:1.20.2-debug .<br>或者<br>docker  build  -t golang:1.20.2-debug . 正常构建<br></code></pre></td></tr></table></figure>
 
 
 
@@ -389,7 +389,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>golang docker 远程环境调试</div>
-      <div>http://gondmhd.github.io/2025/06/12/go/goland连接docker进行debug/</div>
+      <div>http://gondmhd.github.io/2025/09/25/go/goland连接docker进行debug/</div>
     </div>
     <div class="license-meta">
       
@@ -401,7 +401,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月12日</div>
+          <div>2025年9月25日</div>
         </div>
       
       
@@ -433,9 +433,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/12/docker/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="kubectl常用命令">
+                      <a href="/2025/09/25/go/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" title="编译">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">kubectl常用命令</span>
+                        <span class="hidden-mobile">编译</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -443,8 +443,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/14/tools/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" title="mysql分区表">
-                        <span class="hidden-mobile">mysql分区表</span>
+                      <a href="/2025/09/25/go/linux%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91debug/" title="golang 系统 远程环境调试">
+                        <span class="hidden-mobile">golang 系统 远程环境调试</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
