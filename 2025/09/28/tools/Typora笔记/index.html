@@ -24,7 +24,7 @@
 <meta property="og:description" content="Typora的语法1 格式表格可以在—分割线加入：设置表格对齐方式“:——–“表示左对齐，”:———:“表示居中对齐，”———-:”表示右对齐 无序列表：- + 空格有序列表：1. + 空格引用：&gt; + 空格 分割线: ---回车即可 引用 md 文件内部内容：  [需要跳转的文本](#destination)  &lt;a id&#x3D;&quot;destination&quot;&gt;正常显">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-28T12:54:40.423Z">
-<meta property="article:modified_time" content="2025-09-29T02:16:19.046Z">
+<meta property="article:modified_time" content="2025-11-12T08:17:47.991Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Tools">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          2.7k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          21 分钟
+          23 分钟
         
       </span>
     
@@ -344,6 +344,16 @@
 </ul>
 <hr>
 <h3 id="4、主题"><a href="#4、主题" class="headerlink" title="4、主题"></a>4、主题</h3><p>导出pdf主题，选择<code>Drake</code> </p>
+<h3 id="5、Typora插件"><a href="#5、Typora插件" class="headerlink" title="5、Typora插件"></a>5、Typora插件</h3><blockquote>
+<p>[!NOTE]</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/obgnail/typora_plugin/blob/master/README-cn.md">插件地址-typora_plugin</a></p>
+<p>ubuntu系统查找默认安装路径方法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">dpkg -l | grep -i typora		<span class="hljs-comment"># 忽略大小写列出typora软件信息</span><br>dpkg -L typora					<span class="hljs-comment"># 列出文件内容不符合指定的样式的文件名称</span><br></code></pre></td></tr></table></figure>
+
+<p>通过信息分析出路径</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /usr/share/typora/resources/plugin/bin<br><span class="hljs-comment"># 通过sudo 提升权限拷贝plugin文件目录进入安装目录</span><br>sudo <span class="hljs-built_in">cp</span> -r plugin/ /usr/share/typora/resources/bin<br><span class="hljs-comment"># 通过sudo提升权限运行</span><br>sudo sh install_linux.sh<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
