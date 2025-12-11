@@ -1,0 +1,756 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Gond">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="VMware虚拟机三种网络模式详解与配置工作过程中，时不时可能因为环境原因，多多少少会接触使用虚拟机，但是在使用的过程，对于vmware的网络模式一直处于半清楚的状态，在这次使用过程中，对自己的使用和理解做一个总结； vmware 提供了三种网络工作模式，分别是：  Bridged（桥接模式） NAT（网络地址转换模式） Host-Only（仅主机模式）  打开vmware虚拟机，我们可以在选项栏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VMware虚拟机网络模式">
+<meta property="og:url" content="http://gondmhd.github.io/2025/12/11/%E7%B3%BB%E7%BB%9F/VMWare%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/index.html">
+<meta property="og:site_name" content="Gond">
+<meta property="og:description" content="VMware虚拟机三种网络模式详解与配置工作过程中，时不时可能因为环境原因，多多少少会接触使用虚拟机，但是在使用的过程，对于vmware的网络模式一直处于半清楚的状态，在这次使用过程中，对自己的使用和理解做一个总结； vmware 提供了三种网络工作模式，分别是：  Bridged（桥接模式） NAT（网络地址转换模式） Host-Only（仅主机模式）  打开vmware虚拟机，我们可以在选项栏">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/8bf03919363f4402b1681698a8dc03e3.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/73f21d6d9b36df8e2a962c4b0e779289.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/cd8765939d667caba1fbdd0cf5a24eab.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/547953a0d81d063ca4136f8954856627.png?raw=true">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/40d5c8a8e9e230ad217f9067847fbc3f.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/2e4cd82eb46192745427a5e54a5bd3fd.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/0fac594577af023ebab62c3d0c62f833.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/c7a855711294f42fa6dffdf20aa33fcf.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/7f0329a1b75145b6c70269d9d46fb5cc.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/d5373d8c05826090dc5c5a110be8246d.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/4b63f5a55eb5db98a9766a7e776c8265.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/edacb1c0988ef5bf8dedeb2886bc53e9.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/5ac6482ecf348b2546a6b340250fa0e9.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/c2bb80199b5a2bf708235675a6eda62d.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/e0333ad8e28e01ef601374e3d1ef3011.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/5b47bfe21a547ffb9545481a9add28b2.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/74288b7cd9c3edec3acaed7ee4f4372b.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/9223d40ec83b62593dd60bc3cc17358a.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/a26d399c32a15a32b7e39968d5b19925.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/4014503ab63c7332ba3476afb1254e95.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/31a67b73e7ce22b368876d7976f9ddb2.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/b89af269aea91384f74d89326c331674.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/c5f004ec16e96f5bfab0ee3dcab615be.png?raw=true">
+<meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/ae7d37eda55c8d8b822802a63a57a85a.png?raw=true">
+<meta property="article:published_time" content="2025-12-11T12:11:50.463Z">
+<meta property="article:modified_time" content="2025-12-11T12:11:50.463Z">
+<meta property="article:author" content="Gond">
+<meta property="article:tag" content="系统">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/8bf03919363f4402b1681698a8dc03e3.png?raw=true">
+  
+  
+  
+  <title>VMware虚拟机网络模式 - Gond</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"gondmhd.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Gond</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="VMware虚拟机网络模式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-12-11 20:11" pubdate>
+          2025年12月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">VMware虚拟机网络模式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="VMware虚拟机三种网络模式详解与配置"><a href="#VMware虚拟机三种网络模式详解与配置" class="headerlink" title="VMware虚拟机三种网络模式详解与配置"></a>VMware虚拟机三种网络模式详解与配置</h1><p>工作过程中，时不时可能因为环境原因，多多少少会接触使用虚拟机，但是在使用的过程，对于<code>vmware</code>的网络模式一直处于半清楚的状态，在这次使用过程中，对自己的使用和理解做一个总结；</p>
+<p><code>vmware</code> 提供了三种网络工作模式，分别是：</p>
+<ol>
+<li>Bridged（桥接模式）</li>
+<li>NAT（网络地址转换模式）</li>
+<li>Host-Only（仅主机模式）</li>
+</ol>
+<p>打开vmware虚拟机，我们可以在选项栏的“编辑”下的“虚拟网络编辑器”中看到VMnet0（桥接模式）、VMnet1（仅主机模式）、VMnet8（NAT模式），那么这些都是有什么作用呢？其实，我们现在看到的VMnet0表示的是用于桥接模式下的虚拟交换机；VMnet1表示的是用于仅主机模式下的虚拟交换机；VMnet8表示的是用于NAT模式下的虚拟交换机。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/8bf03919363f4402b1681698a8dc03e3.png?raw=true" srcset="/img/loading.gif" lazyload alt="8bf03919363f4402b1681698a8dc03e3"></p>
+<p>在主机上对应的有VMware Network Adapter VMnet1和VMware Network Adapter VMnet8两块虚拟网卡，它们分别作用于仅主机模式与NAT模式下。在“网络连接”中我们可以看到这两块虚拟网卡，如果将这两块卸载了，可以在vmware的“编辑”下的“虚拟网络编辑器”中点击“还原默认设置”，可重新将虚拟网卡还原。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/73f21d6d9b36df8e2a962c4b0e779289.png?raw=true" srcset="/img/loading.gif" lazyload alt="73f21d6d9b36df8e2a962c4b0e779289"></p>
+<blockquote>
+<p> 💡：注意，这个位置的网卡，并没有VMware Network Adapter VMnet0虚拟网卡</p>
+</blockquote>
+<h2 id="一、Bridged（桥接模式）"><a href="#一、Bridged（桥接模式）" class="headerlink" title="一、Bridged（桥接模式）"></a>一、Bridged（桥接模式）</h2><p><strong>什么是桥接模式？</strong></p>
+<p>桥接模式就是将主机网卡与虚拟机虚拟的网卡利用虚拟网桥进行通信。在桥接的作用下，类似于把物理主机虚拟为一个交换机，所有桥接设置的虚拟机连接到这个交换机的一个接口上，物理主机也同样插在这个交换机当中，所以所有桥接下的网卡与网卡都是交换模式的，相互可以访问而不干扰。在桥接模式下，虚拟机ip地址需要与主机在同一个网段，如果需要联网，则网关与DNS需要与主机网卡一致。其网络结构如下图所示：</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/cd8765939d667caba1fbdd0cf5a24eab.png?raw=true" srcset="/img/loading.gif" lazyload alt="cd8765939d667caba1fbdd0cf5a24eab"></p>
+<p><strong>如何设置桥接模式？</strong></p>
+<p>首先，安装完系统之后，在开启系统之前，点击“编辑虚拟机设置”来设置网卡模式。</p>
+<p>不同版本可能在不同位置，但是原理差不多。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/547953a0d81d063ca4136f8954856627.png?raw=true" srcset="/img/loading.gif" lazyload alt="547953a0d81d063ca4136f8954856627"></p>
+<p>点击“网络适配器”，选择“桥接模式”，然后“确定”</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/40d5c8a8e9e230ad217f9067847fbc3f.png?raw=true" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>在进入系统之前，我们先确认一下主机的ip地址、网关、DNS等信息。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/2e4cd82eb46192745427a5e54a5bd3fd.png?raw=true" srcset="/img/loading.gif" lazyload alt="2e4cd82eb46192745427a5e54a5bd3fd"></p>
+<p>然后，进入系统编辑网卡配置文件，命令为vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-eth0 （根据不同操作系统可能有所不同）</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/0fac594577af023ebab62c3d0c62f833.png?raw=true" srcset="/img/loading.gif" lazyload alt="0fac594577af023ebab62c3d0c62f833">ti</p>
+<p>添加网卡配置信息：</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/c7a855711294f42fa6dffdf20aa33fcf.png?raw=true" srcset="/img/loading.gif" lazyload alt="c7a855711294f42fa6dffdf20aa33fcf"></p>
+<p>编辑完成，保存退出，然后重启虚拟机网卡，使用ping命令ping外网ip，测试能否联网。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ping www.baidu,com<br></code></pre></td></tr></table></figure>
+
+<p>能ping通外网ip，证明桥接模式设置成功。</p>
+<p>虚机和物理之间的通信，则可以使用window <code>telnet</code>或者<code>安装tcping</code> 工具进行测试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">telnet 192.168.31.120 22<br></code></pre></td></tr></table></figure>
+
+<p>成功连接即表示，物理机可以访问到虚机网络。</p>
+<p>桥接模式配置简单，但如果你的网络环境是ip资源很缺少或对ip管理比较严格的话，那桥接模式就不太适用了。如果真是这种情况的话，我们该如何解决呢？接下来，我们就来认识vmware的另一种网络模式：NAT模式。</p>
+<h2 id="二、NAT（地址转换模式）"><a href="#二、NAT（地址转换模式）" class="headerlink" title="二、NAT（地址转换模式）"></a>二、NAT（地址转换模式）</h2><p>如果你的网络ip资源紧缺，但是你又希望你的虚拟机能够联网，这时候NAT模式是最好的选择。NAT模式借助虚拟NAT设备和虚拟DHCP服务器，使得虚拟机可以联网。其网络结构如下图所示：</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/7f0329a1b75145b6c70269d9d46fb5cc.png?raw=true" srcset="/img/loading.gif" lazyload alt="7f0329a1b75145b6c70269d9d46fb5cc"></p>
+<p>在NAT模式中，主机网卡直接与虚拟NAT设备相连，然后虚拟NAT设备与虚拟DHCP服务器一起连接在虚拟交换机VMnet8上，这样就实现了虚拟机联网。那么我们会觉得很奇怪，为什么需要虚拟网卡VMware Network Adapter VMnet8呢？原来我们的VMware Network Adapter VMnet8虚拟网卡主要是为了实现主机与虚拟机之间的通信。在之后的设置步骤中，我们可以加以验证。</p>
+<p>首先，设置虚拟机中NAT模式的选项，打开vmware，点击“编辑”下的“虚拟网络编辑器”，设置NAT参数及DHCP参数。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/d5373d8c05826090dc5c5a110be8246d.png?raw=true" srcset="/img/loading.gif" lazyload alt="d5373d8c05826090dc5c5a110be8246d"></p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/4b63f5a55eb5db98a9766a7e776c8265.png?raw=true" srcset="/img/loading.gif" lazyload alt="4b63f5a55eb5db98a9766a7e776c8265"></p>
+<p>将虚拟机的网络连接模式修改成NAT模式，点击“编辑虚拟机设置”。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/edacb1c0988ef5bf8dedeb2886bc53e9.png?raw=true" srcset="/img/loading.gif" lazyload alt="edacb1c0988ef5bf8dedeb2886bc53e9"></p>
+<p>点击“网络适配器”，选择“NAT模式”</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/5ac6482ecf348b2546a6b340250fa0e9.png?raw=true" srcset="/img/loading.gif" lazyload alt="5ac6482ecf348b2546a6b340250fa0e9"></p>
+<p>然后开机启动系统，编辑网卡配置文件，命令为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vi /etc/sysconfig/network-scripts/ifcfg-eth0<br></code></pre></td></tr></table></figure>
+
+<p>具体配置如下：</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/c2bb80199b5a2bf708235675a6eda62d.png?raw=true" srcset="/img/loading.gif" lazyload alt="c2bb80199b5a2bf708235675a6eda62d"></p>
+<p>编辑完成，保存退出，然后重启虚拟机网卡，动态获取ip地址，使用ping命令ping外网ip，测试能否联网。</p>
+<p>之前，我们说过VMware Network Adapter VMnet8虚拟网卡的作用，那我们现在就来测试一下。</p>
+<p>将VMware Network Adapter VMnet8虚拟网卡禁用，然后，从虚拟机ping外网，看看是否能ping通？</p>
+<p>![75065f2a0c26d985bd8d240df604d735 (1)](<a target="_blank" rel="noopener" href="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/75065f2a0c26d985bd8d240df604d735">https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/75065f2a0c26d985bd8d240df604d735</a> (1).png?raw&#x3D;true)</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/e0333ad8e28e01ef601374e3d1ef3011.png?raw=true" srcset="/img/loading.gif" lazyload alt="e0333ad8e28e01ef601374e3d1ef3011"></p>
+<p>如此看来，虚拟机能联通外网，确实不是通过VMware Network Adapter VMnet8虚拟网卡，那么为什么要有这块虚拟网卡呢？</p>
+<p>之前我们就说VMware Network Adapter VMnet8的作用是主机与虚拟机之间的通信，接下来，我们就用远程连接工具来测试一下。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/5b47bfe21a547ffb9545481a9add28b2.png?raw=true" srcset="/img/loading.gif" lazyload alt="5b47bfe21a547ffb9545481a9add28b2"></p>
+<p>然后，将VMware Network Adapter VMnet8启用之后，发现远程工具可以连接上虚拟机了。</p>
+<p>那么，这就是NAT模式，利用虚拟的NAT设备以及虚拟DHCP服务器来使虚拟机连接外网，而VMware Network Adapter VMnet8虚拟网卡是用来与虚拟机通信的。</p>
+<h2 id="三、Host-Only（仅主机模式）"><a href="#三、Host-Only（仅主机模式）" class="headerlink" title="三、Host-Only（仅主机模式）"></a>三、Host-Only（仅主机模式）</h2><p>Host-Only模式其实就是NAT模式去除了虚拟NAT设备，然后使用VMware Network Adapter VMnet1虚拟网卡连接VMnet1虚拟交换机来与虚拟机通信的，Host-Only模式将虚拟机与外网隔开，使得虚拟机成为一个独立的系统，只与主机相互通讯。其网络结构如下图所示：</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/74288b7cd9c3edec3acaed7ee4f4372b.png?raw=true" srcset="/img/loading.gif" lazyload alt="74288b7cd9c3edec3acaed7ee4f4372b"></p>
+<p>通过上图，我们可以发现，如果要使得虚拟机能联网，我们可以将主机网卡共享给VMware Network Adapter VMnet1网卡，从而达到虚拟机联网的目的。接下来，我们就来测试一下。</p>
+<p>首先设置“虚拟网络编辑器”，可以设置DHCP的起始范围。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/9223d40ec83b62593dd60bc3cc17358a.png?raw=true" srcset="/img/loading.gif" lazyload alt="9223d40ec83b62593dd60bc3cc17358a"></p>
+<p>设置虚拟机为Host-Only模式。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/a26d399c32a15a32b7e39968d5b19925.png?raw=true" srcset="/img/loading.gif" lazyload alt="a26d399c32a15a32b7e39968d5b19925"></p>
+<p>开机启动系统，然后设置网卡文件。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/4014503ab63c7332ba3476afb1254e95.png?raw=true" srcset="/img/loading.gif" lazyload alt="4014503ab63c7332ba3476afb1254e95"></p>
+<p>保存退出，然后重启网卡，利用远程工具测试能否与主机通信。</p>
+<p>主机与虚拟机之间可以通信，现在设置虚拟机联通外网。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/31a67b73e7ce22b368876d7976f9ddb2.png?raw=true" srcset="/img/loading.gif" lazyload alt="31a67b73e7ce22b368876d7976f9ddb2"></p>
+<p>我们可以看到上图有一个提示，强制将VMware Network Adapter VMnet1的ip设置成192.168.137.1，那么接下来，我们就要将虚拟机的DHCP的子网和起始地址进行修改，点击“虚拟网络编辑器”</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/b89af269aea91384f74d89326c331674.png?raw=true" srcset="/img/loading.gif" lazyload alt="b89af269aea91384f74d89326c331674"></p>
+<p>重新配置网卡，将VMware Network Adapter VMnet1虚拟网卡作为虚拟机的路由。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/c5f004ec16e96f5bfab0ee3dcab615be.png?raw=true" srcset="/img/loading.gif" lazyload alt="c5f004ec16e96f5bfab0ee3dcab615be"></p>
+<p>使用命令ping百度域名，发现可以ping通。</p>
+<p>测试结果证明可以使得虚拟机连接外网。</p>
+<h2 id="虚机物理机之间网络通信问题说明"><a href="#虚机物理机之间网络通信问题说明" class="headerlink" title="虚机物理机之间网络通信问题说明"></a>虚机物理机之间网络通信问题说明</h2><p><strong>如果虚拟机里能ping同本机，而本机却ping不通虚拟机，或者虚拟机不能ping通本机，可能有如下原因：</strong></p>
+<p>1）如果是桥接模式，那么可能性1：虚拟机防火墙禁ping，请关闭虚拟机防火墙重试；可能性2：桥接设置的ip有冲突或者是虚拟机桥接服务不正常。可能性3：物理机防火墙干扰。</p>
+<p>2）如果是nat模式，那么可能性1：虚拟机防火墙禁ping，请关闭虚拟机防火墙重试；可能性2：本机上的vmnet8网卡被禁用了。可能性3：vbox的nat模式，vpc的共享模式，本来就这样的。</p>
+<p>3）如果主机同时装了visualbox和vm，也会导致其中一个虚拟机ping不通主机，因此使用vm或vb时，在主机上禁用另一个虚拟网卡即可。</p>
+<p><img src="https://github.com/gondmhd/blogImage/blob/main/img/Vmware%E7%BD%91%E7%BB%9C/ae7d37eda55c8d8b822802a63a57a85a.png?raw=true" srcset="/img/loading.gif" lazyload alt="ae7d37eda55c8d8b822802a63a57a85a"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/window/" class="category-chain-item">window</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%B3%BB%E7%BB%9F/" class="print-no-link">#系统</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>VMware虚拟机网络模式</div>
+      <div>http://gondmhd.github.io/2025/12/11/系统/VMWare网卡配置说明/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Gond</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年12月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/12/11/go/Go%E9%87%8C%E9%9D%A2%E4%B8%BA%E5%95%A5%E5%96%9C%E6%AC%A2%E7%94%A8%5B%5Dbyte/" title="Go里面为啥喜欢用[]byte">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Go里面为啥喜欢用[]byte</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/11/10/go/k8s%20debug%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/" title="k8s pod 远程debug开发">
+                        <span class="hidden-mobile">k8s pod 远程debug开发</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
