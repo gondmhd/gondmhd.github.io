@@ -24,7 +24,7 @@
 <meta property="og:description" content="kubectl常用命令1、kubectl  pod 常用命令介绍查看工作负载命令 123456kubectl get pod -A | grep asset-webXDR2.0.40.0(10.65.196.101) ~ # kubectl get pod -A | grep asset-web 命名空间（NAMESPACE）	Pod 名称（NAME）                     就绪">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-12T04:15:27.313Z">
-<meta property="article:modified_time" content="2025-09-12T07:28:14.536Z">
+<meta property="article:modified_time" content="2025-12-17T03:37:53.738Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          14k 字
+          15k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          120 分钟
+          122 分钟
         
       </span>
     
@@ -613,7 +613,12 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">helm template [RELEASE_NAME] [CHART_PATH] --debug --dry-run<br></code></pre></td></tr></table></figure>
 
 <p>或者更具体地，如果你只想查看 ConfigMap 的生成情况：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">helm template [RELEASE_NAME] [CHART_PATH] --show-only templates/configmap.yaml --debug --dry-run<br></code></pre></td></tr></table></figure>
+<p>目录结构:</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs tex">XDR2.0.40.0(10.64.2.201) ~/mhd/helm <span class="hljs-params">#</span> tree -L 3<br>.<br>└── chart<br>    ├── Chart.yaml<br>    ├── templates<br>    │   ├── configmap-secret.yaml<br>    │   ├── configmap.yml<br>    │   ├── deployment.yaml<br>    │   ├── <span class="hljs-built_in">_</span>helpers.tpl<br>    │   ├── job-data-upgrade.yaml<br>    │   └── service.yaml<br>    └── values.yaml<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-built_in">cd</span> /mhd/helm  <span class="hljs-comment"># 进入此目录即可,其他的按照模板执行</span><br>helm template [RELEASE_NAME] [CHART_PATH] --show-only templates/configmap.yml --debug --dry-run<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>**<code>[RELEASE_NAME]</code>**：为你这次检查随意起个名字。</li>
