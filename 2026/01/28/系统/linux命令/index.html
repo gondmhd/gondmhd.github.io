@@ -19,12 +19,12 @@
     <meta name="description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用linux笔记">
-<meta property="og:url" content="http://gondmhd.github.io/2025/11/06/%E7%B3%BB%E7%BB%9F/linux%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2026/01/28/%E7%B3%BB%E7%BB%9F/linux%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="1、Linux系统命令linux离线安装net-tools需镜像站下载工具离线包 rpm -Uvh net-tools-2.0-0.25.20131004git.el7.x86_64.rpm     #输入此命令进行安装 centos修改host文件 1234567891011121314修改hosts文件vim &#x2F;etc&#x2F;hosts如：127.0.0.1 http:&#x2F;&#x2F;www.baidu.com">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-11-06T12:23:06.190Z">
-<meta property="article:modified_time" content="2025-11-06T12:23:06.190Z">
+<meta property="article:published_time" content="2026-01-28T09:05:14.122Z">
+<meta property="article:modified_time" content="2026-01-28T09:05:14.123Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="系统">
 <meta name="twitter:card" content="summary_large_image">
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-11-06 20:23" pubdate>
-          2025年11月6日 晚上
+        <time datetime="2026-01-28 17:05" pubdate>
+          2026年1月28日 下午
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          31k 字
+          33k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          260 分钟
+          274 分钟
         
       </span>
     
@@ -548,6 +548,37 @@
 
 <h1 id="10-git使用"><a href="#10-git使用" class="headerlink" title="10 git使用"></a>10 git使用</h1><h3 id="常用命令集合"><a href="#常用命令集合" class="headerlink" title="常用命令集合"></a><strong>常用命令集合</strong></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs shell">git branch [branch name]			#创建本地分支<br>git checkout [branch name]		#切换到新分支<br>git checkout -b [branch name	#创建分支同时也切换分支<br>git stash 						# 暂存文件<br>git stash list 					# 查看stash了哪些存储<br>git stash apply stash@&#123;$num&#125;		# 应用某个储存<br>git stash pop						# 恢复缓存之前<br>git stash drop stash@&#123;$num&#125;		# 丢弃stash@&#123;$num&#125;存储，从列表中删除这个存储<br>git stash clear					# 删除所有缓存的stash<br>git branch -d [branch-name]		# 删除本地分支<br>git branch -vv     # 查看分支状态<br>git fetch --prune  # 更新远程引用： 首先，使用以下命令来更新您的本地仓库并自动删除本地对已删除远程分支的引用：<br>git branch --unset-upstream    # 删除本地分支的远程引用<br>git push -u origin feature-1010250-mhd（推荐同名）# 推送本地分支到远程分支（自动设置跟踪）<br><br>项目目录创建 .gitignore 文件 忽略增加到git的目录或者文件<br>git rm --cached -r ./test/			# 删除增加过的文件或者目录缓存<br>git revert &lt;commit-hash&gt;			# 撤销提交<br>git reset [--mixed/soft/hard] HEAD^   撤销上次的提交<br>//如果想撤销N次commit,使用HEAD~N<br>1、--mixed   不删除工作空间改动代码，撤销commit，并且撤销git add .操作。这个为默认参数,git reset --mixed HEAD^ 和git reset HEAD^ 效果相同<br>2、--soft    不删除工作空间改动代码，撤销commit，不撤销git add .<br>3、--hard    删除工作空间改动代码，撤销commit，撤销git add . 注意完成这个操作后，就恢复到了上一次的commit状态<br><br>Tips:如果只是想更改提交的注释信息,使用git commit --amend 即可进入vim编辑器修改,不用撤销commit操作<br><br>git log    获取历史提交的版本号     Tips:也可以在项目的.git/logs/refs/heads/master文件中查看操作日志<br>git reset --hard e7a98b4eabc91afebd7e3f3d7c474276146c6c2f(版本号)    恢复到指定的历史版本<br><br>//如果需要同步远程<br>git push origin source -f    强制 push 更新远程分支<br><br>git revert 是一种更安全、更透明的撤销方式，因为它保留了历史的完整性，适用于公开的、已推送的提交。<br>git reset 提供了更多的灵活性和控制，但同时也带来了更大的风险，尤其是在多人协作的环境中。<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">压缩提交（可在操作前 提交checkout 一个备份分支 出现问题回滚）</span><br>git rebase -i HEAD<br><span class="hljs-meta prompt_"># </span><span class="language-bash">压缩最后两条提交记录 避免过多重复提交记录 执行命令之后  除第一行的改成s或者squash 保存退出即可</span> <br><span class="hljs-meta prompt_"># </span><span class="language-bash">会提示一个保留记录的窗口 根据需求保留即可</span><br>git rebase -i HEAD~2    <br>git push --force origin &lt;branch_name&gt;         #  强制提交<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">git cherry-pick  合并提交</span><br>A feature-1035635-mhd-back<br>B feature-1035635-mhd<br><span class="hljs-meta prompt_"># </span><span class="language-bash">需要将 A分支的某个提交合并到B分支</span><br>git checkout feature-1035635-mhd        # 切换到需要被合入的分支<br>git log feature-1035635-mhd-back        # 查看 提供 提交记录的 分支log<br>    commit 059d894191fa81debf01466aa09de34e10855596 (feature-1035635-mhd-back)<br>    Author: mhd_z82303 &lt;82303@sangfor.com&gt;<br>    Date:   Tue Jul 8 14:45:32 2025 +0800<br>    <br>    [ADD]增加陵迦蜜罐规则_3098<br><br>git cherry-pick 059d8941        # 根据commit id进行 提交合并<br>git cherry-pick &#123;a_id&#125;^..&#123;b_id&#125;    # 支持范围提交合并<br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果出现冲突 和merge 一样处理 该 add就add 解决冲突 可以不修改commit信息</span><br>git cherry-pick --continue    # 解决冲突之后 继续合并<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">git merge 和git rebase 区别</span><br>    # git merge 命令会将 俩个分支 的历史记录合并成一个新的提交 它会创建一个新的合并提交 该提交包含两个分支的所有更改<br>    # 。这种合并方式会保留原始分支的历史记录。<br>    <br>    # git rebase 命令会将当前分支的提交“重新播放” 到另一个分支的顶部。他会将当前的提交按照顺序应用到目标分支上，从而<br>    # 创建一个新的提交历史记录。这种合并方式会使提交历史记录更加线性。因为它会将当前分支的提交应用到目标分支的顶部，而<br>    # 不是创建一个新的合并提交。这种方式可以是提交历史记录更加清晰，但也可能导致冲突和合并问题。<br>        <br></code></pre></td></tr></table></figure>
 
+<h3 id="压缩提交"><a href="#压缩提交" class="headerlink" title="压缩提交"></a><strong>压缩提交</strong></h3><h4 id="单分支内部提交压缩（rebase-i-squash-fixup）"><a href="#单分支内部提交压缩（rebase-i-squash-fixup）" class="headerlink" title="单分支内部提交压缩（rebase -i + squash/fixup）"></a>单分支内部提交压缩（<code>rebase -i + squash/fixup</code>）</h4><p>适用于 <strong>少量提交（10 个以内）、需要保留部分提交上下文</strong> 的场景（比如个人分支调试后，整理零散提交让历史更整洁），核心是通过「交互式变基」筛选提交进行合并，属于「整理历史」的操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 确保工作区干净，备份分支（可选）</span><br>git stash<br>git checkout -b backup-branch<br><br><span class="hljs-comment"># 2. 启动交互式变基，选中最近n个提交（以n=5为例）</span><br>git rebase -i HEAD~5<br><br><span class="hljs-comment"># 3. 编辑界面配置：保留1个pick，其余改为s（squash，保留提交信息）/f（fixup，丢弃提交信息）</span><br><span class="hljs-comment"># 4. 保存退出（Vim：Esc → :wq），编辑合并后的提交信息（仅s需要）</span><br><span class="hljs-comment"># 5. 验证结果，推送个人远程分支（需强制推送）</span><br>git <span class="hljs-built_in">log</span> --oneline --graph<br>git push --force-with-lease<br></code></pre></td></tr></table></figure>
+
+<h6 id="关键特点"><a href="#关键特点" class="headerlink" title="关键特点"></a>关键特点</h6><ul>
+<li>仅改写当前分支的提交历史，<strong>严禁用于公共共享分支</strong>；</li>
+<li>可灵活选择压缩范围，保留重要提交上下文，便于后续追溯；</li>
+<li>少量提交冲突易处理，适合精细化整理。</li>
+</ul>
+<h4 id="大量提交跨分支压缩合并（百级以上）"><a href="#大量提交跨分支压缩合并（百级以上）" class="headerlink" title="大量提交跨分支压缩合并（百级以上）"></a>大量提交跨分支压缩合并（百级以上）</h4><p><strong>操作之前先备份 chechout出来一个新分支</strong></p>
+<h5 id="方案一：最优解-→-git-merge-squash（一步到位，不修改源分支）"><a href="#方案一：最优解-→-git-merge-squash（一步到位，不修改源分支）" class="headerlink" title="方案一：最优解 → git merge --squash（一步到位，不修改源分支）"></a>方案一：最优解 → <code>git merge --squash</code>（一步到位，不修改源分支）</h5><p>核心场景：不想改动源分支的任何历史，直接将源分支所有修改压缩为 1 个提交，合并到目标分支，效率最高，无额外风险。</p>
+<p>步骤：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 切换到目标分支</span><br>git checkout target-branch<br><br><span class="hljs-comment"># 2. 执行squash压缩合并，将源分支所有修改暂存到目标分支</span><br>git merge --squash source-branch<br><br><span class="hljs-comment"># 3. 提交压缩后的所有变更，生成1个全新提交（写清核心功能）</span><br>git commit -m <span class="hljs-string">&quot;feat: 合并source-branch所有功能（140+提交压缩）：包含XX/XX核心能力&quot;</span><br><br><span class="hljs-comment"># 4. 推送到远程目标分支，完成合并</span><br>git push origin target-branch<br></code></pre></td></tr></table></figure>
+
+<p>优缺点</p>
+<ul>
+<li>👍 优点：步骤最少、不修改源分支、安全可控、冲突仅需处理 1 次（合并时）；</li>
+<li>👎 缺点：完全丢失源分支零散提交历史，无法追溯中间过程。</li>
+</ul>
+<p>冲突处理</p>
+<p>若合并时出现冲突，解决后直接提交即可，无需额外命令</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># 1. 手动解决冲突文件（删除&lt;&lt;&lt;&lt;&lt;&lt;&lt;、=======、&gt;&gt;&gt;&gt;&gt;&gt;&gt;标记，保留正确代码）</span><br><span class="hljs-comment"># 2. 暂存冲突文件</span><br>git <span class="hljs-built_in">add</span> 冲突文件名<br><span class="hljs-comment"># 3. 直接提交压缩结果</span><br>git commit -m <span class="hljs-string">&quot;feat: 合并source-branch所有功能，已解决XX文件冲突&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="方案二：备选-→-reset-soft-先压缩源分支，再常规合并"><a href="#方案二：备选-→-reset-soft-先压缩源分支，再常规合并" class="headerlink" title="方案二：备选 → reset --soft 先压缩源分支，再常规合并"></a>方案二：备选 → <code>reset --soft</code> 先压缩源分支，再常规合并</h5><p>核心场景:需要先将源分支自身的大量提交压缩为 1 个，再将源分支合并到目标分支（保留源分支的压缩后历史，便于后续复用源分支）。</p>
+<p>步骤：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 步骤1：压缩源分支所有提交为1个（仅保留最终代码，清空历史）</span><br>git checkout source-branch<br><span class="hljs-comment"># 软回滚到目标分支最新状态，保留所有修改到暂存区</span><br>git reset --soft target-branch<br><span class="hljs-comment"># 生成1个全新提交，包含源分支所有修改</span><br>git commit -m <span class="hljs-string">&quot;feat: source-branch所有功能压缩（140+提交合并）&quot;</span><br><br><span class="hljs-comment"># 步骤2：切换到目标分支，常规合并源分支</span><br>git checkout target-branch<br>git merge source-branch<br><span class="hljs-comment"># 推送到远程目标分支</span><br>git push origin target-branch<br></code></pre></td></tr></table></figure>
+
+<p>优缺点：</p>
+<p>👍 优点：源分支也被整理为 1 个提交，后续复用源分支更整洁、冲突仅 1 次；</p>
+<p>👎 缺点：修改了源分支的提交历史、步骤略多于方案一。</p>
+<p>说明：</p>
+<p><code>git reset --soft</code> 本身<strong>不会产生任何文件冲突</strong>，它仅移动提交指针、清空历史，保留最终代码状态，冲突仅可能出现在后续 <code>git merge</code> 步骤，处理方式同普通合并冲突。</p>
 <h3 id="git-导出日志信息"><a href="#git-导出日志信息" class="headerlink" title="git 导出日志信息"></a><strong>git 导出日志信息</strong></h3><blockquote>
 <p> 解决中文乱码问题</p>
 </blockquote>
@@ -661,7 +692,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>常用linux笔记</div>
-      <div>http://gondmhd.github.io/2025/11/06/系统/linux命令/</div>
+      <div>http://gondmhd.github.io/2026/01/28/系统/linux命令/</div>
     </div>
     <div class="license-meta">
       
@@ -673,7 +704,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年11月6日</div>
+          <div>2026年1月28日</div>
         </div>
       
       
@@ -705,18 +736,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/11/10/go/k8s%20debug%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/" title="k8s pod 远程debug开发">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">k8s pod 远程debug开发</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/09/28/tools/Typora%E7%AC%94%E8%AE%B0/" title="Typora 用法">
-                        <span class="hidden-mobile">Typora 用法</span>
+                      <a href="/2026/01/28/go/k8s%20debug%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/" title="k8s pod 远程debug开发">
+                        <span class="hidden-mobile">k8s pod 远程debug开发</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

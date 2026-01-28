@@ -19,7 +19,7 @@
     <meta name="description" content="k8s pod debug开发调试调试日常开发工作中，我们不免需要通过观察程序行为来排查问题，打日志或打程序断点。对于云原生应用来说打日志需要改代码后跑流水线重新打包，更新服务才能生效，效率低下，并且是重复性工作不免使人心烦气躁，所以我们在这里提供了两种办法进行远程调试，各有优劣，请开发者酌情选择合适的调试手段进行调试。    名称 优点 缺点    远程调试边车容器 简单易用，新增一个边车容器，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="k8s pod 远程debug开发">
-<meta property="og:url" content="http://gondmhd.github.io/2025/11/10/go/k8s%20debug%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:url" content="http://gondmhd.github.io/2026/01/28/go/k8s%20debug%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/index.html">
 <meta property="og:site_name" content="Gond">
 <meta property="og:description" content="k8s pod debug开发调试调试日常开发工作中，我们不免需要通过观察程序行为来排查问题，打日志或打程序断点。对于云原生应用来说打日志需要改代码后跑流水线重新打包，更新服务才能生效，效率低下，并且是重复性工作不免使人心烦气躁，所以我们在这里提供了两种办法进行远程调试，各有优劣，请开发者酌情选择合适的调试手段进行调试。    名称 优点 缺点    远程调试边车容器 简单易用，新增一个边车容器，">
 <meta property="og:locale" content="zh_CN">
@@ -38,8 +38,8 @@
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/k8s_pod%E8%B0%83%E8%AF%95/image-20251027091157509.png?raw=true">
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/k8s_pod%E8%B0%83%E8%AF%95/image-20251027091231288.png?raw=true">
 <meta property="og:image" content="https://github.com/gondmhd/blogImage/blob/main/img/k8s_pod%E8%B0%83%E8%AF%95/image-20251027084932318.png?raw=true">
-<meta property="article:published_time" content="2025-11-10T09:52:47.820Z">
-<meta property="article:modified_time" content="2025-11-10T09:52:47.820Z">
+<meta property="article:published_time" content="2026-01-28T09:05:14.121Z">
+<meta property="article:modified_time" content="2026-01-28T09:05:14.122Z">
 <meta property="article:author" content="Gond">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-11-10 17:52" pubdate>
-          2025年11月10日 下午
+        <time datetime="2026-01-28 17:05" pubdate>
+          2026年1月28日 下午
         </time>
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          97 分钟
+          103 分钟
         
       </span>
     
@@ -428,6 +428,19 @@
 
 
 <h3 id="内网开发配置："><a href="#内网开发配置：" class="headerlink" title="内网开发配置："></a>内网开发配置：</h3><p>此处情况，无法配置pod 代理到内部的依赖平台，采用 kubectl cp 命令或者同步项目依赖依赖到pod中使用</p>
+<blockquote>
+<p>如遇到 kubectl无法 cp 使用cat 进行复制</p>
+<p>原因：核心问题是<strong>容器内缺少 <code>tar</code> 工具</strong>（<code>kubectl cp</code> 底层依赖 <code>tar</code>），内网无法安装tar</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 可使用 kubectl exec + 管道 + cat 实现文件拷贝，完全不依赖容器内任何工具，是拷贝文件的「万能方案」</span><br><span class="hljs-comment"># 格式：cat 本地文件 | kubectl exec -i -n 命名空间 POD名称 -- sh -c &quot;cat &gt; 容器内目标路径/文件名&quot;</span><br><span class="hljs-built_in">cat</span> ./dlv | kubectl <span class="hljs-built_in">exec</span> -i -n appstore-official kabffapi-5747f6b996-8g5pm -- sh -c <span class="hljs-string">&quot;cat &gt; /usr/local/bin/dlv&quot;</span><br><br><span class="hljs-comment"># 查看容器内目标路径的文件是否存在</span><br>kubectl <span class="hljs-built_in">exec</span> -n appstore-official kabffapi-5747f6b996-8g5pm -- <span class="hljs-built_in">ls</span> -l /usr/local/bin/dlv<br><br><span class="hljs-comment"># （可选）给 dlv 添加执行权限（拷贝后可能缺少执行权限，方便后续调试）</span><br>kubectl <span class="hljs-built_in">exec</span> -n appstore-official kabffapi-5747f6b996-8g5pm -- <span class="hljs-built_in">chmod</span> +x /usr/local/bin/dlv<br></code></pre></td></tr></table></figure>
+
+<p><strong>命令拆解（理解万能拷贝的原理）</strong></p>
+<ol>
+<li><code>cat ./dlv</code>：本地读取 <code>dlv</code> 文件的内容，输出到标准输出（管道）；</li>
+<li><code>|</code>：管道符，将本地 <code>cat</code> 输出的文件内容传递给后续的 <code>kubectl exec</code> 命令；</li>
+<li><code>kubectl exec -i</code>：<code>-i</code> 表示「交互式保持标准输入」，接收管道传递的文件内容；</li>
+<li><code>sh -c &quot;cat &gt; /usr/local/bin/dlv&quot;</code>：容器内执行命令，将接收的标准输入内容写入 <code>/usr/local/bin/dlv</code> 文件，完成拷贝。</li>
+</ol>
 <p>环境：</p>
 <ul>
 <li>开发：dlv+gosdk+go.mod相关依赖</li>
@@ -554,7 +567,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>k8s pod 远程debug开发</div>
-      <div>http://gondmhd.github.io/2025/11/10/go/k8s debug开发文档/</div>
+      <div>http://gondmhd.github.io/2026/01/28/go/k8s debug开发文档/</div>
     </div>
     <div class="license-meta">
       
@@ -566,7 +579,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年11月10日</div>
+          <div>2026年1月28日</div>
         </div>
       
       
@@ -598,9 +611,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/12/11/%E7%B3%BB%E7%BB%9F/VMWare%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/" title="VMware虚拟机网络模式">
+                      <a href="/2026/01/28/%E7%B3%BB%E7%BB%9F/linux%E5%91%BD%E4%BB%A4/" title="常用linux笔记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">VMware虚拟机网络模式</span>
+                        <span class="hidden-mobile">常用linux笔记</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -608,8 +621,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/11/06/%E7%B3%BB%E7%BB%9F/linux%E5%91%BD%E4%BB%A4/" title="常用linux笔记">
-                        <span class="hidden-mobile">常用linux笔记</span>
+                      <a href="/2026/01/04/tools/MongoDb%E5%85%A5%E9%97%A8/" title="MongoDb 介绍">
+                        <span class="hidden-mobile">MongoDb 介绍</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
